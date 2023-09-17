@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="20dp"
+    tools:context=".ui.dashboard.DashboardFragment">
+
+
+    <ImageButton
+        android:id="@+id/calendar"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentRight="true"
+        android:textAlignment="center"
+        android:textSize="20sp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_below="@+id/calendar"
+       android:hint="Day: Sep 14, 2023"
+        android:id="@+id/day_name"
+        android:textSize="30dp"/>
+
+<com.google.android.material.floatingactionbutton.FloatingActionButton
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignParentRight="true"
+    android:layout_alignParentBottom="true"
+    android:backgroundTint="#BA9292"
+    android:id="@+id/hgh"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_below="@+id/day_name"
+        android:layout_marginTop="10dp"
+        android:id="@+id/day_subjects"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="300dp"
+    android:id="@+id/window_list"
+    android:visibility="gone"
+    android:background="@color/purple_200"
+    android:translationZ="10dp"
+    android:layout_centerVertical="true">
+    <ListView
+        android:layout_width="match_parent"
+        android:id="@+id/list_of_subjects"
+        android:visibility="visible"
+        android:layout_height="match_parent"/>
+
+
+    <Button
+        android:id="@+id/ok"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:clickable="true"
+        android:layout_alignParentBottom="true"
+        android:text="Готово"
+        android:background="#00000000"/>
+
+
+</RelativeLayout>
+
+
+</RelativeLayout>
