@@ -3,6 +3,7 @@ package com.example.school.Logic;
 import com.example.school.App;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Subject {
     String name = "Предмет";
@@ -17,14 +18,14 @@ public class Subject {
     }
 
     int color;
-    ArrayList<Task> tasks = new ArrayList<Task>();
+    HashMap<String, Task> tasks = new HashMap<>();
 
     public Subject(){
  description = "";
     }
     public void addTask(Task task){
-        tasks.add(task);
-        App.authController.addTaskToSubject(task, String.valueOf(tasks.indexOf(task)), name, cl ->{});
+        tasks.put(task.getName(), task);
+        App.authController.addTaskToSubject(task, task.getName(), name, cl ->{});
     }
     public void getTask(int index){
 
@@ -47,11 +48,11 @@ public class Subject {
         this.description = description;
     }
 
-    public ArrayList<Task> getTasks() {
+    public  HashMap<String, Task> getTasks() {
         return tasks;
     }
 
-    public void setTasks(ArrayList<Task> tasks) {
+    public void setTasks( HashMap<String, Task> tasks) {
         this.tasks = tasks;
     }
 

@@ -37,7 +37,9 @@ public class HomeFragment extends Fragment {
 
         return inflater.inflate(R.layout.fragment_home, container, false);
     }
-
+    public static HomeFragment newInstance() {
+        return new HomeFragment();
+    }
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -61,10 +63,6 @@ public class HomeFragment extends Fragment {
         });
         binding.name.setText(!authController.isAuth() ?
                 getResources().getString(R.string.name_of_user) : authController.getUser().getEmail());
-
-
-
-
 
         binding.out.setOnClickListener(click -> {
             authController.singOut();

@@ -52,6 +52,16 @@ public class App extends Application {
         this.colors_string = colors_string;
     }
 
+    public static ArrayList<String> getAllSb_str() {
+        return allSb_str;
+    }
+
+    public static void setAllSb_str(ArrayList<String> allSb_str) {
+        App.allSb_str = allSb_str;
+    }
+
+    public static ArrayList<String> allSb_str = new ArrayList<>();
+
     static String[] colors_string =
             {"Red",
             "Orange",
@@ -80,6 +90,20 @@ public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        authController.getAllSubjectsFromDb(task -> {
+            ArrayList<String> chosen_strings = new ArrayList<>();
+
+            if (task.isSuccessful()) {
+                for (DataSnapshot e : task.getResult().getChildren()) {
+                    if (!allSb_str.contains(e.getValue(Subject.class).getName()))
+                        allSb_str.add(e.getValue(Subject.class).getName());
+
+                }
+            }
+        });
+
+
+
         instance = this;
     }
 }

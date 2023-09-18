@@ -52,6 +52,7 @@ public class DashboardFragment extends Fragment {
                         allSb.add(e.getValue(Subject.class));
                 }
             }
+            Log.e("IYF", allSb_str+"");
         });
         authController.getAllDaysFromDb(task -> {
             if (task.isSuccessful()) {

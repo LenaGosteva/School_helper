@@ -1,10 +1,11 @@
 package com.example.school.Logic;
 
 public class Task {
-    String name;
-    String comment;
-    String theory;
-    String practice;
+    String name = "Name";
+    String comment = "This is comment";
+    String theory = "This is theory";
+    String practice = "This is practice";
+    String subject = "Additionally";
     boolean isCompleted = false;
     public String getName() {
         return name;
@@ -46,12 +47,14 @@ public class Task {
         isCompleted = completed;
     }
 
-    public Task(String name, String comment, String theory, String practice) {
+    public Task(String name, String comment, String theory, String practice, String subject) {
         this.name = name;
         this.comment = comment;
         this.theory = theory;
         this.practice = practice;
+        this.subject = subject;
     }
-
+    public Task(){
+    }
 
 }

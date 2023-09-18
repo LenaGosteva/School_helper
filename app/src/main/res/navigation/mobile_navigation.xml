@@ -20,7 +20,7 @@
 
     <fragment
         android:id="@+id/navigation_notifications"
-        android:name="com.example.school.ui.notifications.NotificationsFragment"
+        android:name="com.example.school.ui.notifications.NewTaskFragment"
         android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        tools:layout="@layout/fragment_new_task" />
 </navigation>
