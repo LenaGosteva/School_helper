@@ -25,7 +25,8 @@ public class TaskActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         binding.back.setOnClickListener(d -> {
-            startActivity(new Intent(this, ListActivity.class));
+//            startActivity(new Intent(this, ListActivity.class));
+            finish();
         });
 
         name = getIntent().getExtras().getString(App.TASK);
