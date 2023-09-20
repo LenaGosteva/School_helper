@@ -22,6 +22,14 @@ public class App extends Application {
                     R.color.sb_blue,
                     R.color.sb_purple,
                     R.color.sb_brown};
+    static int[] colors_int_fill =
+            {R.color.sb_red_fill,
+                    R.color.sb_orange_fill,
+                    R.color.sb_yellow_fill,
+                    R.color.sb_green_fill,
+                    R.color.sb_blue_fill,
+                    R.color.sb_purple_fill,
+                    R.color.sb_brown_fill};
 
     public static ArrayList<String> allSb_str = new ArrayList<>();
 
@@ -51,6 +59,14 @@ public class App extends Application {
 
     public static int[] getColors_int() {
         return colors_int;
+    }
+
+    public static int[] getColors_int_fill() {
+        return colors_int_fill;
+    }
+
+    public static void setColors_int_fill(int[] colors_int_fill) {
+        App.colors_int_fill = colors_int_fill;
     }
 
     public static ArrayList<String> getDays() {

@@ -154,6 +154,6 @@ android:id="@+id/vp_ea"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@color/null_color"
-            android:src="@drawable/icon_save" />
+            android:src="@drawable/icon_save_24" />
     </ViewSwitcher>
 </RelativeLayout>

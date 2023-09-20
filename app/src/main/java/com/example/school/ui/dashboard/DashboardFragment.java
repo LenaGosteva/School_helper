@@ -137,7 +137,7 @@ public class DashboardFragment extends Fragment {
         });
         binding.hgh.setOnClickListener(df -> {
 
-            ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, allSb_str);
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), R.layout.item_for_choose_sb_in_dashboard, R.id.name_of_subject_item_in_dashboard_choose, allSb_str);
             binding.listOfSubjects.setAdapter(adapter);
 
 

@@ -24,4 +24,14 @@
     <color name="sb_blue">#8014b1ab</color>
     <color name="sb_purple">#80af88ba</color>
     <color name="sb_brown">#809c674a</color>
+
+    <!--    Subjects fill-->
+
+    <color name="sb_red_fill">#D54062</color>
+    <color name="sb_orange_fill">#FFA36C</color>
+    <color name="sb_yellow_fill">#EBDC87</color>
+    <color name="sb_green_fill">#799351</color>
+    <color name="sb_blue_fill">#14B1AB</color>
+    <color name="sb_purple_fill">#AF88BA</color>
+    <color name="sb_brown_fill">#809c674a</color>
 </resources>

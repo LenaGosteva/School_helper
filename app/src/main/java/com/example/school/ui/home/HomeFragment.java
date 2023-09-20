@@ -1,5 +1,6 @@
 package com.example.school.ui.home;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -24,7 +25,10 @@ import com.example.school.ui.LoginActivity;
 import com.google.firebase.database.DataSnapshot;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.concurrent.atomic.AtomicReference;
+
+import io.grpc.ManagedChannelProvider;
 
 public class HomeFragment extends Fragment {
 
@@ -65,15 +69,22 @@ public class HomeFragment extends Fragment {
                 getResources().getString(R.string.name_of_user) : authController.getUser().getEmail());
 
         binding.out.setOnClickListener(click -> {
-            authController.singOut();
-            Toast.makeText(getContext(), "Вы вышли из аккаунта", Toast.LENGTH_SHORT).show();
-            startActivity(new Intent(getContext(), LoginActivity.class));
+            new AlertDialog.Builder(getContext()).setTitle("Предупреждение")
+                    .setMessage("Приложение работает только в случае авторизации. При выходе вы потеряете доступ к данным")
+                    .setPositiveButton("Все равно выйти", (dialog, which) -> {
+                        dialog.dismiss();
+                        authController.singOut();
+
+                        Toast.makeText(getContext(), "Вы вышли из аккаунта", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(getContext(), LoginActivity.class));
+                    }).setNegativeButton("Тогда остаюсь", (dialog, which) -> dialog.dismiss()).show();
+
+
 
         });
 
         binding.add.setOnClickListener(cl -> {
             binding.windowForNew.setVisibility(View.VISIBLE);
-            binding.curtain.setVisibility(View.VISIBLE);
 
         });
 
@@ -88,7 +99,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 index_color[0] = position;
-                binding.windowForNew.setBackgroundColor(getActivity().getColor(App.getColors_int()[position]));
+                binding.windowForNew.setBackgroundColor(getActivity().getColor(App.getColors_int_fill()[position]));
             }
 
             @Override
@@ -99,11 +110,12 @@ public class HomeFragment extends Fragment {
 
 
         binding.newSubject.setOnClickListener(f -> {
-            binding.curtain.setVisibility(View.GONE);
 
             String d = binding.describtionOfSubject.getText().toString();
             if (binding.nameOfSubject.getText().toString() != "") {
-                authController.addSubjectToDb(new Subject(binding.nameOfSubject.getText().toString(),d.isEmpty()? " ":d , App.getColors_int()[index_color[0]]), task -> {
+                Subject s = new Subject(binding.nameOfSubject.getText().toString(),d.isEmpty()? " ":d , App.getColors_int()[index_color[0]]);
+                list.get().add(s);
+                authController.addSubjectToDb(s, task -> {
                     if (task.isSuccessful()) {
                         ArrayList<Subject> l = new ArrayList<>();
                         authController.getAllSubjectsFromDb(task_ds->{
@@ -127,6 +139,7 @@ public class HomeFragment extends Fragment {
             adapter.notifyDataSetChanged();
 
         });
+
 
 
     }

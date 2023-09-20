@@ -37,17 +37,21 @@ android:layout_marginRight="20dp"
         android:layout_height="match_parent"/>
 <RelativeLayout
     android:layout_width="match_parent"
-    android:layout_height="300dp"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="100dp"
+    android:layout_marginTop="100dp"
     android:id="@+id/window_list"
     android:visibility="gone"
-    android:background="@color/purple_200"
+    android:layout_marginHorizontal="30dp"
+    android:background="@color/bright"
     android:translationZ="10dp"
     android:layout_centerVertical="true">
     <ListView
         android:layout_width="match_parent"
         android:id="@+id/list_of_subjects"
         android:visibility="visible"
-        android:layout_height="match_parent"/>
+
+        android:layout_height="wrap_content"/>
 
 
     <Button
