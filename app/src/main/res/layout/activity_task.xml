@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="20dp"
+    tools:context=".TaskActivity">
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/isCompleted_t"
+        android:layout_marginTop="20dp"
+        android:hint="Name"
+        android:textSize="30dp" />
+
+    <TextView
+        android:id="@+id/i_comm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/name"
+        android:text="Комментарий"
+        android:textSize="15sp"
+        android:textStyle="bold" />
+
+    <ViewSwitcher
+        android:id="@+id/comm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/i_comm"
+
+        android:layout_marginVertical="10dp">
+
+        <TextView
+            android:id="@+id/comm_t"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="jbebfsiddddddddddddddd"
+            android:textSize="15sp"
+            android:textStyle="italic" />
+
+        <EditText
+            android:id="@+id/comm_e"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/null_color"
+            android:textSize="15sp"
+            android:textStyle="italic" />
+
+
+    </ViewSwitcher>
+
+
+    <TextView
+        android:id="@+id/i_theory"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/comm"
+        android:text="Теория"
+        android:textSize="15sp"
+        android:textStyle="bold" />
+
+    <ViewSwitcher
+        android:id="@+id/theory"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/i_theory"
+        android:layout_marginVertical="10dp">
+
+        <TextView
+
+            android:id="@+id/theory_t"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:textStyle="italic" />
+
+        <EditText
+            android:id="@+id/theory_e"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/null_color"
+            android:textSize="15sp"
+            android:textStyle="italic" />
+    </ViewSwitcher>
+
+    <TextView
+        android:id="@+id/i_practice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/theory"
+        android:text="Практическая часть"
+        android:textSize="15sp"
+        android:textStyle="bold" />
+
+    <ViewSwitcher
+        android:id="@+id/practice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/i_practice"
+        android:layout_marginVertical="10dp">
+
+        <TextView
+            android:id="@+id/practice_t"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/i_practice"
+            android:layout_marginVertical="10dp"
+            android:hint="jbebfsiddddddddddddddd"
+            android:textSize="15sp"
+            android:textStyle="italic" />
+
+        <EditText
+            android:id="@+id/practice_e"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/null_color"
+            android:textSize="15sp"
+            android:textStyle="italic" />
+    </ViewSwitcher>
+
+    <CheckBox
+        android:id="@+id/isCompleted_t"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:text="Сделано" />
+
+    <ImageButton
+        android:id="@+id/back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/null_color"
+        android:src="@drawable/icon_back" />
+
+    <ViewSwitcher
+        android:layout_width="match_parent"
+        android:layout_alignParentBottom="true"
+android:id="@+id/vp_ea"
+        android:layout_height="wrap_content">
+
+
+        <ImageButton
+            android:id="@+id/edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/null_color"
+            android:src="@drawable/icon_edit" />
+
+        <ImageButton
+            android:id="@+id/save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/null_color"
+            android:src="@drawable/icon_save" />
+    </ViewSwitcher>
+</RelativeLayout>

@@ -6,6 +6,15 @@ public class Task {
     String theory = "This is theory";
     String practice = "This is practice";
     String subject = "Additionally";
+
+    public String getSubject() {
+        return subject;
+    }
+
+    public void setSubject(String subject) {
+        this.subject = subject;
+    }
+
     boolean isCompleted = false;
     public String getName() {
         return name;

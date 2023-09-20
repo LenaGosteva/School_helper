@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -24,7 +25,7 @@
     <EditText
         android:id="@+id/name_of_task"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/title_add"
         android:layout_marginVertical="5dp"
         android:hint="Введите имя задания" />
@@ -32,7 +33,7 @@
     <EditText
         android:id="@+id/comment_of_task"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/name_of_task"
         android:layout_marginVertical="5dp"
         android:hint="Введите комментарий к заданию" />
@@ -40,7 +41,7 @@
     <EditText
         android:id="@+id/theory_of_task"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/comment_of_task"
         android:layout_marginVertical="5dp"
         android:hint="Введите теорию задания" />
@@ -48,16 +49,18 @@
     <EditText
         android:id="@+id/practice_of_task"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/theory_of_task"
         android:layout_marginVertical="5dp"
         android:hint="Введите практику задания" />
 
 
-    <Button
+    <ImageButton
         android:id="@+id/add_task"
         android:layout_width="40dp"
         android:layout_height="40dp"
+        android:background="@color/null_color"
+        android:src="@drawable/icon_add"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true" />
 

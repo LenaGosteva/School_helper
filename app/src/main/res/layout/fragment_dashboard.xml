@@ -5,7 +5,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="20dp"
     tools:context=".ui.dashboard.DashboardFragment">
 
 
@@ -15,22 +14,21 @@
         android:layout_height="50dp"
         android:layout_alignParentRight="true"
         android:textAlignment="center"
+android:layout_marginTop="20dp"
+android:layout_marginRight="20dp"
+        android:background="@color/null_color"
+        android:src="@drawable/icon_calendar"
         android:textSize="20sp"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="50dp"
         android:layout_below="@+id/calendar"
+        android:paddingHorizontal="20dp"
        android:hint="Day: Sep 14, 2023"
         android:id="@+id/day_name"
         android:textSize="30dp"/>
 
-<com.google.android.material.floatingactionbutton.FloatingActionButton
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_alignParentRight="true"
-    android:layout_alignParentBottom="true"
-    android:backgroundTint="#BA9292"
-    android:id="@+id/hgh"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:layout_below="@+id/day_name"
         android:layout_marginTop="10dp"
@@ -64,6 +62,15 @@
 
 
 </RelativeLayout>
-
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_alignParentBottom="true"
+        android:clickable="true"
+        android:background="@color/null_color"
+        android:src="@drawable/icon_add"    android:id="@+id/hgh"/>
 
 </RelativeLayout>

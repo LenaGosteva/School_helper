@@ -1,9 +1,11 @@
 package com.example.school;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import com.example.school.Adapters.TaskAdapter;
 import com.example.school.Logic.Subject;
@@ -22,21 +24,34 @@ public class ListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityListBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        getIntent().getExtras().getString(App.SUBJECT, "Additionally");
 
-        String sb = new Intent().getExtras().getString(App.SUBJECT);
-
-
-
-        App.authController.getAllTasksFromSubject(sb, listener -> {
+        App.authController.getAllTasksFromSubject(getIntent().getExtras().getString(App.SUBJECT, "Additionally"), listener -> {
             if (listener.isSuccessful()) {
                 for (DataSnapshot e : listener.getResult().getChildren()) {
                     tasks.add(e.getValue(Task.class));
             }}
+            TaskAdapter taskAdapter = new TaskAdapter(tasks, this);
+            if (tasks.size()==0){
+                binding.main.setBackgroundColor(this.getColor(R.color.sb_brown));
+                binding.textNothing.setVisibility(View.VISIBLE);
+            }else{
+            binding.listOfTasks.setLayoutManager(new LinearLayoutManager(this));
+            binding.listOfTasks.setAdapter(taskAdapter);}
         });
 
 
-        TaskAdapter taskAdapter = new TaskAdapter(tasks, this);
-        binding.listOfTasks.setAdapter(taskAdapter);
+        binding.back.setOnClickListener(g->{
+            startActivity(new Intent(this, MainActivity.class));
+            finish();
+        });
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
 
     }
 }

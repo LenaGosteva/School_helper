@@ -99,18 +99,30 @@ public class AuthController {
     public void getSubjectFromDB(String subject,OnCompleteListener<DataSnapshot> listener) {
         if (isAuth())
             database.child("users").child(getUser().getUid()).child("subjects").child(subject).get().addOnCompleteListener(listener);
+    }public void removeSubjectFromDB(String subject,OnCompleteListener listener) {
+        if (isAuth())
+            database.child("users").child(getUser().getUid()).child("subjects").child(subject).removeValue().addOnCompleteListener(listener);
     }
     public void addTaskToSubject(Task task, String index, String subject, OnCompleteListener listener) {
         if (isAuth()) {
             database.child("users").child(getUser().getUid()).child("subjects").child(subject).child("tasks").child(index).setValue(task).addOnCompleteListener(listener);
         }
+    }public void addCheckedToTask(boolean checked, String index, String subject, OnCompleteListener listener) {
+        if (isAuth()) {
+            database.child("users").child(getUser().getUid()).child("subjects").child(subject).child("tasks").child(index).child("completed").setValue(checked).addOnCompleteListener(listener);
+        }
     }
-    public void getTaskFromSubject(String index, String subject, OnCompleteListener listener) {
+    public void getTaskFromSubject(String index, String subject, OnCompleteListener<DataSnapshot> listener) {
         if (isAuth()) {
             database.child("users").child(getUser().getUid()).child("subjects").child(subject).child("tasks").child(index).get().addOnCompleteListener(listener);
         }
     }
 
+    public void removeTaskFromSubject(String task, String sb, OnCompleteListener listener){
+        if (isAuth()){
+            database.child("users").child(getUser().getUid()).child("subjects").child(sb).child("tasks").child(task).removeValue().addOnCompleteListener(listener);
+        }
+    }
 
     public void registerUser(String email, String password, OnCompleteListener listener) {
         auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(listener);
