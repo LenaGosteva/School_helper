@@ -1,5 +1,6 @@
 package com.example.school;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.CompoundButton;
 
@@ -24,7 +25,7 @@ public class TaskActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         binding.back.setOnClickListener(d -> {
-            finish();
+            startActivity(new Intent(this, ListActivity.class));
         });
 
         name = getIntent().getExtras().getString(App.TASK);
@@ -36,6 +37,8 @@ public class TaskActivity extends AppCompatActivity {
             binding.isCompletedT.setChecked(task.isCompleted());
             binding.theoryT.setText(task.getTheory());
             binding.practiceT.setText(task.getPractice());
+            binding.sbT.setText(subject);
+            binding.allTaskAct.setBackgroundColor(getIntent().getIntExtra(App.COLOR, R.color.bright));
         });
         binding.isCompletedT.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -54,9 +57,16 @@ public class TaskActivity extends AppCompatActivity {
             binding.practiceE.setText(task.getPractice());
         });
         binding.save.setOnClickListener(f -> {
+            binding.comm.showPrevious();
+            binding.practice.showPrevious();
+            binding.theory.showPrevious();
+            binding.vpEa.showPrevious();
             task.setComment(binding.commE.getText().toString().isEmpty() ? task.getComment() : binding.commE.getText().toString());
             task.setTheory(binding.theoryE.getText().toString().isEmpty() ? task.getTheory() : binding.theoryE.getText().toString());
             task.setPractice(binding.practiceE.getText().toString().isEmpty() ? task.getPractice() : binding.practiceE.getText().toString());
+            binding.commT.setText(task.getComment());
+            binding.theoryT.setText(task.getTheory());
+            binding.practiceT.setText(task.getPractice());
             authController.addTaskToSubject(task, task.getName(), task.getSubject(), h -> {
             });
         });

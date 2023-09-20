@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="20dp"
+    android:id="@+id/all_task_act"
     tools:context=".TaskActivity">
 
     <TextView
@@ -16,13 +17,31 @@
         android:textSize="30dp" />
 
     <TextView
-        android:id="@+id/i_comm"
+        android:id="@+id/i_sb"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/name"
+        android:text="Предмет"
+        android:textSize="15sp"
+        android:textStyle="bold" />
+    <TextView
+        android:id="@+id/sb_t"
+        android:layout_marginVertical="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/i_sb"
+        android:hint="jbebfsiddddddddddddddd"
+        android:textSize="15sp"
+        android:textStyle="italic" />
+    <TextView
+        android:id="@+id/i_comm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/sb_t"
         android:text="Комментарий"
         android:textSize="15sp"
         android:textStyle="bold" />
+
 
     <ViewSwitcher
         android:id="@+id/comm"
@@ -154,6 +173,6 @@ android:id="@+id/vp_ea"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@color/null_color"
-            android:src="@drawable/icon_save_24" />
+            android:src="@drawable/icon_save_48" />
     </ViewSwitcher>
 </RelativeLayout>

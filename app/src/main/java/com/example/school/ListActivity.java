@@ -33,7 +33,7 @@ public class ListActivity extends AppCompatActivity {
             }}
             TaskAdapter taskAdapter = new TaskAdapter(tasks, this);
             if (tasks.size()==0){
-                binding.main.setBackgroundColor(this.getColor(R.color.sb_brown));
+                binding.main.setBackgroundColor(getIntent().getIntExtra(App.COLOR, R.color.sb_brown));
                 binding.textNothing.setVisibility(View.VISIBLE);
             }else{
             binding.listOfTasks.setLayoutManager(new LinearLayoutManager(this));

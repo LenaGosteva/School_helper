@@ -112,7 +112,7 @@ public class HomeFragment extends Fragment {
         binding.newSubject.setOnClickListener(f -> {
 
             String d = binding.describtionOfSubject.getText().toString();
-            if (binding.nameOfSubject.getText().toString() != "") {
+            if (!binding.nameOfSubject.getText().toString().isEmpty()) {
                 Subject s = new Subject(binding.nameOfSubject.getText().toString(),d.isEmpty()? " ":d , App.getColors_int()[index_color[0]]);
                 list.get().add(s);
                 authController.addSubjectToDb(s, task -> {

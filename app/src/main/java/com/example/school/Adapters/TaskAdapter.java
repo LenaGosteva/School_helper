@@ -89,6 +89,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
             Intent intent = new Intent(activity, TaskActivity.class);
             intent.putExtra(App.TASK, task.getName());
             intent.putExtra(App.SUBJECT, task.getSubject());
+            intent.putExtra(App.COLOR, activity.getIntent().getIntExtra(App.COLOR, R.color.bright));
             activity.startActivity(intent);
         });
         holder.itemView.setOnLongClickListener(v -> {
