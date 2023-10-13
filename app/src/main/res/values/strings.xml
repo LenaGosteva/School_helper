@@ -95,4 +95,7 @@
         "when a user tries to pick up one of cards.\n\n"
     </string>
     <string name="New_task_title">Новое задание</string>
+    <string name="no_internet_text">Извините,ваши данные не были загружены((</string>
+    <string name="nothing_finded_in_list_activity_text">Ничего не найдено((</string>
+    <string name="todo">TODO</string>
 </resources>

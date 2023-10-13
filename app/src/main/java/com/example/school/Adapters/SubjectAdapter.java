@@ -4,10 +4,12 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
@@ -82,11 +84,15 @@ public class SubjectAdapter extends RecyclerView.Adapter<SubjectAdapter.SubjectV
 
 
         holder.itemView.setOnClickListener(click -> {
-            Intent intent = new Intent(activity, ListActivity.class);
-            intent.putExtra(App.SUBJECT, subject.getName());
-            intent.putExtra(App.COLOR, activity.getColor(subject.getColor()));
+            if (App.isConnectedToNetwork()) {Intent intent = new Intent(activity, ListActivity.class);
+                intent.putExtra(App.SUBJECT, subject.getName());
+                intent.putExtra(App.COLOR, activity.getColor(subject.getColor()));
+                Log.e("index_color_before_intent_to_list_of_task", String.valueOf(activity.getIntent().getIntExtra(App.COLOR, R.color.sb_brown)).toUpperCase());
 
-            activity.startActivity(intent);
+                activity.startActivity(intent);
+            } else {
+                Toast.makeText(App.getInstance(), "Нет интернета, задания недоступны", Toast.LENGTH_SHORT).show();
+            }
         });
         holder.itemView.setOnLongClickListener(l->{
             new AlertDialog.Builder(activity).setTitle("Удаление")

@@ -24,6 +24,14 @@
     <color name="sb_blue">#8014b1ab</color>
     <color name="sb_purple">#80af88ba</color>
     <color name="sb_brown">#809c674a</color>
+    <!--    Subjects-->
+    <color name="sb_red_dark">#805C1E2C</color>
+    <color name="sb_orange_dark">#80784F36</color>
+    <color name="sb_yellow_dark">#80A1985C</color>
+    <color name="sb_green_dark">#804A5933</color>
+    <color name="sb_blue_dark">#800A504D</color>
+    <color name="sb_purple_dark">#80674F6E</color>
+    <color name="sb_brown_dark">#80513525</color>
 
     <!--    Subjects fill-->
 
@@ -34,4 +42,7 @@
     <color name="sb_blue_fill">#14B1AB</color>
     <color name="sb_purple_fill">#AF88BA</color>
     <color name="sb_brown_fill">#809c674a</color>
+
+
+    <color name="curtain_for_completed_task_item">#4D777777</color>
 </resources>

@@ -48,99 +48,102 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         binding = FragmentHomeBinding.bind(view);
-        AtomicReference<ArrayList<Subject>> list = new AtomicReference<>(new ArrayList<>());
+        if (App.isConnectedToNetwork()) {
+            AtomicReference<ArrayList<Subject>> list = new AtomicReference<>(new ArrayList<>());
 
-        SubjectAdapter adapter = new SubjectAdapter(list.get(), getActivity());
-        binding.list.setLayoutManager(new LinearLayoutManager(getContext()));
-        binding.list.setAdapter(adapter);
-
-
-
-        authController.getAllSubjectsFromDb(task -> {
-            if (task.isSuccessful()) {
-                for (DataSnapshot e : task.getResult().getChildren()) {
-                    list.get().add(e.getValue(Subject.class));
-                }
-            }
-            adapter.notifyDataSetChanged();
-
-        });
-        binding.name.setText(!authController.isAuth() ?
-                getResources().getString(R.string.name_of_user) : authController.getUser().getEmail());
-
-        binding.out.setOnClickListener(click -> {
-            new AlertDialog.Builder(getContext()).setTitle("Предупреждение")
-                    .setMessage("Приложение работает только в случае авторизации. При выходе вы потеряете доступ к данным")
-                    .setPositiveButton("Все равно выйти", (dialog, which) -> {
-                        dialog.dismiss();
-                        authController.singOut();
-
-                        Toast.makeText(getContext(), "Вы вышли из аккаунта", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(getContext(), LoginActivity.class));
-                    }).setNegativeButton("Тогда остаюсь", (dialog, which) -> dialog.dismiss()).show();
+            SubjectAdapter adapter = new SubjectAdapter(list.get(), getActivity());
+            binding.list.setLayoutManager(new LinearLayoutManager(getContext()));
+            binding.list.setAdapter(adapter);
 
 
-
-        });
-
-        binding.add.setOnClickListener(cl -> {
-            binding.windowForNew.setVisibility(View.VISIBLE);
-
-        });
-
-        ArrayAdapter<String> spinner_adapter
-                = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, App.getColors_string());
-        spinner_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        binding.spinnerForColor.setAdapter(spinner_adapter);
-        final int[] index_color = new int[1];
-
-        String name_of_subject = String.valueOf(binding.nameOfSubject.getText());
-        binding.spinnerForColor.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                index_color[0] = position;
-                binding.windowForNew.setBackgroundColor(getActivity().getColor(App.getColors_int_fill()[position]));
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                    index_color[0] = 0;
-            }
-        });
-
-
-        binding.newSubject.setOnClickListener(f -> {
-
-            String d = binding.describtionOfSubject.getText().toString();
-            if (!binding.nameOfSubject.getText().toString().isEmpty()) {
-                Subject s = new Subject(binding.nameOfSubject.getText().toString(),d.isEmpty()? " ":d , App.getColors_int()[index_color[0]]);
-                list.get().add(s);
-                authController.addSubjectToDb(s, task -> {
-                    if (task.isSuccessful()) {
-                        ArrayList<Subject> l = new ArrayList<>();
-                        authController.getAllSubjectsFromDb(task_ds->{
-                            for (DataSnapshot e: task_ds.getResult().getChildren()) {
-                                l.add(e.getValue(Subject.class));
-                            }
-                            adapter.setList(l);
-                            Toast.makeText(getContext(), "Предмет успешно добавлен!", Toast.LENGTH_SHORT).show();
-
-                        });
-                    } else {
-                        Toast.makeText(getContext(), "Предмет не добавлен!", Toast.LENGTH_SHORT).show();
-
+            authController.getAllSubjectsFromDb(task -> {
+                if (task.isSuccessful()) {
+                    for (DataSnapshot e : task.getResult().getChildren()) {
+                        list.get().add(e.getValue(Subject.class));
                     }
-                });
-            } else {
-                Toast.makeText(getContext(), "Вы не ввели название!", Toast.LENGTH_SHORT).show();
-            }
+                }
+                adapter.notifyDataSetChanged();
 
-            binding.windowForNew.setVisibility(View.GONE);
-            adapter.notifyDataSetChanged();
+            });
+            binding.name.setText(!authController.isAuth() ?
+                    getResources().getString(R.string.name_of_user) : authController.getUser().getEmail());
 
-        });
+            binding.out.setOnClickListener(click -> {
+                new AlertDialog.Builder(getContext()).setTitle("Предупреждение")
+                        .setMessage("Приложение работает только в случае авторизации. При выходе вы потеряете доступ к данным")
+                        .setPositiveButton("Все равно выйти", (dialog, which) -> {
+                            dialog.dismiss();
+                            authController.singOut();
+
+                            Toast.makeText(getContext(), "Вы вышли из аккаунта", Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(getContext(), LoginActivity.class));
+                        }).setNegativeButton("Тогда остаюсь", (dialog, which) -> dialog.dismiss()).show();
 
 
+            });
+
+            binding.add.setOnClickListener(cl -> {
+                binding.windowForNew.setVisibility(View.VISIBLE);
+
+            });
+
+            ArrayAdapter<String> spinner_adapter
+                    = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, App.getColors_string());
+            spinner_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            binding.spinnerForColor.setAdapter(spinner_adapter);
+            final int[] index_color = new int[1];
+
+            String name_of_subject = String.valueOf(binding.nameOfSubject.getText());
+            binding.spinnerForColor.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    index_color[0] = position;
+                    binding.windowForNew.setBackgroundColor(getActivity().getColor(App.getColors_int_fill()[position]));
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+                    index_color[0] = 0;
+                }
+            });
+
+
+            binding.newSubject.setOnClickListener(f -> {
+
+                String d = binding.describtionOfSubject.getText().toString();
+                if (!binding.nameOfSubject.getText().toString().isEmpty()) {
+                    Subject s = new Subject(binding.nameOfSubject.getText().toString(), d.isEmpty() ? " " : d, App.getColors_int()[index_color[0]]);
+                    list.get().add(s);
+                    authController.addSubjectToDb(s, task -> {
+                        if (task.isSuccessful()) {
+                            ArrayList<Subject> l = new ArrayList<>();
+                            authController.getAllSubjectsFromDb(task_ds -> {
+                                for (DataSnapshot e : task_ds.getResult().getChildren()) {
+                                    l.add(e.getValue(Subject.class));
+                                }
+                                adapter.setList(l);
+                                Toast.makeText(getContext(), "Предмет успешно добавлен!", Toast.LENGTH_SHORT).show();
+
+                            });
+                        } else {
+                            Toast.makeText(getContext(), "Предмет не добавлен!", Toast.LENGTH_SHORT).show();
+
+                        }
+                    });
+                } else {
+                    Toast.makeText(getContext(), "Вы не ввели название!", Toast.LENGTH_SHORT).show();
+                }
+
+                binding.windowForNew.setVisibility(View.GONE);
+                adapter.notifyDataSetChanged();
+
+            });
+
+        }else{
+            binding.textNoInternet.setVisibility(View.VISIBLE);
+            binding.homeFragmentWithInternet.setVisibility(View.GONE
+            );
+        }
 
     }
 

@@ -1,11 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.dashboard.DashboardFragment">
 
-
+    <TextView
+        android:id="@+id/text_no_internet"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="@string/no_internet_text"
+        android:textAlignment="center"
+        android:textSize="30sp"
+        android:visibility="gone" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/dashboard_fragment_with_internet">
     <ImageButton
         android:id="@+id/calendar"
         android:layout_width="50dp"
@@ -82,5 +95,5 @@ android:layout_marginRight="20dp"
         android:clickable="true"
         android:background="@color/null_color"
         android:src="@drawable/icon_add"    android:id="@+id/hgh"/>
-
+</RelativeLayout>
 </RelativeLayout>

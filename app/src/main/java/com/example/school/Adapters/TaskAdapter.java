@@ -3,13 +3,11 @@ package com.example.school.Adapters;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -19,7 +17,6 @@ import com.example.school.App;
 import com.example.school.Logic.Task;
 import com.example.school.R;
 import com.example.school.TaskActivity;
-import com.google.android.gms.tasks.OnCompleteListener;
 
 import java.util.ArrayList;
 
@@ -53,12 +50,14 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
     public static class TaskViewHolder extends RecyclerView.ViewHolder {
         public TextView name;
         public TextView comment;
+        public View curtain;
         public CheckBox isCompleted;
 
         public TaskViewHolder(View itemView) {
             super(itemView);
 
             name = itemView.findViewById(R.id.name_of_task);
+            curtain = itemView.findViewById(R.id.curtain_for_completed_task_item);
             comment = itemView.findViewById(R.id.comment_of_task);
             isCompleted = itemView.findViewById(R.id.is_Completed);
 
@@ -69,21 +68,26 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
     public void onBindViewHolder(@NonNull TaskViewHolder holder, int position) {
         Task task = list.get(position);
 
+
+        holder.itemView.setBackgroundColor(
+                activity.getIntent().getIntExtra(App.COLOR, R.color.sb_brown));
+        holder.curtain.setVisibility(task.isCompleted() ? View.VISIBLE : View.GONE);
+
         holder.name.setText(task.getName());
-        holder.itemView.setBackgroundColor(activity.getIntent().getIntExtra(App.COLOR, R.color.sb_brown));
         holder.comment.setText((task.getComment().length() > 16) ? task.getComment().substring(0, 16) + "..." : task.getComment());
         holder.isCompleted.setChecked(task.isCompleted());
-        holder.isCompleted.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                task.setCompleted(isChecked);
-                App.getAuthController().addTaskToSubject(task, task.getName(), task.getSubject(), b -> {
-                });
-            }
 
+
+        holder.isCompleted.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            task.setCompleted(isChecked);
+            holder.itemView.setBackgroundColor(
+                    activity.getIntent().getIntExtra(App.COLOR, R.color.sb_brown));
+            holder.curtain.setVisibility(task.isCompleted() ? View.VISIBLE : View.GONE);
+
+            App.getAuthController().addTaskToSubject(task, task.getName(), task.getSubject(), b -> {
+            });
 
         });
-
 
         holder.itemView.setOnClickListener(click -> {
             Intent intent = new Intent(activity, TaskActivity.class);

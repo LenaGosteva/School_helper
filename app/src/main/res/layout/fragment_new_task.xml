@@ -9,6 +9,19 @@
     tools:context=".ui.notifications.NewTaskFragment">
 
     <TextView
+        android:id="@+id/text_no_internet"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="@string/no_internet_text"
+        android:textAlignment="center"
+        android:textSize="30sp"
+        android:visibility="gone" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/new_task_fragment_with_internet">
+    <TextView
         android:id="@+id/title_add"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -75,4 +88,4 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </LinearLayout>
-</RelativeLayout>
+</RelativeLayout></RelativeLayout>

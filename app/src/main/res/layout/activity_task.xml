@@ -3,145 +3,28 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="20dp"
     android:id="@+id/all_task_act"
     tools:context=".TaskActivity">
+    <View
+        android:layout_width="match_parent"
+        android:minHeight="100dp"
+        android:id="@+id/curtain"        android:visibility="gone"
 
+        android:background="@color/curtain_for_completed_task_item"
+        android:layout_height="wrap_content"/>
     <TextView
-        android:id="@+id/name"
+        android:id="@+id/text_no_internet"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/isCompleted_t"
-        android:layout_marginTop="20dp"
-        android:hint="Name"
-        android:textSize="30dp" />
-
-    <TextView
-        android:id="@+id/i_sb"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/name"
-        android:text="Предмет"
-        android:textSize="15sp"
-        android:textStyle="bold" />
-    <TextView
-        android:id="@+id/sb_t"
-        android:layout_marginVertical="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/i_sb"
-        android:hint="jbebfsiddddddddddddddd"
-        android:textSize="15sp"
-        android:textStyle="italic" />
-    <TextView
-        android:id="@+id/i_comm"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/sb_t"
-        android:text="Комментарий"
-        android:textSize="15sp"
-        android:textStyle="bold" />
-
-
-    <ViewSwitcher
-        android:id="@+id/comm"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/i_comm"
-
-        android:layout_marginVertical="10dp">
-
-        <TextView
-            android:id="@+id/comm_t"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="jbebfsiddddddddddddddd"
-            android:textSize="15sp"
-            android:textStyle="italic" />
-
-        <EditText
-            android:id="@+id/comm_e"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/null_color"
-            android:textSize="15sp"
-            android:textStyle="italic" />
-
-
-    </ViewSwitcher>
-
-
-    <TextView
-        android:id="@+id/i_theory"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/comm"
-        android:text="Теория"
-        android:textSize="15sp"
-        android:textStyle="bold" />
-
-    <ViewSwitcher
-        android:id="@+id/theory"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/i_theory"
-        android:layout_marginVertical="10dp">
-
-        <TextView
-
-            android:id="@+id/theory_t"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="15sp"
-            android:textStyle="italic" />
-
-        <EditText
-            android:id="@+id/theory_e"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/null_color"
-            android:textSize="15sp"
-            android:textStyle="italic" />
-    </ViewSwitcher>
-
-    <TextView
-        android:id="@+id/i_practice"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/theory"
-        android:text="Практическая часть"
-        android:textSize="15sp"
-        android:textStyle="bold" />
-
-    <ViewSwitcher
-        android:id="@+id/practice"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/i_practice"
-        android:layout_marginVertical="10dp">
-
-        <TextView
-            android:id="@+id/practice_t"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/i_practice"
-            android:layout_marginVertical="10dp"
-            android:hint="jbebfsiddddddddddddddd"
-            android:textSize="15sp"
-            android:textStyle="italic" />
-
-        <EditText
-            android:id="@+id/practice_e"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/null_color"
-            android:textSize="15sp"
-            android:textStyle="italic" />
-    </ViewSwitcher>
-
+        android:layout_centerInParent="true"
+        android:text="@string/no_internet_text"
+        android:textAlignment="center"
+        android:textSize="30sp"
+        android:visibility="gone" />
     <CheckBox
         android:id="@+id/isCompleted_t"
-
+android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
@@ -154,25 +37,167 @@
         android:background="@color/null_color"
         android:src="@drawable/icon_back" />
 
-    <ViewSwitcher
+
+    <RelativeLayout
+        android:id="@+id/task_activity_internet_layout"
         android:layout_width="match_parent"
-        android:layout_alignParentBottom="true"
-android:id="@+id/vp_ea"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:padding="20dp"
+        android:layout_below="@+id/isCompleted_t">
 
-
-        <ImageButton
-            android:id="@+id/edit"
-            android:layout_width="wrap_content"
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/null_color"
-            android:src="@drawable/icon_edit" />
+            android:layout_marginTop="20dp"
+            android:hint="Name"
+            android:textSize="30dp" />
 
-        <ImageButton
-            android:id="@+id/save"
-            android:layout_width="wrap_content"
+        <TextView
+            android:id="@+id/i_sb"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/null_color"
-            android:src="@drawable/icon_save_48" />
-    </ViewSwitcher>
+            android:layout_below="@+id/name"
+            android:text="Предмет"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/sb_t"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/i_sb"
+            android:layout_marginVertical="10dp"
+            android:hint="jbebfsiddddddddddddddd"
+            android:textSize="15sp"
+            android:textStyle="italic" />
+
+        <TextView
+            android:id="@+id/i_comm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/sb_t"
+            android:text="Комментарий"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+
+        <ViewSwitcher
+            android:id="@+id/comm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/i_comm"
+
+            android:layout_marginVertical="10dp">
+
+            <TextView
+                android:id="@+id/comm_t"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="jbebfsiddddddddddddddd"
+                android:textSize="15sp"
+                android:textStyle="italic" />
+
+            <EditText
+                android:id="@+id/comm_e"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/null_color"
+                android:textSize="15sp"
+                android:textStyle="italic" />
+
+
+        </ViewSwitcher>
+
+
+        <TextView
+            android:id="@+id/i_theory"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/comm"
+            android:text="Теория"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+        <ViewSwitcher
+            android:id="@+id/theory"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/i_theory"
+            android:layout_marginVertical="10dp">
+
+            <TextView
+
+                android:id="@+id/theory_t"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:textStyle="italic" />
+
+            <EditText
+                android:id="@+id/theory_e"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/null_color"
+                android:textSize="15sp"
+                android:textStyle="italic" />
+        </ViewSwitcher>
+
+        <TextView
+            android:id="@+id/i_practice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/theory"
+            android:text="Практическая часть"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+        <ViewSwitcher
+            android:id="@+id/practice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/i_practice"
+            android:layout_marginVertical="10dp">
+
+            <TextView
+                android:id="@+id/practice_t"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/i_practice"
+                android:layout_marginVertical="10dp"
+                android:hint="jbebfsiddddddddddddddd"
+                android:textSize="15sp"
+                android:textStyle="italic" />
+
+            <EditText
+                android:id="@+id/practice_e"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/null_color"
+                android:textSize="15sp"
+                android:textStyle="italic" />
+        </ViewSwitcher>
+        <ViewSwitcher
+            android:layout_width="match_parent"
+            android:layout_alignParentBottom="true"
+            android:id="@+id/vp_ea"
+            android:layout_height="wrap_content">
+
+
+            <ImageButton
+                android:id="@+id/edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/null_color"
+                android:src="@drawable/icon_edit" />
+
+            <ImageButton
+                android:id="@+id/save"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/null_color"
+                android:src="@drawable/icon_save_48" />
+        </ViewSwitcher>
+    </RelativeLayout>
+
 </RelativeLayout>

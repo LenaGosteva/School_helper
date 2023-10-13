@@ -6,6 +6,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.home.HomeFragment">
+
+    <TextView
+        android:id="@+id/text_no_internet"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="@string/no_internet_text"
+        android:textAlignment="center"
+        android:textSize="30sp"
+        android:visibility="gone" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/home_fragment_with_internet">
     <RelativeLayout
         android:layout_width="match_parent"
         android:id="@+id/window_for_new"
@@ -128,4 +142,4 @@ android:id="@+id/list"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"/>
-</RelativeLayout>
+</RelativeLayout></RelativeLayout>

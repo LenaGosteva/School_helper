@@ -1,11 +1,17 @@
 package com.example.school;
 
 import android.app.Application;
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.util.Log;
 
 import com.example.school.Auth.AuthController;
 import com.example.school.Logic.Subject;
 import com.google.firebase.database.DataSnapshot;
 
+import java.net.InetAddress;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
 
 public class App extends Application {
@@ -30,7 +36,14 @@ public class App extends Application {
                     R.color.sb_blue_fill,
                     R.color.sb_purple_fill,
                     R.color.sb_brown_fill};
-
+    static int[] colors_int_dark =
+            {R.color.sb_red_dark,
+                    R.color.sb_orange_dark,
+                    R.color.sb_yellow_dark,
+                    R.color.sb_green_dark,
+                    R.color.sb_blue_dark,
+                    R.color.sb_purple_dark,
+                    R.color.sb_brown_dark};
     public static ArrayList<String> allSb_str = new ArrayList<>();
 
     static String[] colors_string =
@@ -114,6 +127,13 @@ public class App extends Application {
         App.authController = authController;
     }
 
+    public static int[] getColors_int_dark() {
+        return colors_int_dark;
+    }
+
+    public static void setColors_int_dark(int[] colors_int_dark) {
+        App.colors_int_dark = colors_int_dark;
+    }
 
     public static App getInstance() {
         return instance;
@@ -137,5 +157,25 @@ public class App extends Application {
 
 
         instance = this;
+    }
+    public static boolean isConnectedToNetwork() {
+//        try {
+//            URL url = new URL("https://www.google.com");
+//            URLConnection connection = url.openConnection();
+//            connection.connect();
+//            Log.e("75e7", "Connection Successful");
+//            return true;
+//        } catch (Exception e) {
+//            Log.e("75e7", "Connection Not Successful\n"+ e);
+//            return false;
+//        }
+        try {
+            InetAddress ipAddr = InetAddress.getByName("google.com");
+            //You can replace it with your name
+            return !ipAddr.equals("");
+
+        } catch (Exception e) {
+            return true;
+        }
     }
 }
