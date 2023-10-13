@@ -80,7 +80,7 @@ public class DashboardFragment extends Fragment {
         binding = FragmentDashboardBinding.bind(view);
 
 
-        if (App.isConnectedToNetwork()) {
+//        if (App.isConnectedToNetwork()) {
             subjectAdapter = new SubjectAdapter(day.getSubjects(), getActivity());
             binding.daySubjects.setLayoutManager(new LinearLayoutManager(getContext()));
             binding.daySubjects.setAdapter(subjectAdapter);
@@ -143,6 +143,7 @@ public class DashboardFragment extends Fragment {
             binding.hgh.setOnClickListener(df -> {
 
                 ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), R.layout.item_for_choose_sb_in_dashboard, R.id.name_of_subject_item_in_dashboard_choose, allSb_str);
+
                 binding.listOfSubjects.setAdapter(adapter);
 
 
@@ -180,12 +181,12 @@ public class DashboardFragment extends Fragment {
 //                });
 
             });
-        }
-        else{
-            binding.textNoInternet.setVisibility(View.VISIBLE);
-            binding.dashboardFragmentWithInternet.setVisibility(View.GONE
-            );
-        }
+//        }
+//        else{
+//            binding.textNoInternet.setVisibility(View.VISIBLE);
+//            binding.dashboardFragmentWithInternet.setVisibility(View.GONE
+//            );
+//        }
 
     }
 

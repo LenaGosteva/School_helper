@@ -67,8 +67,9 @@ public class AuthController {
     public void addUserToDb(OnCompleteListener listener) {
         if (isAuth()) {
             database.child("users").child(getUser().getUid()).setValue(getUser().getUid()).addOnCompleteListener(listener);
-            addSubjectToDb(new Subject("Additionally", "Some additional things that are not related to the lessons", R.color.sb_purple), listener);
             addDayToDb(new Day(), listener);
+            addSubjectToDb(new Subject("Additionally", "Some additional things that are not related to the lessons", R.color.sb_purple), listener);
+
         }
     }
     public void getDayFromDB(String date,OnCompleteListener<DataSnapshot> listener) {

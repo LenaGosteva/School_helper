@@ -14,7 +14,9 @@ import android.widget.Toast;
 
 import com.example.school.App;
 import com.example.school.Auth.AuthController;
+import com.example.school.Logic.Subject;
 import com.example.school.MainActivity;
+import com.example.school.R;
 import com.example.school.databinding.ActivityLoginBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -39,8 +41,15 @@ public class LoginActivity extends AppCompatActivity {
                     }else{
                         authController.registerUser(email, password, authResult -> {
                             if (authResult.isSuccessful()) {
-                                authController.addUserToDb(task1 -> startActivity(new Intent(getApplicationContext(), MainActivity.class)));
+                                authController.addUserToDb(task1 ->{
+                                        authController.addSubjectToDb(new Subject("Additionally", "Some additional things that are not related to the lessons", R.color.sb_purple), new OnCompleteListener() {
+                                            @Override
+                                            public void onComplete(@NonNull Task task) {
 
+                                            }
+                                        });
+
+                                startActivity(new Intent(getApplicationContext(), MainActivity.class));});
                             } else {
                                 Toast.makeText(this, Objects.requireNonNull(authResult.getException()).getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                             }
