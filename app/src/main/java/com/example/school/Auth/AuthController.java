@@ -100,7 +100,8 @@ public class AuthController {
     public void getSubjectFromDB(String subject,OnCompleteListener<DataSnapshot> listener) {
         if (isAuth())
             database.child("users").child(getUser().getUid()).child("subjects").child(subject).get().addOnCompleteListener(listener);
-    }public void removeSubjectFromDB(String subject,OnCompleteListener listener) {
+    }
+    public void removeSubjectFromDB(String subject,OnCompleteListener listener) {
         if (isAuth())
             database.child("users").child(getUser().getUid()).child("subjects").child(subject).removeValue().addOnCompleteListener(listener);
     }

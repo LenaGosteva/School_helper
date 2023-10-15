@@ -2,8 +2,8 @@
     <!-- Base application theme. -->
     <style name="Theme.School" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/black</item>
-        <item name="colorPrimaryVariant">@color/black</item>
+        <item name="colorPrimary">@color/high_dark</item>
+        <item name="colorPrimaryVariant">@color/medium_dark</item>
         <item name="colorOnPrimary">@color/background</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/teal_200</item>
@@ -15,17 +15,31 @@
         <!-- Customize your theme here. -->
         <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.App.SmallComponent</item>
         <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.App.MediumComponent</item>
+
     </style>
     <style name="ShapeAppearance.App.SmallComponent" parent="ShapeAppearance.MaterialComponents.SmallComponent">
-        <item name="cornerFamily">cut</item>
+        <item name="cornerRadius">24dp</item>
         <item name="colorPrimary">@color/bright</item>
 
     </style>
-
 
     <style name="ShapeAppearance.App.MediumComponent" parent="ShapeAppearance.MaterialComponents.MediumComponent">
         <item name="cornerSize">16dp</item>
         <item name="colorContainer">@color/medium_dark</item>
     </style>
 
+    <style name="Widget.App.Button.ContainedButton.IconOnly" parent="Widget.MaterialComponents.Button">
+        <item name="iconPadding">0dp</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="android:paddingLeft">12dp</item>
+        <item name="android:paddingRight">12dp</item>
+        <item name="android:minWidth">48dp</item>
+        <item name="android:minHeight">48dp</item>
+        <item name="height">48dp</item>
+        <item name="cornerRadius">24dp</item>
+<item name="iconEndPadding">0dp</item>
+        <item name="android:radius">24dp</item>
+        <item name="backgroundTint">?attr/colorPrimary</item>
+    </style>
 </resources>

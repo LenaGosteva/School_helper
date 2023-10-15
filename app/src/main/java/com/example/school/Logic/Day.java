@@ -25,13 +25,13 @@ public class Day {
 
     public Day(String data) {
         this.date = data;
-        subjects.add(new Subject("Additionally", "Some additional things that are not related to the lessons", R.color.sb_purple));
+//        subjects.add(new Subject("Additionally", "Some additional things that are not related to the lessons", R.color.sb_purple));
 
 
     }
     public Day() {
         date = dateFormat.format(new Date());
-        subjects.add(new Subject("Additionally", "Some additional things that are not related to the lessons", R.color.sb_purple));
+//        subjects.add(new Subject("Additionally", "Some additional things that are not related to the lessons", R.color.sb_purple));
     }
 
     public String getDate() {

@@ -6,23 +6,24 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.example.school.Adapters.SubjectAdapter;
+import com.example.school.Adapters.SubjectDayAdapter;
 import com.example.school.App;
 import com.example.school.Auth.AuthController;
 import com.example.school.Logic.Day;
 import com.example.school.Logic.Subject;
 import com.example.school.R;
 import com.example.school.databinding.FragmentDashboardBinding;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.firebase.database.DataSnapshot;
 
-import java.io.DataInput;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -72,7 +73,7 @@ public class DashboardFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_dashboard, container, false);
     }
 
-    SubjectAdapter subjectAdapter;
+    SubjectDayAdapter subjectDayAdapter;
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -81,9 +82,9 @@ public class DashboardFragment extends Fragment {
 
 
 //        if (App.isConnectedToNetwork()) {
-            subjectAdapter = new SubjectAdapter(day.getSubjects(), getActivity());
+            subjectDayAdapter = new SubjectDayAdapter(day, getActivity());
             binding.daySubjects.setLayoutManager(new LinearLayoutManager(getContext()));
-            binding.daySubjects.setAdapter(subjectAdapter);
+            binding.daySubjects.setAdapter(subjectDayAdapter);
 
 
             date = dateFormat.format(new Date());
@@ -91,9 +92,12 @@ public class DashboardFragment extends Fragment {
             authController.getDayFromDB(date, task -> {
                 if (task.getResult().exists()) {
                     day = task.getResult().getValue(Day.class);
+                    binding.dayName.setText(day.getDate());
+
                 } else {
                     day = new Day(date);
                     allDays.add(date);
+                    binding.dayName.setText(day.getDate());
                     authController.addDayToDb(day, g -> {
                     });
                 }
@@ -102,12 +106,11 @@ public class DashboardFragment extends Fragment {
             authController.getSubjectsFromDay(date, l -> {
                 for (DataSnapshot e : l.getResult().getChildren()) {
                     day.addSubject(e.getValue(Subject.class));
-                    binding.dayName.setText(day.getDate());
-                    subjectAdapter.setList(day.getSubjects());
+                    subjectDayAdapter.setList(day.getSubjects());
                 }
             });
 
-            subjectAdapter.notifyDataSetChanged();
+            subjectDayAdapter.notifyDataSetChanged();
 
             Log.e("OH", day.getSubjects().size() + " ");
 
@@ -121,22 +124,34 @@ public class DashboardFragment extends Fragment {
                     if (allDays.contains(date)) {
                         authController.getDayFromDB(date, l -> {
                             day = l.getResult().getValue(Day.class);
+                            if (l.getResult().exists()) {
+                                day = l.getResult().getValue(Day.class);
+                                binding.dayName.setText(day.getDate());
+
+                            } else {
+                                day = new Day(date);
+                                allDays.add(date);
+                                binding.dayName.setText(day.getDate());
+                                authController.addDayToDb(day, g -> {
+                                });
+                            }
                         });
                     } else {
                         authController.addDayToDb(new Day(date), l -> {
                             day = new Day(date);
                             allDays.add(date);
+                            binding.dayName.setText(day.getDate());
+
                         });
                     }
                     authController.getSubjectsFromDay(date, l -> {
                         for (DataSnapshot e : l.getResult().getChildren()) {
                             day.addSubject(e.getValue(Subject.class));
-                            binding.dayName.setText(day.getDate());
-                            subjectAdapter.setList(day.getSubjects());
+                            subjectDayAdapter.setList(day.getSubjects());
                         }
                     });
-
-                    subjectAdapter.notifyDataSetChanged();
+                    binding.dayName.setText(day.getDate());
+                    subjectDayAdapter.notifyDataSetChanged();
 
                 });
             });
@@ -153,32 +168,11 @@ public class DashboardFragment extends Fragment {
                 binding.listOfSubjects.setOnItemClickListener((parent, view1, position, id) -> {
                     binding.windowList.setVisibility(View.GONE);
                     this.day.addSubject(allSb.get(position));
-
-
                     authController.addDayToDb(day, g -> {
-                        subjectAdapter.setList(day.getSubjects());
-                        subjectAdapter.notifyDataSetChanged();
+                        subjectDayAdapter.setList(day.getSubjects());
+                        subjectDayAdapter.notifyDataSetChanged();
                     });
                 });
-//                listView.setOnItemClickListener((parent, itemClicked, position, id) -> {
-//                    SparseBooleanArray chosen = ((ListView) parent).getCheckedItemPositions();
-//                    for (int i = 0; i<chosen.size(); i++){
-//                        if (chosen.get(i)){
-//                            if(!day.getSubjects().contains(allSb_str.get(i)))
-//                                chosen_strings.add(allSb_str.get(i));
-//                        }else{
-//                            chosen_strings.remove(allSb_str.get(i));
-//                        }
-//                    }
-//
-//                });
-//                binding.ok.setOnClickListener(c -> {
-//                    binding.windowList.setVisibility(View.GONE);
-//                    day.addSubjects(chosen_strings);
-//                    authController.addDayToDb(day, allSb_str ->{});
-//
-//                  showSbFromDay();
-//                });
 
             });
 //        }

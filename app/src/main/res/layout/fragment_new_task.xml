@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -16,18 +15,19 @@
         android:textAlignment="center"
         android:textSize="30sp"
         android:visibility="gone" />
+
     <RelativeLayout
+        android:id="@+id/new_task_fragment_with_internet"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/new_task_fragment_with_internet">
+        android:layout_height="match_parent">
 
         <RelativeLayout
             android:id="@+id/top"
             android:layout_width="wrap_content"
             android:layout_height="140dp"
-            android:paddingTop="20dp"
-            android:paddingHorizontal="20dp"
             android:background="?attr/colorOnPrimary"
+            android:paddingHorizontal="20dp"
+            android:paddingTop="20dp"
             android:translationZ="30dp">
 
             <TextView
@@ -54,12 +54,13 @@
         </RelativeLayout>
 
         <RelativeLayout
-            android:layout_below="@+id/top"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingHorizontal="20dp"
-            android:translationZ="30dp">
-
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/top">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingHorizontal="20dp">
             <EditText
                 android:id="@+id/comment_of_task"
                 android:layout_width="match_parent"
@@ -68,31 +69,20 @@
                 android:hint="Введите комментарий к заданию" />
 
             <EditText
-        android:id="@+id/theory_of_task"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/comment_of_task"
-        android:layout_marginVertical="5dp"
-        android:hint="Введите теорию задания" />
+                android:id="@+id/theory_of_task"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/comment_of_task"
+                android:layout_marginVertical="5dp"
+                android:hint="Введите теорию задания" />
 
-    <EditText
-        android:id="@+id/practice_of_task"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/theory_of_task"
-        android:layout_marginVertical="5dp"
-        android:hint="Введите практику задания" />
-
-
-    <ImageButton
-        android:id="@+id/add_task"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:background="@color/null_color"
-        android:src="@drawable/icon_save_48"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true" />
-
+            <EditText
+                android:id="@+id/practice_of_task"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/theory_of_task"
+                android:layout_marginVertical="5dp"
+                android:hint="Введите практику задания" />
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -104,5 +94,18 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
             </LinearLayout>
+            </RelativeLayout>
+            <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+                android:id="@+id/add_task"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="20dp"
+                app:backgroundTint="?attr/colorOnPrimary"
+                app:icon="@drawable/icon_save_24"
+                app:iconSize="40dp" />
         </RelativeLayout>
-</RelativeLayout></RelativeLayout>
+    </RelativeLayout>
+</RelativeLayout>
