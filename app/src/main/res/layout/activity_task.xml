@@ -1,17 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/all_task_act"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/all_task_act"
     tools:context=".TaskActivity">
-    <View
-        android:layout_width="match_parent"
-        android:minHeight="100dp"
-        android:id="@+id/curtain"        android:visibility="gone"
 
+    <View
+        android:id="@+id/curtain"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:background="@color/curtain_for_completed_task_item"
-        android:layout_height="wrap_content"/>
+
+        android:minHeight="100dp"
+        android:visibility="gone" />
+
     <TextView
         android:id="@+id/text_no_internet"
         android:layout_width="match_parent"
@@ -21,29 +24,36 @@
         android:textAlignment="center"
         android:textSize="30sp"
         android:visibility="gone" />
-    <CheckBox
-        android:id="@+id/isCompleted_t"
-android:layout_marginRight="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:text="Сделано" />
 
-    <ImageButton
-        android:id="@+id/back"
+    <RelativeLayout
+        android:id="@+id/top"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@color/null_color"
-        android:src="@drawable/icon_back" />
+        android:layout_height="100dp"
+        android:padding="20dp"
+        android:background="?attr/colorOnPrimary"
+        android:translationZ="30dp">
 
+        <CheckBox
+            android:id="@+id/isCompleted_t"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:layout_alignParentRight="true"
+            android:text="Сделано" />
+
+        <ImageButton
+            android:id="@+id/back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/null_color"
+            android:src="@drawable/icon_back" />
+    </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/task_activity_internet_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="20dp"
-        android:layout_below="@+id/isCompleted_t">
+        android:layout_below="@+id/top"
+        android:padding="20dp">
 
         <TextView
             android:id="@+id/name"
@@ -177,11 +187,12 @@ android:layout_marginRight="20dp"
                 android:textSize="15sp"
                 android:textStyle="italic" />
         </ViewSwitcher>
+
         <ViewSwitcher
-            android:layout_width="match_parent"
-            android:layout_alignParentBottom="true"
             android:id="@+id/vp_ea"
-            android:layout_height="wrap_content">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true">
 
 
             <ImageButton

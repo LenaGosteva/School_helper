@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -15,85 +14,98 @@
         android:textAlignment="center"
         android:textSize="30sp"
         android:visibility="gone" />
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/dashboard_fragment_with_internet">
-    <ImageButton
-        android:id="@+id/calendar"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_alignParentRight="true"
-        android:textAlignment="center"
-android:layout_marginTop="20dp"
-android:layout_marginRight="20dp"
-        android:background="@color/null_color"
-        android:src="@drawable/icon_calendar"
-        android:textSize="20sp"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:layout_below="@+id/calendar"
-        android:paddingHorizontal="20dp"
-        android:layout_marginBottom="20dp"
-
-        android:hint="Day: Sep 14, 2023"
-        android:id="@+id/day_name"
-        android:textSize="30dp" />
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:layout_above="@+id/day_subjects"
-        android:background="@color/black" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:layout_below="@+id/day_name"
-        android:id="@+id/day_subjects"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
 
     <RelativeLayout
+        android:id="@+id/dashboard_fragment_with_internet"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="100dp"
-    android:layout_marginTop="100dp"
-    android:id="@+id/window_list"
-    android:visibility="gone"
-    android:layout_marginHorizontal="30dp"
-    android:background="@color/bright"
-    android:translationZ="10dp"
-    android:layout_centerVertical="true">
-    <ListView
-        android:layout_width="match_parent"
-        android:id="@+id/list_of_subjects"
-        android:visibility="visible"
+        android:layout_height="match_parent">
 
-        android:layout_height="wrap_content"/>
+        <RelativeLayout
+            android:id="@+id/top"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="?attr/colorOnPrimary"
+            android:translationZ="30dp">
+
+            <ImageButton
+                android:id="@+id/calendar"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="20dp"
+                android:background="@color/null_color"
+                android:src="@drawable/icon_calendar"
+                android:textAlignment="center"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/day_name"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_below="@+id/calendar"
+                android:layout_marginBottom="20dp"
+
+                android:hint="Day: Sep 14, 2023"
+                android:paddingHorizontal="20dp"
+                android:textSize="30sp" />
+        </RelativeLayout>
+        <!--        <View-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="2dp"-->
+        <!--            android:layout_above="@+id/day_subjects"-->
+        <!--            android:background="@color/black" />-->
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/day_subjects"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/top" />
+
+        <RelativeLayout
+            android:id="@+id/window_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginHorizontal="30dp"
+            android:layout_marginTop="100dp"
+            android:layout_marginBottom="100dp"
+            android:background="@color/bright"
+            android:translationZ="10dp"
+            android:visibility="gone">
+
+            <ListView
+                android:id="@+id/list_of_subjects"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:visibility="visible" />
 
 
-    <Button
-        android:id="@+id/ok"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:clickable="true"
-        android:layout_alignParentBottom="true"
-        android:text="Готово"
-        android:background="#00000000"/>
+            <Button
+                android:id="@+id/ok"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                android:background="#00000000"
+                android:clickable="true"
+                android:text="Готово" />
 
 
-</RelativeLayout>
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_marginBottom="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_alignParentBottom="true"
-        android:clickable="true"
-        android:background="@color/null_color"
-        android:src="@drawable/icon_add"    android:id="@+id/hgh"/>
-</RelativeLayout>
+        </RelativeLayout>
+
+        <ImageButton
+            android:id="@+id/hgh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="20dp"
+            android:background="@color/null_color"
+            android:clickable="true"
+            android:src="@drawable/icon_add" />
+    </RelativeLayout>
+
 </RelativeLayout>

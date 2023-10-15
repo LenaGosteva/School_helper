@@ -9,6 +9,7 @@
     <color name="null_color">#00000000</color>
 
     <color name="white">#FFFFFFFF</color>
+    <color name="background">#F0D9D1</color>
 
     <color name="bright">#ffe7d4</color>
     <color name="light">#b75e5e</color>

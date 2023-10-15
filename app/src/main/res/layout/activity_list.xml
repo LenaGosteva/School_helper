@@ -5,15 +5,19 @@
     android:id="@+id/main_rl_list_activity"
     android:layout_height="match_parent"
     tools:context=".ListActivity">
-
+    <RelativeLayout
+        android:id="@+id/top"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:padding="20dp"
+        android:background="?attr/colorOnPrimary"
+        android:translationZ="30dp">
     <ImageButton
         android:layout_width="wrap_content"
-        android:src="@drawable/icon_back"
         android:id="@+id/back"
-        android:layout_marginBottom="20dp"
-        android:background="@color/null_color"
+        android:background="@drawable/icon_back"
         android:layout_height="wrap_content"
-        android:contentDescription="@string/todo" />
+        android:contentDescription="@string/todo" /></RelativeLayout>
 
     <TextView
         android:layout_width="match_parent"
@@ -37,7 +41,7 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/list_of_tasks"
-        android:layout_below="@+id/back"
+        android:layout_below="@+id/top"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 </RelativeLayout>

@@ -5,7 +5,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="20dp"
     tools:context=".ui.notifications.NewTaskFragment">
 
     <TextView
@@ -21,37 +20,54 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/new_task_fragment_with_internet">
-    <TextView
-        android:id="@+id/title_add"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="30dp"
-        android:text="@string/New_task_title"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+
+        <RelativeLayout
+            android:id="@+id/top"
+            android:layout_width="wrap_content"
+            android:layout_height="140dp"
+            android:paddingTop="20dp"
+            android:paddingHorizontal="20dp"
+            android:background="?attr/colorOnPrimary"
+            android:translationZ="30dp">
+
+            <TextView
+                android:id="@+id/title_add"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="30dp"
+                android:text="@string/New_task_title"
+                android:textAlignment="center"
+                android:textSize="30sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
 
-    <EditText
-        android:id="@+id/name_of_task"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/title_add"
-        android:layout_marginVertical="5dp"
-        android:hint="Введите имя задания" />
+            <EditText
+                android:id="@+id/name_of_task"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/title_add"
+                android:layout_marginVertical="5dp"
+                android:hint="Введите имя задания" />
+        </RelativeLayout>
 
-    <EditText
-        android:id="@+id/comment_of_task"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/name_of_task"
-        android:layout_marginVertical="5dp"
-        android:hint="Введите комментарий к заданию" />
+        <RelativeLayout
+            android:layout_below="@+id/top"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="20dp"
+            android:translationZ="30dp">
 
-    <EditText
+            <EditText
+                android:id="@+id/comment_of_task"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="5dp"
+                android:hint="Введите комментарий к заданию" />
+
+            <EditText
         android:id="@+id/theory_of_task"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -77,15 +93,16 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/practice_of_task">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/practice_of_task">
 
 
-        <Spinner
-            android:id="@+id/subject_of_task"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
+                <Spinner
+                    android:id="@+id/subject_of_task"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+        </RelativeLayout>
 </RelativeLayout></RelativeLayout>
