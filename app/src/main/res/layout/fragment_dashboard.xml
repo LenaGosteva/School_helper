@@ -80,15 +80,20 @@
     <RelativeLayout
         android:id="@+id/window_list"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="wrap_content"
         android:translationZ="50dp"
-
     android:layout_centerVertical="true"
         android:layout_alignParentBottom="true"
-        android:background="@color/bright"
+        android:background="@color/null_color"
         android:visibility="gone">
 
-        <ListView
+<!--        <ListView-->
+<!--            android:id="@+id/list_of_subjects"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:visibility="visible" />-->
+
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/list_of_subjects"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

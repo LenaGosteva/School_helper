@@ -84,7 +84,6 @@ public class HomeFragment extends Fragment {
 
             binding.add.setOnClickListener(cl -> {
                 binding.windowForNew.setVisibility(View.VISIBLE);
-
             });
 
             ArrayAdapter<String> spinner_adapter
@@ -108,11 +107,27 @@ public class HomeFragment extends Fragment {
             });
 
 
-            binding.newSubject.setOnClickListener(f -> {
+            binding.newSubject.setOnClickListener(sdf -> {
 
-                String d = binding.describtionOfSubject.getText().toString();
-                if (!binding.nameOfSubject.getText().toString().isEmpty()) {
-                    Subject s = new Subject(binding.nameOfSubject.getText().toString(), d.isEmpty() ? " " : d, App.getColors_int()[index_color[0]]);
+                String desc = binding.describtionOfSubject.getText().toString();
+                String name = binding.nameOfSubject.getText().toString();
+                boolean f = false;
+                for (char c: App.getFirebase_symbols_ban()) {
+                    String s_c = String.valueOf(c);
+                    if (name.contains(s_c)||desc.contains(s_c)
+                    ){
+                        f = false;
+                        Toast.makeText(getContext(), "Одно из полей содержит неконвертируемые символы! ('.', '#', '$', '[', или ']')", Toast.LENGTH_SHORT).show();
+                        break;
+                    }else{
+                        f = true;
+                    }
+                }
+
+
+
+                if (!name.isEmpty()&&f) {
+                    Subject s = new Subject(name, desc.isEmpty() ? " " : desc, App.getColors_int()[index_color[0]]);
                     list.get().add(s);
                     authController.addSubjectToDb(s, task -> {
                         if (task.isSuccessful()) {

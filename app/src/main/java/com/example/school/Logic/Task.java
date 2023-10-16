@@ -1,11 +1,11 @@
 package com.example.school.Logic;
 
 public class Task {
-    String name = "Name";
-    String comment = "This is comment";
-    String theory = "This is theory";
-    String practice = "This is practice";
-    String subject = "Additionally";
+    String name = "Имя задания";
+    String comment = "Комментарий задания";
+    String theory = "Теория задания";
+    String practice = "Практика задания";
+    String subject = "Дополнительно задания";
 
     public String getSubject() {
         return subject;

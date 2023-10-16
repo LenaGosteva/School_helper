@@ -20,6 +20,7 @@ public class App extends Application {
 
 
     public static ArrayList days = new ArrayList<>();
+    static char[] firebase_symbols_ban = {'.', '#', '$', '[', ']'};
     static int[] colors_int =
             {R.color.sb_red,
                     R.color.sb_orange,
@@ -137,6 +138,14 @@ public class App extends Application {
 
     public static App getInstance() {
         return instance;
+    }
+
+    public static char[] getFirebase_symbols_ban() {
+        return firebase_symbols_ban;
+    }
+
+    public static void setFirebase_symbols_ban(char[] firebase_symbols_ban) {
+        App.firebase_symbols_ban = firebase_symbols_ban;
     }
 
     @Override

@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/main_rl_list_activity"
     android:layout_height="match_parent"
     tools:context=".ListActivity">
@@ -15,9 +16,23 @@
     <ImageButton
         android:layout_width="wrap_content"
         android:id="@+id/back"
+        android:layout_centerVertical="true"
         android:background="@drawable/icon_back"
         android:layout_height="wrap_content"
-        android:contentDescription="@string/todo" /></RelativeLayout>
+        android:contentDescription="@string/todo" />
+    <TextView
+        android:id="@+id/name_of_subject_list_activity"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerVertical="true"
+        android:gravity="center_vertical"
+        android:hint="Geometry"
+        android:textSize="30sp"
+        android:layout_marginHorizontal="20dp"
+        android:layout_toRightOf="@+id/back"/>
+
+
+    </RelativeLayout>
 
     <TextView
         android:layout_width="match_parent"
@@ -44,4 +59,109 @@
         android:layout_below="@+id/top"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+
+
+    <RelativeLayout
+        android:id="@+id/window_for_new_task_list_activity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginHorizontal="30dp"
+        android:layout_marginVertical="120dp"
+        android:layout_marginBottom="100dp"
+        android:background="@drawable/layout_to_add"
+        android:clickable="true"
+        android:elevation="10dp"
+        android:padding="20dp"
+        android:translationZ="10dp"
+        android:visibility="gone"
+
+        >
+
+<TextView
+    android:id="@+id/title_window_for_new_task_list_activity"
+    android:layout_width="wrap_content"
+    android:text="Новое задание"
+    android:layout_height="50dp"
+    android:textAlignment="center"
+    android:gravity="center"
+    android:textSize="25sp"
+    android:layout_centerHorizontal="true"
+    />
+        <EditText
+            android:id="@+id/name_of_task_list_activity"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="5dp"
+            android:layout_below="@+id/title_window_for_new_task_list_activity"
+            android:background="@color/null_color"
+            android:hint="Введите имя задания" />
+
+
+        <EditText
+            android:id="@+id/comment_of_task_list_activity"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_below="@id/name_of_task_list_activity"            android:hint="Введите комментарий к заданию (не обязательно)"
+            android:layout_marginBottom="5dp"
+            android:background="@color/null_color"
+            android:textColorHint="#80000000" />
+
+
+        <EditText
+            android:id="@+id/theory_of_task_list_activity"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginBottom="5dp"
+            android:layout_below="@id/comment_of_task_list_activity"
+            android:background="@color/null_color"
+            android:hint="Введите теорию задания (не обязательно)"
+            android:textColorHint="#80000000" />
+
+
+        <EditText
+            android:layout_marginBottom="5dp"
+            android:id="@+id/practice_of_task_list_activity"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_below="@id/theory_of_task_list_activity"
+            android:background="@color/null_color"
+            android:hint="Введите практику задания (не обязательно)"
+            android:textColorHint="#80000000" />
+
+        <Button
+            android:id="@+id/new_task_list_activity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAllCaps="false"
+            android:textStyle="normal"
+            android:fontFamily="casual"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:background="@color/null_color"
+            android:textColor="@color/high_dark"
+            android:clickable="true"
+            android:text="Добавить" />
+
+
+
+
+
+
+    </RelativeLayout>
+
+
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="20dp"
+        app:backgroundTint="?attr/colorOnPrimary"
+        app:icon="@drawable/icon_add_not_outline"
+        app:iconSize="40dp" />
+
 </RelativeLayout>

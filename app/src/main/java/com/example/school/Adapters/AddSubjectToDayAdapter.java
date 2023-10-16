@@ -1,31 +1,27 @@
 package com.example.school.Adapters;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.Intent;
-import android.renderscript.ScriptGroup;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.school.App;
-import com.example.school.ListActivity;
+import com.example.school.Logic.Day;
 import com.example.school.Logic.Subject;
 import com.example.school.R;
 import com.example.school.databinding.FragmentDashboardBinding;
-import com.example.school.databinding.ListToAddSubjectsToDayBinding;
 
 import java.util.ArrayList;
 
 public class AddSubjectToDayAdapter extends RecyclerView.Adapter<AddSubjectToDayAdapter.SubjectViewHolder> {
 
-FragmentDashboardBinding binding;
+    FragmentDashboardBinding binding;
+    Day day;
+
     public ArrayList<Subject> getList() {
         return list;
     }
@@ -38,16 +34,17 @@ FragmentDashboardBinding binding;
     public final Activity activity;
 
 
-    public AddSubjectToDayAdapter(ArrayList<Subject> list, Activity activity,FragmentDashboardBinding binding) {
+    public AddSubjectToDayAdapter(ArrayList<Subject> list, Activity activity, FragmentDashboardBinding binding, Day day) {
         this.list = list;
         this.activity = activity;
         this.binding = binding;
+        this.day = day;
     }
+
 
     @NonNull
     @Override
-    public SubjectViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
-    {
+    public SubjectViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_for_choose_sb_in_dashboard, parent, false);
 
         view.setLongClickable(true);
@@ -75,8 +72,20 @@ FragmentDashboardBinding binding;
     public void onBindViewHolder
             (@NonNull AddSubjectToDayAdapter.SubjectViewHolder holder, int position) {
         Subject subject = list.get(position);
+        holder.name.setText(subject.getName());
         holder.itemView.setOnClickListener(click -> {
+            day.addSubject(subject);
 
+            App.getAuthController().addDayToDb(day, t -> {
+                binding.windowList.setVisibility(View.GONE);
+                binding.hgh.setVisibility(View.VISIBLE);
+
+                SubjectDayAdapter subjectDayAdapter = new SubjectDayAdapter(day, activity);
+                subjectDayAdapter.setList(day.getSubjects());
+                binding.daySubjects.setAdapter(subjectDayAdapter);
+
+                subjectDayAdapter.notifyDataSetChanged();
+            });
         });
     }
 

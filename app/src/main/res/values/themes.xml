@@ -42,4 +42,5 @@
         <item name="android:radius">24dp</item>
         <item name="backgroundTint">?attr/colorPrimary</item>
     </style>
+
 </resources>

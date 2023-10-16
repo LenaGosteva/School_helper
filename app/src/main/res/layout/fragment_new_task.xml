@@ -34,8 +34,8 @@
                 android:id="@+id/title_add"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="30dp"
                 android:text="@string/New_task_title"
+                android:layout_marginBottom="10dp"
                 android:textAlignment="center"
                 android:textSize="30sp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -47,8 +47,11 @@
             <EditText
                 android:id="@+id/name_of_task"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="60dp"
                 android:layout_below="@+id/title_add"
+                android:layout_alignParentBottom="true"
+                android:background="@color/null_color"
+                android:textColorHint="#80000000"
                 android:layout_marginVertical="5dp"
                 android:hint="Введите имя задания" />
         </RelativeLayout>
@@ -57,44 +60,54 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@+id/top">
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:paddingHorizontal="20dp">
-            <EditText
-                android:id="@+id/comment_of_task"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginVertical="5dp"
-                android:hint="Введите комментарий к заданию" />
 
-            <EditText
-                android:id="@+id/theory_of_task"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/comment_of_task"
-                android:layout_marginVertical="5dp"
-                android:hint="Введите теорию задания" />
-
-            <EditText
-                android:id="@+id/practice_of_task"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/theory_of_task"
-                android:layout_marginVertical="5dp"
-                android:hint="Введите практику задания" />
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/practice_of_task">
-
-
-                <Spinner
-                    android:id="@+id/subject_of_task"
+                <EditText
+                    android:id="@+id/comment_of_task"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-            </LinearLayout>
+                    android:layout_height="60dp"
+                    android:layout_marginVertical="5dp"
+                    android:background="@color/null_color"
+                    android:hint="Введите комментарий к заданию"
+                    android:textColorHint="#80000000" />
+
+                <EditText
+                    android:id="@+id/theory_of_task"
+                    android:layout_width="match_parent"
+
+                    android:layout_height="60dp"
+                    android:layout_below="@+id/comment_of_task"
+                    android:layout_marginVertical="5dp"
+                    android:background="@color/null_color"
+                    android:hint="Введите теорию задания" />
+
+                <EditText
+                    android:id="@+id/practice_of_task"
+                    android:layout_width="match_parent"
+
+                    android:layout_height="60dp"
+                    android:layout_below="@+id/theory_of_task"
+                    android:layout_marginVertical="5dp"
+                    android:background="@color/null_color"
+                    android:hint="Введите практику задания" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/practice_of_task">
+
+
+                    <Spinner
+                        android:id="@+id/subject_of_task"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
             </RelativeLayout>
+
             <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
                 android:id="@+id/add_task"
                 android:layout_width="wrap_content"
@@ -104,7 +117,7 @@
                 android:layout_marginRight="20dp"
                 android:layout_marginBottom="20dp"
                 app:backgroundTint="?attr/colorOnPrimary"
-                app:icon="@drawable/icon_save_24"
+                app:icon="@drawable/icon_done"
                 app:iconSize="40dp" />
         </RelativeLayout>
     </RelativeLayout>

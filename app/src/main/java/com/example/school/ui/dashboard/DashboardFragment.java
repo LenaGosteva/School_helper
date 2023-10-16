@@ -12,7 +12,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.school.Adapters.AddSubjectToDayAdapter;
 import com.example.school.Adapters.SubjectDayAdapter;
 import com.example.school.App;
 import com.example.school.Auth.AuthController;
@@ -156,23 +158,30 @@ public class DashboardFragment extends Fragment {
                 });
             });
             binding.hgh.setOnClickListener(df -> {
-
-                ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), R.layout.item_for_choose_sb_in_dashboard, R.id.name_of_subject_item_in_dashboard_choose, allSb_str);
-
-                binding.listOfSubjects.setAdapter(adapter);
-
-
                 binding.windowList.setVisibility(View.VISIBLE);
                 binding.ok.setVisibility(View.GONE);
+                binding.hgh.setVisibility(View.GONE);
 
-                binding.listOfSubjects.setOnItemClickListener((parent, view1, position, id) -> {
-                    binding.windowList.setVisibility(View.GONE);
-                    this.day.addSubject(allSb.get(position));
-                    authController.addDayToDb(day, g -> {
-                        subjectDayAdapter.setList(day.getSubjects());
-                        subjectDayAdapter.notifyDataSetChanged();
-                    });
-                });
+                AddSubjectToDayAdapter addSbAdapter = new AddSubjectToDayAdapter(allSb, this.getActivity(), binding,day);
+                binding.listOfSubjects.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false));
+                binding.listOfSubjects.setAdapter(addSbAdapter);
+
+
+//                ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), R.layout.item_for_choose_sb_in_dashboard, R.id.name_of_subject_item_in_dashboard_choose, allSb_str);
+//                binding.listOfSubjects.setAdapter(adapter);
+//
+//                binding.listOfSubjects.setOnItemClickListener((parent, view1, position, id) -> {
+//                    binding.windowList.setVisibility(View.GONE);
+//
+//
+//
+//
+//                    this.day.addSubject(allSb.get(position));
+//                    authController.addDayToDb(day, g -> {
+//                        subjectDayAdapter.setList(day.getSubjects());
+//                        subjectDayAdapter.notifyDataSetChanged();
+//                    });
+//                });
 
             });
 //        }

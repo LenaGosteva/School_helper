@@ -29,9 +29,10 @@
             android:layout_marginHorizontal="30dp"
             android:layout_marginTop="100dp"
             android:layout_marginBottom="100dp"
+            android:background="@drawable/layout_to_add"
             android:clickable="true"
+            android:elevation="10dp"
             android:padding="20dp"
-
             android:translationZ="10dp"
             android:visibility="gone">
 
@@ -91,18 +92,18 @@
 
 
         </RelativeLayout>
+
         <RelativeLayout
-            android:layout_width="wrap_content"
             android:id="@+id/top"
-            android:translationZ="30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="140dp"
             android:background="?attr/colorOnPrimary"
-            android:layout_height="140dp">
+            android:translationZ="30dp">
 
             <ImageButton
                 android:id="@+id/out"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:elevation="10dp"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentBottom="true"
                 android:layout_marginVertical="20dp"
@@ -110,7 +111,8 @@
                 android:layout_marginEnd="20dp"
                 android:layout_marginRight="20dp"
                 android:layout_marginBottom="20dp"
-                android:background="@drawable/icon_logout" />
+                android:background="@drawable/icon_logout"
+                android:elevation="10dp" />
 
             <TextView
                 android:id="@+id/name"
@@ -126,12 +128,12 @@
                 android:text="@string/name_of_user"
                 android:textAlignment="textStart"
                 android:textSize="30sp" />
-    </RelativeLayout>
-<!--        <View-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="2dp"-->
-<!--            android:layout_above="@+id/list"-->
-<!--            android:background="@color/black" />-->
+        </RelativeLayout>
+        <!--        <View-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="2dp"-->
+        <!--            android:layout_above="@+id/list"-->
+        <!--            android:background="@color/black" />-->
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/list"
@@ -145,11 +147,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            app:icon = "@drawable/icon_add_not_outline"
-            app:backgroundTint="?attr/colorOnPrimary"
-            app:iconSize = "40dp"
             android:layout_alignParentBottom="true"
             android:layout_marginRight="20dp"
-            android:layout_marginBottom="20dp" />
+            android:layout_marginBottom="20dp"
+            app:backgroundTint="?attr/colorOnPrimary"
+            app:icon="@drawable/icon_add_not_outline"
+            app:iconSize="40dp" />
     </RelativeLayout>
 </RelativeLayout>
