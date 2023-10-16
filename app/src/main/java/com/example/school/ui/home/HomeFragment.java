@@ -2,6 +2,7 @@ package com.example.school.ui.home;
 
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -84,6 +86,7 @@ public class HomeFragment extends Fragment {
 
             binding.add.setOnClickListener(cl -> {
                 binding.windowForNew.setVisibility(View.VISIBLE);
+
             });
 
             ArrayAdapter<String> spinner_adapter
@@ -97,7 +100,8 @@ public class HomeFragment extends Fragment {
                 @Override
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                     index_color[0] = position;
-                    binding.windowForNew.setBackgroundColor(getActivity().getColor(App.getColors_int_fill()[position]));
+                    binding.colorViewForColor.setCircleBackgroundColor(getActivity().getColor(App.getColors_int_fill()[position]));
+                    binding.colorViewForColor.setBackgroundColor(getActivity().getColor(App.getColors_int_fill()[position]));
                 }
 
                 @Override

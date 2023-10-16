@@ -25,6 +25,7 @@
             android:id="@+id/window_for_new"
             android:layout_width="match_parent"
             android:layout_height="250dp"
+            android:visibility="gone"
             android:layout_centerVertical="true"
             android:layout_marginHorizontal="30dp"
             android:layout_marginTop="100dp"
@@ -33,8 +34,7 @@
             android:clickable="true"
             android:elevation="10dp"
             android:padding="20dp"
-            android:translationZ="10dp"
-            android:visibility="gone">
+            android:translationZ="40dp">
 
             <EditText
                 android:id="@+id/name_of_subject"
@@ -67,8 +67,15 @@
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:layout_below="@id/instr_to_spinner"
+                    android:layout_weight="3" />
 
-                    android:layout_weight="1" />
+<de.hdodenhof.circleimageview.CircleImageView
+    android:id="@+id/color_view_for_color"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+
+                    android:translationZ="0dp" />
+
             </LinearLayout>
 
             <EditText
@@ -98,7 +105,8 @@
             android:layout_width="wrap_content"
             android:layout_height="140dp"
             android:background="?attr/colorOnPrimary"
-            android:translationZ="30dp">
+            android:elevation="10dp"
+            android:translationZ="20dp">
 
             <ImageButton
                 android:id="@+id/out"
