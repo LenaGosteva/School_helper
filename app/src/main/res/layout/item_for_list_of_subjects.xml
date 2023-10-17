@@ -1,41 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/item_game"
     android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="10dp">
 
-    android:layout_height="wrap_content">
-
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/rel_in_sb_adapter"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginVertical="5dp">
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginVertical="5dp"
+        android:background="@drawable/recycler_task"
+        android:orientation="horizontal"
+        android:padding="10dp">
 
-
-        <TextView
-            android:id="@+id/name_of_subject_item"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:background="@color/null_color"
-            android:fontFamily="sans-serif-thin"
-            android:gravity="left"
-            android:hint="Subject"
-            android:paddingHorizontal="20dp"
-            android:textFontWeight="300"
-            android:textSize="25dp" />
-        <TextView
-            android:id="@+id/describtion_of_subject_item"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/null_color"
-            android:layout_below="@id/name_of_subject_item"
-            android:fontFamily="sans-serif-thin"
-            android:gravity="left"
-            android:hint="Describtion"
-            android:paddingHorizontal="20dp"
-            android:textFontWeight="300"
-            android:textSize="15dp" />
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
 
-    </RelativeLayout>
+            <TextView
+                android:id="@+id/name_of_subject_item"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@color/null_color"
+                android:fontFamily="sans-serif-thin"
+                android:gravity="left"
+                android:hint="Subject"
+                android:paddingHorizontal="20dp"
+                android:textFontWeight="300"
+                android:textSize="25dp" />
+
+            <TextView
+                android:id="@+id/describtion_of_subject_item"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/name_of_subject_item"
+                android:background="@color/null_color"
+                android:fontFamily="sans-serif-thin"
+                android:gravity="left"
+                android:hint="Describtion"
+                android:paddingHorizontal="20dp"
+                android:textFontWeight="300"
+                android:textSize="15dp" />
+        </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="3"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_gravity="center"
+            android:hint="43"
+            android:id="@+id/count_of_tasks_in_item_sb"
+            android:textSize="25sp"
+            android:gravity="center"
+
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_gravity="center"
+            android:gravity="center"
+
+            android:hint="задания"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+    </LinearLayout>
 </RelativeLayout>

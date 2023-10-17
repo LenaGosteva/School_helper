@@ -42,7 +42,7 @@ public class DashboardFragment extends Fragment {
     ArrayList<String> allSb_str = new ArrayList<>();
     ArrayList<String> allDays = new ArrayList<>();
 
-    DateFormat dateFormat = new SimpleDateFormat("MMM d, yyyy");
+    DateFormat dateFormat = new SimpleDateFormat("d MMMM yyyy");
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         if (App.isConnectedToNetwork()) {
@@ -122,7 +122,9 @@ public class DashboardFragment extends Fragment {
                 MaterialDatePicker dates = MaterialDatePicker.Builder.datePicker().setTitleText("Select date").build();
                 dates.show(getActivity().getSupportFragmentManager(), "tag");
                 dates.addOnPositiveButtonClickListener(selection -> {
-                    date = String.valueOf(dates.getHeaderText());
+                    Date d = new Date((Long) dates.getSelection());
+
+                    date = dateFormat.format(d);
                     if (allDays.contains(date)) {
                         authController.getDayFromDB(date, l -> {
                             day = l.getResult().getValue(Day.class);

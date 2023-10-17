@@ -2,7 +2,6 @@ package com.example.school.Adapters;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,16 +10,13 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.util.pool.StateVerifier;
 import com.example.school.App;
 import com.example.school.ListActivity;
 import com.example.school.Logic.Subject;
 import com.example.school.R;
-
 
 import java.util.ArrayList;
 
@@ -46,8 +42,7 @@ public class SubjectAdapter extends RecyclerView.Adapter<SubjectAdapter.SubjectV
 
     @NonNull
     @Override
-    public SubjectViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
-    {
+    public SubjectViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_for_list_of_subjects, parent, false);
 
         view.setLongClickable(true);
@@ -62,11 +57,13 @@ public class SubjectAdapter extends RecyclerView.Adapter<SubjectAdapter.SubjectV
     public static class SubjectViewHolder extends RecyclerView.ViewHolder {
         public TextView name;
         public TextView describtion;
+        public TextView count;
 
         public SubjectViewHolder(View itemView) {
             super(itemView);
 
             name = itemView.findViewById(R.id.name_of_subject_item);
+            count = itemView.findViewById(R.id.count_of_tasks_in_item_sb);
             describtion = itemView.findViewById(R.id.describtion_of_subject_item);
 
 
@@ -79,12 +76,24 @@ public class SubjectAdapter extends RecyclerView.Adapter<SubjectAdapter.SubjectV
         Subject subject = list.get(position);
 
         holder.name.setText(subject.getName());
-        holder.describtion.setText(subject.getDescription().length()>16?subject.getDescription().substring(0,16)+"...":subject.getDescription());
-        holder.itemView.setBackgroundColor(activity.getColor(subject.getColor()));
+        try{
+        holder.count.setText(String.valueOf(subject.getTasks().size()));}
+        catch (NullPointerException e){
+            holder.count.setText(String.valueOf(0));
+
+    }
+
+        holder.describtion.setText(subject.getDescription().length() > 16 ? subject.getDescription().substring(0, 16) + "..." : subject.getDescription());
+        holder.name.setTextColor(activity.getColor(subject.getColor()));
+        holder.count.setTextColor(activity.getColor(subject.getColor()));
+        holder.describtion.setTextColor(activity.getColor(subject.getColor()));
+
+//        holder.itemView.setBackgroundColor(activity.getColor(subject.getColor()));
 
 
         holder.itemView.setOnClickListener(click -> {
-            if (App.isConnectedToNetwork()) {Intent intent = new Intent(activity, ListActivity.class);
+            if (App.isConnectedToNetwork()) {
+                Intent intent = new Intent(activity, ListActivity.class);
                 intent.putExtra(App.SUBJECT, subject.getName());
                 intent.putExtra(App.COLOR, activity.getColor(subject.getColor()));
                 Log.e("index_color_before_intent_to_list_of_task", String.valueOf(activity.getIntent().getIntExtra(App.COLOR, R.color.sb_brown)).toUpperCase());
@@ -94,7 +103,7 @@ public class SubjectAdapter extends RecyclerView.Adapter<SubjectAdapter.SubjectV
                 Toast.makeText(App.getInstance(), "Нет интернета, задания недоступны", Toast.LENGTH_SHORT).show();
             }
         });
-        holder.itemView.setOnLongClickListener(l->{
+        holder.itemView.setOnLongClickListener(l -> {
             new AlertDialog.Builder(activity).setTitle("Удаление")
                     .setMessage("Вы действительно хотите удалить предмет? Все задания к нему тоже удалятся")
                     .setPositiveButton("Да", (dialog, which) -> {

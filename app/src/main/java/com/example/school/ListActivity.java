@@ -51,8 +51,6 @@ public class ListActivity extends AppCompatActivity {
             binding.listOfTasks.setVisibility(View.GONE);
         });
             binding.newTaskListActivity.setOnClickListener(newt ->{
-                binding.windowForNewTaskListActivity.setVisibility(View.GONE);
-                binding.listOfTasks.setVisibility(View.VISIBLE);
 
                 String name = binding.nameOfTaskListActivity.getText().toString();
                 String comment = binding.commentOfTaskListActivity.getText().toString().isEmpty()?"Комментарий задания":binding.commentOfTaskListActivity.getText().toString();
@@ -80,6 +78,8 @@ public class ListActivity extends AppCompatActivity {
                         if (tas.isComplete()){
                             Toast.makeText(this, "Задание успешно добавлено!", Toast.LENGTH_SHORT).show();
 
+                            binding.windowForNewTaskListActivity.setVisibility(View.GONE);
+                            binding.listOfTasks.setVisibility(View.VISIBLE);
                         } else {
                             Toast.makeText(this, "Задание не добавлено!", Toast.LENGTH_SHORT).show();
 

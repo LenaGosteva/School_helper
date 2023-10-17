@@ -131,7 +131,7 @@ public class HomeFragment extends Fragment {
 
 
                 if (!name.isEmpty()&&f) {
-                    Subject s = new Subject(name, desc.isEmpty() ? " " : desc, App.getColors_int()[index_color[0]]);
+                    Subject s = new Subject(name, desc.isEmpty() ? " " : desc, App.getColors_int_fill()[index_color[0]]);
                     list.get().add(s);
                     authController.addSubjectToDb(s, task -> {
                         if (task.isSuccessful()) {
@@ -142,6 +142,7 @@ public class HomeFragment extends Fragment {
                                 }
                                 adapter.setList(l);
                                 Toast.makeText(getContext(), "Предмет успешно добавлен!", Toast.LENGTH_SHORT).show();
+                                binding.windowForNew.setVisibility(View.GONE);
 
                             });
                         } else {
@@ -153,7 +154,6 @@ public class HomeFragment extends Fragment {
                     Toast.makeText(getContext(), "Вы не ввели название!", Toast.LENGTH_SHORT).show();
                 }
 
-                binding.windowForNew.setVisibility(View.GONE);
                 adapter.notifyDataSetChanged();
 
             });
