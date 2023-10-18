@@ -60,12 +60,16 @@ public class SubjectDayAdapter extends RecyclerView.Adapter<SubjectDayAdapter.Su
     public static class SubjectViewHolder extends RecyclerView.ViewHolder {
         public TextView name;
         public TextView describtion;
+        public TextView count;
+        public  View colorChip;
 
         public SubjectViewHolder(View itemView) {
             super(itemView);
 
             name = itemView.findViewById(R.id.name_of_subject_item);
+            count = itemView.findViewById(R.id.count_of_tasks_in_item_sb);
             describtion = itemView.findViewById(R.id.describtion_of_subject_item);
+            colorChip = itemView.findViewById(R.id.color_chip_in_sb_adapter);
 
 
         }
@@ -78,8 +82,9 @@ public class SubjectDayAdapter extends RecyclerView.Adapter<SubjectDayAdapter.Su
 
         holder.name.setText(subject.getName());
         holder.describtion.setText(subject.getDescription().length() > 16 ? subject.getDescription().substring(0, 16) + "..." : subject.getDescription());
-        holder.itemView.setBackgroundColor(activity.getColor(subject.getColor()));
+        holder.colorChip.setBackgroundColor(activity.getColor(subject.getColor()));
 
+        holder.count.setText(String.valueOf(subject.getTasks().size()));
 
         holder.itemView.setOnClickListener(click -> {
             if (App.isConnectedToNetwork()) {
@@ -98,11 +103,16 @@ public class SubjectDayAdapter extends RecyclerView.Adapter<SubjectDayAdapter.Su
                     .setMessage("Вы действительно хотите удалить предмет? ")
                     .setPositiveButton("Да", (dialog, which) -> {
                         dialog.dismiss();
-                        day.getSubjects().remove(subject);
+                        list.remove(subject);
+                        notifyDataSetChanged();
 
-                        App.getAuthController().addDayToDb(day, t -> {
-                            list.remove(subject);
-                            notifyDataSetChanged();
+                        day.addSubjects(list);
+                        App.authController.removeSubjectsFromDay(day.getDate(), n -> {
+                            for (Subject s : list) {
+                                App.authController.addSubjectToDay(s.getName(), String.valueOf(list.indexOf(s)), day.getDate(), kjl -> {
+
+                                });
+                            }
                         });
                     }).setNegativeButton("Нет", (dialog, which) -> dialog.dismiss()).show();
 

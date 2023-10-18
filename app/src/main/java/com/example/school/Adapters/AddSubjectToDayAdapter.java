@@ -80,6 +80,8 @@ public class AddSubjectToDayAdapter extends RecyclerView.Adapter<AddSubjectToDay
                 binding.windowList.setVisibility(View.GONE);
                 binding.hgh.setVisibility(View.VISIBLE);
 
+                binding.addSubjectToDay.setVisibility(View.GONE);
+                binding.addTaskToDay.setVisibility(View.GONE);
                 SubjectDayAdapter subjectDayAdapter = new SubjectDayAdapter(day, activity);
                 subjectDayAdapter.setList(day.getSubjects());
                 binding.daySubjects.setAdapter(subjectDayAdapter);

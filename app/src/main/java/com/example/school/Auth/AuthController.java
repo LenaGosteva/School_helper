@@ -96,6 +96,10 @@ public class AuthController {
         if (isAuth())
             database.child("users").child(getUser().getUid()).child("days").child(day).child("subjects").get().addOnCompleteListener(listener);
     }
+    public void removeSubjectsFromDay(String day, OnCompleteListener listener) {
+        if (isAuth())
+            database.child("users").child(getUser().getUid()).child("days").child(day).child("subjects").removeValue().addOnCompleteListener(listener);
+    }
 
     public void getSubjectFromDB(String subject,OnCompleteListener<DataSnapshot> listener) {
         if (isAuth())

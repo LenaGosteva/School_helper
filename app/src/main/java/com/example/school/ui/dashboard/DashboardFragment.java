@@ -16,14 +16,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.school.Adapters.AddSubjectToDayAdapter;
 import com.example.school.Adapters.SubjectDayAdapter;
+import com.example.school.Adapters.TaskAdapter;
 import com.example.school.App;
 import com.example.school.Auth.AuthController;
 import com.example.school.Logic.Day;
 import com.example.school.Logic.Subject;
+import com.example.school.Logic.Task;
 import com.example.school.R;
 import com.example.school.databinding.FragmentDashboardBinding;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.datepicker.MaterialDatePicker;
+import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.database.DataSnapshot;
 
 import java.text.DateFormat;
@@ -76,12 +79,38 @@ public class DashboardFragment extends Fragment {
     }
 
     SubjectDayAdapter subjectDayAdapter;
+    TaskAdapter taskAdapter;
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         binding = FragmentDashboardBinding.bind(view);
 
+
+        binding.selectTackOrSubject.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                int index = tab.getPosition();
+                if (index==1){
+                    taskAdapter = new TaskAdapter(day.getTasks(), getActivity());
+                    binding.daySubjects.setLayoutManager(new LinearLayoutManager(getContext()));
+                    binding.daySubjects.setAdapter(taskAdapter);
+                }else{
+                    subjectDayAdapter = new SubjectDayAdapter(day, getActivity());
+                    binding.daySubjects.setLayoutManager(new LinearLayoutManager(getContext()));
+                    binding.daySubjects.setAdapter(subjectDayAdapter);
+                }
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
 
 //        if (App.isConnectedToNetwork()) {
             subjectDayAdapter = new SubjectDayAdapter(day, getActivity());
@@ -159,7 +188,10 @@ public class DashboardFragment extends Fragment {
 
                 });
             });
-            binding.hgh.setOnClickListener(df -> {
+
+
+
+            binding.addSubjectToDay.setOnClickListener(df -> {
                 binding.windowList.setVisibility(View.VISIBLE);
                 binding.ok.setVisibility(View.GONE);
                 binding.hgh.setVisibility(View.GONE);
@@ -167,8 +199,6 @@ public class DashboardFragment extends Fragment {
                 AddSubjectToDayAdapter addSbAdapter = new AddSubjectToDayAdapter(allSb, this.getActivity(), binding,day);
                 binding.listOfSubjects.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false));
                 binding.listOfSubjects.setAdapter(addSbAdapter);
-
-
 //                ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), R.layout.item_for_choose_sb_in_dashboard, R.id.name_of_subject_item_in_dashboard_choose, allSb_str);
 //                binding.listOfSubjects.setAdapter(adapter);
 //
@@ -183,8 +213,11 @@ public class DashboardFragment extends Fragment {
 //                        subjectDayAdapter.setList(day.getSubjects());
 //                        subjectDayAdapter.notifyDataSetChanged();
 //                    });
-//                });
-
+//                })
+            });
+            binding.hgh.setOnClickListener(b->{
+                binding.addSubjectToDay.setVisibility(View.VISIBLE);
+                binding.addTaskToDay.setVisibility(View.VISIBLE);
             });
 //        }
 //        else{

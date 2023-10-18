@@ -22,6 +22,7 @@ public class Day {
     }
 
     ArrayList<Subject> subjects = new ArrayList<>();
+    ArrayList<Task> tasks = new ArrayList<>();
 
     public Day(String data) {
         this.date = data;
@@ -50,6 +51,15 @@ public class Day {
             subjects.add(subject);
         }
 
+    }public void addTask(Task task){
+        ArrayList<String> l = new ArrayList();
+        for (Task e: tasks) {
+                l.add(e.getName());
+        }
+        if (!l.contains(task.getName())){
+            tasks.add(task);
+        }
+
     }
     public void add(boolean j, Subject s){
 
@@ -58,6 +68,21 @@ public class Day {
         subjects.addAll(subject);
     }
 
+    public DateFormat getDateFormat() {
+        return dateFormat;
+    }
+
+    public void setDateFormat(DateFormat dateFormat) {
+        this.dateFormat = dateFormat;
+    }
+
+    public ArrayList<Task> getTasks() {
+        return tasks;
+    }
+
+    public void setTasks(ArrayList<Task> tasks) {
+        this.tasks = tasks;
+    }
 
     public ArrayList<Subject> getSubjects() {
         return subjects;
