@@ -74,7 +74,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
         holder.curtain.setVisibility(task.isCompleted() ? View.VISIBLE : View.GONE);
 
         holder.name.setText(task.getName());
-        holder.comment.setText((task.getComment().length() > 16) ? task.getComment().substring(0, 16) + "..." : task.getComment());
+        holder.comment.setText((task.getComment().length() > 24) ? task.getComment().substring(0, 24) + "..." : task.getComment());
         holder.isCompleted.setChecked(task.isCompleted());
 
 

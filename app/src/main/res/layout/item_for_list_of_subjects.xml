@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/item_game"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -10,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:layout_marginVertical="5dp"
-        android:background="@drawable/recycler_task"
+        android:background="@drawable/recycler_subjects"
         android:orientation="horizontal"
         android:padding="10dp">
 
@@ -45,6 +46,10 @@
                 android:textFontWeight="300"
                 android:textSize="15dp" />
         </LinearLayout>
+        <View
+            android:layout_width="5dp"
+            android:id="@+id/color_chip_in_sb_adapter"
+            android:layout_height="match_parent"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"

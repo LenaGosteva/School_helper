@@ -74,7 +74,7 @@
         android:layout_marginBottom="100dp"
         android:background="@drawable/layout_to_add"
         android:clickable="true"
-        android:minHeight="200dp"
+        android:minHeight="400dp"
 
         android:elevation="10dp"
         android:padding="20dp"
@@ -142,6 +142,7 @@
             android:textAllCaps="false"
             android:textStyle="normal"
             android:fontFamily="casual"
+            android:layout_below="@+id/practice_of_task_list_activity"
             android:layout_alignParentRight="true"
             android:layout_alignParentBottom="true"
             android:background="@color/null_color"

@@ -77,7 +77,7 @@ public class ListActivity extends AppCompatActivity {
                     App.getAuthController().addTaskToSubject(s, s.getName(), s.getSubject(), tas -> {
                         if (tas.isComplete()){
                             Toast.makeText(this, "Задание успешно добавлено!", Toast.LENGTH_SHORT).show();
-
+                            binding.textNoInternet.setVisibility(View.GONE);
                             binding.windowForNewTaskListActivity.setVisibility(View.GONE);
                             binding.listOfTasks.setVisibility(View.VISIBLE);
                         } else {

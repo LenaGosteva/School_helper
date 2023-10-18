@@ -125,7 +125,7 @@ public class DashboardFragment extends Fragment {
                     Date d = new Date((Long) dates.getSelection());
 
                     date = dateFormat.format(d);
-                    if (allDays.contains(date)) {
+                    if (allDays.contains(dates.getSelection())) {
                         authController.getDayFromDB(date, l -> {
                             day = l.getResult().getValue(Day.class);
                             if (l.getResult().exists()) {

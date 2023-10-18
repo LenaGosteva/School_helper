@@ -58,6 +58,7 @@ public class SubjectAdapter extends RecyclerView.Adapter<SubjectAdapter.SubjectV
         public TextView name;
         public TextView describtion;
         public TextView count;
+        public  View colorChip;
 
         public SubjectViewHolder(View itemView) {
             super(itemView);
@@ -65,6 +66,7 @@ public class SubjectAdapter extends RecyclerView.Adapter<SubjectAdapter.SubjectV
             name = itemView.findViewById(R.id.name_of_subject_item);
             count = itemView.findViewById(R.id.count_of_tasks_in_item_sb);
             describtion = itemView.findViewById(R.id.describtion_of_subject_item);
+            colorChip = itemView.findViewById(R.id.color_chip_in_sb_adapter);
 
 
         }
@@ -84,11 +86,12 @@ public class SubjectAdapter extends RecyclerView.Adapter<SubjectAdapter.SubjectV
     }
 
         holder.describtion.setText(subject.getDescription().length() > 16 ? subject.getDescription().substring(0, 16) + "..." : subject.getDescription());
-        holder.name.setTextColor(activity.getColor(subject.getColor()));
-        holder.count.setTextColor(activity.getColor(subject.getColor()));
-        holder.describtion.setTextColor(activity.getColor(subject.getColor()));
+//        holder.name.setTextColor(activity.getColor(subject.getColor()));
+//        holder.count.setTextColor(activity.getColor(subject.getColor()));
+//        holder.describtion.setTextColor(activity.getColor(subject.getColor()));
 
-//        holder.itemView.setBackgroundColor(activity.getColor(subject.getColor()));
+
+        holder.colorChip.setBackgroundColor(activity.getColor(subject.getColor()));
 
 
         holder.itemView.setOnClickListener(click -> {
