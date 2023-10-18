@@ -19,24 +19,24 @@ import com.example.school.ListActivity;
 import com.example.school.Logic.Subject;
 import com.example.school.R;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class SubjectAdapter extends RecyclerView.Adapter<SubjectAdapter.SubjectViewHolder> {
 
 
-    public ArrayList<Subject> getList() {
+    public List<Subject> getList() {
         return list;
     }
 
-    public void setList(ArrayList<Subject> list) {
+    public void setList(List<Subject> list) {
         this.list = list;
     }
 
-    ArrayList<Subject> list;
+    List<Subject> list;
     public final Activity activity;
 
 
-    public SubjectAdapter(ArrayList<Subject> list, Activity activity) {
+    public SubjectAdapter(List<Subject> list, Activity activity) {
         this.list = list;
         this.activity = activity;
     }

@@ -25,7 +25,7 @@ import java.util.List;
 public class TaskDayAdapter extends RecyclerView.Adapter<TaskDayAdapter.TaskViewHolder> {
 
     public final Activity activity;
-    ArrayList<Task> list;
+    List<Task> list;
     Day day;
 
     public TaskDayAdapter(Day day, Activity activity) {

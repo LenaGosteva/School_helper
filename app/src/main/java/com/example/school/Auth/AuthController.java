@@ -79,7 +79,7 @@ public class AuthController {
 
     public void addDayToDb(Day day, OnCompleteListener listener) {
         if (isAuth()) {
-            database.child("users").child(getUser().getUid()).child("days").child(day.getDate()).setValue(day).addOnCompleteListener(listener);
+            database.child("users").child(getUser().getUid()).child("days").child(day.getDate().toString()).setValue(day).addOnCompleteListener(listener);
         }
     }
     public void addSubjectToDb(Subject subject, OnCompleteListener listener) {

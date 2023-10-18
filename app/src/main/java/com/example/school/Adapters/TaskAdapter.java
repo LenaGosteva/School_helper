@@ -18,14 +18,14 @@ import com.example.school.Logic.Task;
 import com.example.school.R;
 import com.example.school.TaskActivity;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder> {
 
     public final Activity activity;
-    ArrayList<Task> list;
+    List<Task> list;
 
-    public TaskAdapter(ArrayList<Task> list, Activity activity) {
+    public TaskAdapter(List<Task> list, Activity activity) {
         this.list = list;
         this.activity = activity;
     }

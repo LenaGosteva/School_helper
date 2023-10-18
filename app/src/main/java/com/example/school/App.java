@@ -13,13 +13,14 @@ import java.net.InetAddress;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
+import java.util.List;
 
 public class App extends Application {
     private static App instance;
-    public ArrayList<Subject> usersSubject;
+    public List<Subject> usersSubject;
 
 
-    public static ArrayList days = new ArrayList<>();
+    public static List days = new ArrayList<>();
     static char[] firebase_symbols_ban = {'.', '#', '$', '[', ']'};
     static int[] colors_int =
             {R.color.sb_red,
@@ -45,7 +46,7 @@ public class App extends Application {
                     R.color.sb_blue_dark,
                     R.color.sb_purple_dark,
                     R.color.sb_brown_dark};
-    public static ArrayList<String> allSb_str = new ArrayList<>();
+    public static List<String> allSb_str = new ArrayList<>();
 
     static String[] colors_string =
             {"Red",
@@ -83,11 +84,11 @@ public class App extends Application {
         App.colors_int_fill = colors_int_fill;
     }
 
-    public static ArrayList<String> getDays() {
+    public static List<String> getDays() {
         return days;
     }
 
-    public static void setDays(ArrayList days) {
+    public static void setDays(List days) {
         App.days = days;
     }
 
@@ -108,19 +109,19 @@ public class App extends Application {
         App.colors_string = colors_string;
     }
 
-    public static ArrayList<String> getAllSb_str() {
+    public static List<String> getAllSb_str() {
         return allSb_str;
     }
 
-    public static void setAllSb_str(ArrayList<String> allSb_str) {
+    public static void setAllSb_str(List<String> allSb_str) {
         App.allSb_str = allSb_str;
     }
 
-    public ArrayList<Subject> getUsersSubject() {
+    public List<Subject> getUsersSubject() {
         return usersSubject;
     }
 
-    public void setUsersSubject(ArrayList<Subject> usersSubject) {
+    public void setUsersSubject(List<Subject> usersSubject) {
         this.usersSubject = usersSubject;
     }
 
@@ -152,7 +153,7 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
         authController.getAllSubjectsFromDb(task -> {
-            ArrayList<String> chosen_strings = new ArrayList<>();
+            List<String> chosen_strings = new ArrayList<>();
 
             if (task.isSuccessful()) {
                 for (DataSnapshot e : task.getResult().getChildren()) {

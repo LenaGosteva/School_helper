@@ -18,11 +18,12 @@ import com.example.school.databinding.ActivityListBinding;
 import com.google.firebase.database.DataSnapshot;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ListActivity extends AppCompatActivity {
 
     ActivityListBinding binding;
-    ArrayList<Task> tasks = new ArrayList<>();
+    List<Task> tasks = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

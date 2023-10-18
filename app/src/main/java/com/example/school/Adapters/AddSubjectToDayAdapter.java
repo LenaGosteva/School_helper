@@ -15,26 +15,26 @@ import com.example.school.Logic.Subject;
 import com.example.school.R;
 import com.example.school.databinding.FragmentDashboardBinding;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class AddSubjectToDayAdapter extends RecyclerView.Adapter<AddSubjectToDayAdapter.SubjectViewHolder> {
 
     FragmentDashboardBinding binding;
     Day day;
 
-    public ArrayList<Subject> getList() {
+    public List<Subject> getList() {
         return list;
     }
 
-    public void setList(ArrayList<Subject> list) {
+    public void setList(List<Subject> list) {
         this.list = list;
     }
 
-    ArrayList<Subject> list;
+    List<Subject> list;
     public final Activity activity;
 
 
-    public AddSubjectToDayAdapter(ArrayList<Subject> list, Activity activity, FragmentDashboardBinding binding, Day day) {
+    public AddSubjectToDayAdapter(List<Subject> list, Activity activity, FragmentDashboardBinding binding, Day day) {
         this.list = list;
         this.activity = activity;
         this.binding = binding;

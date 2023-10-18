@@ -28,6 +28,7 @@ import com.google.firebase.database.DataSnapshot;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 
 import io.grpc.ManagedChannelProvider;
@@ -35,7 +36,7 @@ import io.grpc.ManagedChannelProvider;
 public class HomeFragment extends Fragment {
 
     private FragmentHomeBinding binding;
-    ArrayList<Subject> test = new ArrayList<>();
+    List<Subject> test = new ArrayList<>();
     AuthController authController = new AuthController();
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -51,7 +52,7 @@ public class HomeFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         binding = FragmentHomeBinding.bind(view);
         if (App.isConnectedToNetwork()) {
-            AtomicReference<ArrayList<Subject>> list = new AtomicReference<>(new ArrayList<>());
+            AtomicReference<List<Subject>> list = new AtomicReference<>(new ArrayList<>());
 
             SubjectAdapter adapter = new SubjectAdapter(list.get(), getActivity());
             binding.list.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -135,7 +136,7 @@ public class HomeFragment extends Fragment {
                     list.get().add(s);
                     authController.addSubjectToDb(s, task -> {
                         if (task.isSuccessful()) {
-                            ArrayList<Subject> l = new ArrayList<>();
+                            List<Subject> l = new ArrayList<>();
                             authController.getAllSubjectsFromDb(task_ds -> {
                                 for (DataSnapshot e : task_ds.getResult().getChildren()) {
                                     l.add(e.getValue(Subject.class));

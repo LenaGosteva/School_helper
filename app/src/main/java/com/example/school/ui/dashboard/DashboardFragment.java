@@ -34,6 +34,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class DashboardFragment extends Fragment {
 
@@ -41,12 +42,12 @@ public class DashboardFragment extends Fragment {
     AuthController authController = new AuthController();
     String date;
     Day day = new Day();
-    ArrayList<Subject> list_of_sb = new ArrayList<>();
-    ArrayList<Subject> allSb = new ArrayList<>();
-    ArrayList<String> allSb_str = new ArrayList<>();
-    ArrayList<Task> allTasks = new ArrayList<>();
-    ArrayList<Task> allTasks_str = new ArrayList<>();
-    ArrayList<String> allDays = new ArrayList<>();
+    List<Subject> list_of_sb = new ArrayList<>();
+    List<Subject> allSb = new ArrayList<>();
+    List<String> allSb_str = new ArrayList<>();
+    List<Task> allTasks = new ArrayList<>();
+    List<Task> allTasks_str = new ArrayList<>();
+    List<String> allDays = new ArrayList<>();
 
 
     DateFormat dateFormat = new SimpleDateFormat("d MMMM yyyy");
@@ -54,7 +55,7 @@ public class DashboardFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         if (App.isConnectedToNetwork()) {
             authController.getAllSubjectsFromDb(task -> {
-                ArrayList<String> chosen_strings = new ArrayList<>();
+                List<String> chosen_strings = new ArrayList<>();
 
                 if (task.isSuccessful()) {
                     for (DataSnapshot e : task.getResult().getChildren()) {

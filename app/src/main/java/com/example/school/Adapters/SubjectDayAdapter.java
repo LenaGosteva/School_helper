@@ -19,20 +19,20 @@ import com.example.school.Logic.Day;
 import com.example.school.Logic.Subject;
 import com.example.school.R;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class SubjectDayAdapter extends RecyclerView.Adapter<SubjectDayAdapter.SubjectViewHolder> {
 
 
-    public ArrayList<Subject> getList() {
+    public List<Subject> getList() {
         return list;
     }
 
-    public void setList(ArrayList<Subject> list) {
+    public void setList(List<Subject> list) {
         this.list = list;
     }
 
-    ArrayList<Subject> list;
+    List<Subject> list;
     Day day;
     public final Activity activity;
 

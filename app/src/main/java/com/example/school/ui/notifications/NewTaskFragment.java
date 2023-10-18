@@ -22,12 +22,13 @@ import com.example.school.databinding.FragmentNewTaskBinding;
 import com.google.firebase.database.DataSnapshot;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class NewTaskFragment extends Fragment {
 
     private FragmentNewTaskBinding binding;
     AuthController authController = new AuthController();
-    ArrayList<String> allSb_str = new ArrayList<>();
+    List<String> allSb_str = new ArrayList<>();
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -44,7 +45,7 @@ public class NewTaskFragment extends Fragment {
         binding = FragmentNewTaskBinding.bind(view);
         if (App.isConnectedToNetwork()) {
             authController.getAllSubjectsFromDb(task -> {
-                ArrayList<String> chosen_strings = new ArrayList<>();
+                List<String> chosen_strings = new ArrayList<>();
 
                 if (task.isSuccessful()) {
                     for (DataSnapshot e : task.getResult().getChildren()) {

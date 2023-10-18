@@ -9,6 +9,7 @@ import com.google.firebase.database.DataSnapshot;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Date;
 import java.util.List;
 
@@ -17,12 +18,12 @@ public class Day {
 
     String date  = dateFormat.format(new Date());
 
-    public void setSubjects(ArrayList<Subject> subjects) {
+    public void setSubjects(List<Subject> subjects) {
         this.subjects = subjects;
     }
 
-    ArrayList<Subject> subjects = new ArrayList<>();
-    ArrayList<Task> tasks = new ArrayList<>();
+    List<Subject> subjects = new ArrayList<>();
+    List<Task> tasks = new ArrayList<>();
 
     public Day(String data) {
         this.date = data;
@@ -43,7 +44,7 @@ public class Day {
         this.date = data;
     }
     public void addSubject(Subject subject){
-        ArrayList<String> l = new ArrayList();
+        List<String> l = new ArrayList();
         for (Subject e: subjects) {
                 l.add(e.getName());
         }
@@ -52,7 +53,7 @@ public class Day {
         }
 
     }public void addTask(Task task){
-        ArrayList<String> l = new ArrayList();
+        List<String> l = new ArrayList();
         for (Task e: tasks) {
                 l.add(e.getName());
         }
@@ -64,10 +65,10 @@ public class Day {
     public void add(boolean j, Subject s){
 
     }
-    public void addSubjects(ArrayList<Subject> subject){
+    public void addSubjects(List<Subject> subject){
         subjects.addAll(subject);
     }
-    public void addTasks(ArrayList<Task> task){
+    public void addTasks(List<Task> task){
         task.addAll(task);
     }
 
@@ -79,15 +80,15 @@ public class Day {
         this.dateFormat = dateFormat;
     }
 
-    public ArrayList<Task> getTasks() {
+    public List<Task> getTasks() {
         return tasks;
     }
 
-    public void setTasks(ArrayList<Task> tasks) {
+    public void setTasks(List<Task> tasks) {
         this.tasks = tasks;
     }
 
-    public ArrayList<Subject> getSubjects() {
+    public List<Subject> getSubjects() {
         return subjects;
     }
 }
