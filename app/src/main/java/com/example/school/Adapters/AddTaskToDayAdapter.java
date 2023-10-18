@@ -7,34 +7,36 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.school.App;
 import com.example.school.Logic.Day;
 import com.example.school.Logic.Subject;
+import com.example.school.Logic.Task;
 import com.example.school.R;
 import com.example.school.databinding.FragmentDashboardBinding;
 
 import java.util.ArrayList;
 
-public class AddSubjectToDayAdapter extends RecyclerView.Adapter<AddSubjectToDayAdapter.SubjectViewHolder> {
+public class AddTaskToDayAdapter extends RecyclerView.Adapter<AddTaskToDayAdapter.SubjectViewHolder> {
 
     FragmentDashboardBinding binding;
     Day day;
 
-    public ArrayList<Subject> getList() {
+    public ArrayList<Task> getList() {
         return list;
     }
 
-    public void setList(ArrayList<Subject> list) {
+    public void setList(ArrayList<Task> list) {
         this.list = list;
     }
 
-    ArrayList<Subject> list;
+    ArrayList<Task> list;
     public final Activity activity;
 
 
-    public AddSubjectToDayAdapter(ArrayList<Subject> list, Activity activity, FragmentDashboardBinding binding, Day day) {
+    public AddTaskToDayAdapter(ArrayList<Task> list, Activity activity, FragmentDashboardBinding binding, Day day) {
         this.list = list;
         this.activity = activity;
         this.binding = binding;
@@ -48,7 +50,7 @@ public class AddSubjectToDayAdapter extends RecyclerView.Adapter<AddSubjectToDay
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_for_choose_sb_in_dashboard, parent, false);
 
         view.setLongClickable(true);
-        return new AddSubjectToDayAdapter.SubjectViewHolder(view);
+        return new AddTaskToDayAdapter.SubjectViewHolder(view);
     }
 
     @Override
@@ -70,11 +72,11 @@ public class AddSubjectToDayAdapter extends RecyclerView.Adapter<AddSubjectToDay
 
     @Override
     public void onBindViewHolder
-            (@NonNull AddSubjectToDayAdapter.SubjectViewHolder holder, int position) {
-        Subject subject = list.get(position);
-        holder.name.setText(subject.getName());
+            (@NonNull AddTaskToDayAdapter.SubjectViewHolder holder, int position) {
+        Task task = list.get(position);
+        holder.name.setText(task.getName());
         holder.itemView.setOnClickListener(click -> {
-            day.addSubject(subject);
+            day.addTask(task);
 
             App.getAuthController().addDayToDb(day, t -> {
                 binding.windowList.setVisibility(View.GONE);
@@ -82,13 +84,10 @@ public class AddSubjectToDayAdapter extends RecyclerView.Adapter<AddSubjectToDay
 
                 binding.addSubjectToDay.setVisibility(View.GONE);
                 binding.addTaskToDay.setVisibility(View.GONE);
-                if (binding.selectTackOrSubject.getSelectedTabPosition()==0){
-
-                    SubjectDayAdapter subjectDayAdapter = new SubjectDayAdapter(day, activity);
-                subjectDayAdapter.setList(day.getSubjects());
-                binding.daySubjects.setAdapter(subjectDayAdapter);
-
-                subjectDayAdapter.notifyDataSetChanged();}
+                if (binding.selectTackOrSubject.getSelectedTabPosition()==1){
+                TaskDayAdapter taskAdapter = new TaskDayAdapter(day, activity);
+                binding.daySubjects.setAdapter(taskAdapter);
+                taskAdapter.notifyDataSetChanged();}
             });
         });
     }

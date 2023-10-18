@@ -67,6 +67,9 @@ public class Day {
     public void addSubjects(ArrayList<Subject> subject){
         subjects.addAll(subject);
     }
+    public void addTasks(ArrayList<Task> task){
+        task.addAll(task);
+    }
 
     public DateFormat getDateFormat() {
         return dateFormat;

@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.school.Adapters.AddSubjectToDayAdapter;
+import com.example.school.Adapters.AddTaskToDayAdapter;
 import com.example.school.Adapters.SubjectDayAdapter;
 import com.example.school.Adapters.TaskAdapter;
 import com.example.school.App;
@@ -43,7 +44,10 @@ public class DashboardFragment extends Fragment {
     ArrayList<Subject> list_of_sb = new ArrayList<>();
     ArrayList<Subject> allSb = new ArrayList<>();
     ArrayList<String> allSb_str = new ArrayList<>();
+    ArrayList<Task> allTasks = new ArrayList<>();
+    ArrayList<Task> allTasks_str = new ArrayList<>();
     ArrayList<String> allDays = new ArrayList<>();
+
 
     DateFormat dateFormat = new SimpleDateFormat("d MMMM yyyy");
 
@@ -56,6 +60,7 @@ public class DashboardFragment extends Fragment {
                     for (DataSnapshot e : task.getResult().getChildren()) {
                         if (!allSb_str.contains(e.getValue(Subject.class).getName()))
                             allSb_str.add(e.getValue(Subject.class).getName());
+                        allTasks.addAll(e.getValue(Subject.class).getTasks().values());
                         if (!allSb.contains(e.getValue(Subject.class)))
                             allSb.add(e.getValue(Subject.class));
                     }
@@ -214,6 +219,15 @@ public class DashboardFragment extends Fragment {
 //                        subjectDayAdapter.notifyDataSetChanged();
 //                    });
 //                })
+            });
+            binding.addTaskToDay.setOnClickListener(klk->{
+                binding.windowList.setVisibility(View.VISIBLE);
+                binding.ok.setVisibility(View.GONE);
+                binding.hgh.setVisibility(View.GONE);
+
+                AddTaskToDayAdapter addSbAdapter = new AddTaskToDayAdapter(allTasks, this.getActivity(), binding,day);
+                binding.listOfSubjects.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false));
+                binding.listOfSubjects.setAdapter(addSbAdapter);
             });
             binding.hgh.setOnClickListener(b->{
                 binding.addSubjectToDay.setVisibility(View.VISIBLE);

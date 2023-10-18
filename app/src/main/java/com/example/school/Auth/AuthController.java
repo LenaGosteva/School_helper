@@ -87,18 +87,32 @@ public class AuthController {
             database.child("users").child(getUser().getUid()).child("subjects").child(subject.getName()).setValue(subject).addOnCompleteListener(listener);
         }
     }
+
     public void addSubjectToDay(String subject,String index, String day, OnCompleteListener listener) {
         if (isAuth()) {
             database.child("users").child(getUser().getUid()).child("days").child(day).child("subjects").child(index).setValue(subject).addOnCompleteListener(listener);
+        }
+    }
+    public void addTaskToDay(String task,String index, String day, OnCompleteListener listener) {
+        if (isAuth()) {
+            database.child("users").child(getUser().getUid()).child("days").child(day).child("tasks").child(index).setValue(task).addOnCompleteListener(listener);
         }
     }
     public void getSubjectsFromDay(String day, OnCompleteListener<DataSnapshot> listener) {
         if (isAuth())
             database.child("users").child(getUser().getUid()).child("days").child(day).child("subjects").get().addOnCompleteListener(listener);
     }
+    public void getTasksFromDay(String day, OnCompleteListener<DataSnapshot> listener) {
+        if (isAuth())
+            database.child("users").child(getUser().getUid()).child("days").child(day).child("tasks").get().addOnCompleteListener(listener);
+    }
     public void removeSubjectsFromDay(String day, OnCompleteListener listener) {
         if (isAuth())
             database.child("users").child(getUser().getUid()).child("days").child(day).child("subjects").removeValue().addOnCompleteListener(listener);
+    }
+    public void removeTasksFromDay(String day, OnCompleteListener listener) {
+        if (isAuth())
+            database.child("users").child(getUser().getUid()).child("days").child(day).child("tasks").removeValue().addOnCompleteListener(listener);
     }
 
     public void getSubjectFromDB(String subject,OnCompleteListener<DataSnapshot> listener) {
