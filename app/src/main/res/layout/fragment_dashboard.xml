@@ -88,7 +88,31 @@
             android:layout_below="@+id/top" />
 
 
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            android:id="@+id/add_task_to_day"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_above="@+id/add_subject_to_day"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="20dp"
+            app:backgroundTint="?attr/colorOnPrimary"
+            android:visibility="gone"
+            app:icon="@drawable/icon_add_task_to_day18dp"
+            app:iconSize="20dp" />
 
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            android:id="@+id/add_subject_to_day"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_above="@+id/hgh"
+            android:layout_alignParentRight="true"
+            android:visibility="gone"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="20dp"
+            app:backgroundTint="?attr/colorOnPrimary"
+            app:icon="@drawable/add_subject_to_day18dp"
+            app:iconSize="20dp" />
         <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
             android:id="@+id/hgh"
             android:layout_width="wrap_content"

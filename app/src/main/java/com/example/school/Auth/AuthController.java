@@ -16,6 +16,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.ArrayList;
+
 public class AuthController {
     private final FirebaseAuth auth;
 
@@ -87,7 +89,7 @@ public class AuthController {
             database.child("users").child(getUser().getUid()).child("subjects").child(subject.getName()).setValue(subject).addOnCompleteListener(listener);
         }
     }
-    public void addSubjectToDay(String subject,String index, String day, OnCompleteListener listener) {
+    public void addSubjectToDay(Subject subject,String index, String day, OnCompleteListener listener) {
         if (isAuth()) {
             database.child("users").child(getUser().getUid()).child("days").child(day).child("subjects").child(index).setValue(subject).addOnCompleteListener(listener);
         }
@@ -109,7 +111,26 @@ public class AuthController {
         if (isAuth()) {
             database.child("users").child(getUser().getUid()).child("subjects").child(subject).child("tasks").child(index).setValue(task).addOnCompleteListener(listener);
         }
-    }public void addCheckedToTask(boolean checked, String index, String subject, OnCompleteListener listener) {
+    }
+    public void addTasksToDay(ArrayList<Task> task,String day, OnCompleteListener listener) {
+        if (isAuth()) {
+            database.child("users").child(getUser().getUid()).child("days").child(day).child("tasks").setValue(task).addOnCompleteListener(listener);
+        }
+    }
+    public void removeTasksFromDay(String day, OnCompleteListener listener) {
+        if (isAuth()) {
+            database.child("users").child(getUser().getUid()).child("days").child(day).child("tasks").removeValue().addOnCompleteListener(listener);
+        }
+    }public void removeSubjectssFromDay(String day, OnCompleteListener listener) {
+        if (isAuth()) {
+            database.child("users").child(getUser().getUid()).child("days").child(day).child("subjects").removeValue().addOnCompleteListener(listener);
+        }
+    }public void addSubjectsToDay(ArrayList<Subject> subjects,String day, OnCompleteListener listener) {
+        if (isAuth()) {
+            database.child("users").child(getUser().getUid()).child("days").child(day).child("subjects").setValue(subjects).addOnCompleteListener(listener);
+        }
+    }
+    public void addCheckedToTask(boolean checked, String index, String subject, OnCompleteListener listener) {
         if (isAuth()) {
             database.child("users").child(getUser().getUid()).child("subjects").child(subject).child("tasks").child(index).child("completed").setValue(checked).addOnCompleteListener(listener);
         }

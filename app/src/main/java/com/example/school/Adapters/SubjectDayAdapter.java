@@ -100,9 +100,17 @@ public class SubjectDayAdapter extends RecyclerView.Adapter<SubjectDayAdapter.Su
                         dialog.dismiss();
                         day.getSubjects().remove(subject);
 
-                        App.getAuthController().addDayToDb(day, t -> {
-                            list.remove(subject);
-                            notifyDataSetChanged();
+
+
+                        list.remove(subject);
+                        notifyDataSetChanged();
+
+                        day.addSubjects(list);
+                        App.authController.removeSubjectssFromDay(day.getDate(), n -> {
+                            for (Subject s : list) {
+                                App.authController.addSubjectToDay(s, String.valueOf(list.indexOf(s)), day.getDate(), kjl -> {
+                                });
+                            }
                         });
                     }).setNegativeButton("Нет", (dialog, which) -> dialog.dismiss()).show();
 

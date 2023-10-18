@@ -14,27 +14,28 @@ import com.example.school.Logic.Day;
 import com.example.school.Logic.Subject;
 import com.example.school.R;
 import com.example.school.databinding.FragmentDashboardBinding;
+import com.google.android.gms.tasks.Task;
 
 import java.util.ArrayList;
 
-public class AddSubjectToDayAdapter extends RecyclerView.Adapter<AddSubjectToDayAdapter.SubjectViewHolder> {
+public class AddTaskToDayAdapter extends RecyclerView.Adapter<AddTaskToDayAdapter.SubjectViewHolder> {
 
     FragmentDashboardBinding binding;
     Day day;
 
-    public ArrayList<Subject> getList() {
+    public ArrayList<com.example.school.Logic.Task> getList() {
         return list;
     }
 
-    public void setList(ArrayList<Subject> list) {
+    public void setList(ArrayList<com.example.school.Logic.Task> list) {
         this.list = list;
     }
 
-    ArrayList<Subject> list;
+    ArrayList<com.example.school.Logic.Task> list;
     public final Activity activity;
 
 
-    public AddSubjectToDayAdapter(ArrayList<Subject> list, Activity activity, FragmentDashboardBinding binding, Day day) {
+    public AddTaskToDayAdapter(ArrayList<com.example.school.Logic.Task> list, Activity activity, FragmentDashboardBinding binding, Day day) {
         this.list = list;
         this.activity = activity;
         this.binding = binding;
@@ -45,10 +46,10 @@ public class AddSubjectToDayAdapter extends RecyclerView.Adapter<AddSubjectToDay
     @NonNull
     @Override
     public SubjectViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_for_choose_sb_in_dashboard, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_for_choose_task_in_dashboard, parent, false);
 
         view.setLongClickable(true);
-        return new AddSubjectToDayAdapter.SubjectViewHolder(view);
+        return new AddTaskToDayAdapter.SubjectViewHolder(view);
     }
 
     @Override
@@ -62,7 +63,7 @@ public class AddSubjectToDayAdapter extends RecyclerView.Adapter<AddSubjectToDay
         public SubjectViewHolder(View itemView) {
             super(itemView);
 
-            name = itemView.findViewById(R.id.name_of_subject_item_in_dashboard_choose);
+            name = itemView.findViewById(R.id.name_of_task_item_in_dashboard_choose);
 
 
         }
@@ -70,21 +71,16 @@ public class AddSubjectToDayAdapter extends RecyclerView.Adapter<AddSubjectToDay
 
     @Override
     public void onBindViewHolder
-            (@NonNull AddSubjectToDayAdapter.SubjectViewHolder holder, int position) {
-        Subject subject = list.get(position);
-        holder.name.setText(subject.getName());
+            (@NonNull AddTaskToDayAdapter.SubjectViewHolder holder, int position) {
+        com.example.school.Logic.Task task = list.get(position);
+        holder.name.setText(task.getName());
         holder.itemView.setOnClickListener(click -> {
-            day.addSubject(subject);
+            day.addTask(task);
 
-            App.getAuthController().addSubjectsToDay(day.getSubjects(), day.getDate(), t -> {
+            App.getAuthController().addTasksToDay(day.getTasks(), day.getDate(), t -> {
                 binding.windowList.setVisibility(View.GONE);
                 binding.hgh.setVisibility(View.VISIBLE);
 
-                SubjectDayAdapter subjectDayAdapter = new SubjectDayAdapter(day, activity);
-                subjectDayAdapter.setList(day.getSubjects());
-                binding.daySubjects.setAdapter(subjectDayAdapter);
-
-                subjectDayAdapter.notifyDataSetChanged();
             });
         });
     }
