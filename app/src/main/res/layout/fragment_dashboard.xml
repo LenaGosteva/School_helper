@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.dashboard.DashboardFragment">
 
     <TextView
@@ -19,6 +19,8 @@
     <RelativeLayout
         android:id="@+id/dashboard_fragment_with_internet"
         android:layout_width="match_parent"
+        android:background="@color/curtain_for_background"
+
         android:layout_height="match_parent">
 
         <RelativeLayout
@@ -50,28 +52,27 @@
                 android:hint="Day: Sep 14, 2023"
                 android:paddingHorizontal="20dp"
                 android:textSize="30sp" />
+
             <com.google.android.material.tabs.TabLayout
-                android:layout_width="match_parent"
-                app:tabIndicator="@color/medium_dark"
-                app:tabIndicatorHeight="2dp"
-                app:tabIndicatorAnimationMode="fade"
                 android:id="@+id/select_tack_or_subject"
-                app:tabIndicatorFullWidth="false"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_below="@+id/day_name"
                 android:background="?attr/colorOnPrimary"
-                android:layout_height="wrap_content">
+                app:tabIndicator="@color/medium_dark"
+                app:tabIndicatorAnimationMode="fade"
+                app:tabIndicatorFullWidth="false"
+                app:tabIndicatorHeight="2dp">
 
                 <com.google.android.material.tabs.TabItem
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Предметы"
-                    />
+                    android:text="Предметы" />
 
                 <com.google.android.material.tabs.TabItem
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Задания"
-                    />
+                    android:text="Задания" />
 
             </com.google.android.material.tabs.TabLayout>
         </RelativeLayout>
@@ -81,72 +82,116 @@
         <!--            android:layout_above="@+id/day_subjects"-->
         <!--            android:background="@color/black" />-->
 
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/day_subjects"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/top" />
+            android:layout_below="@+id/top"
+            android:paddingTop="20dp"
+            android:paddingHorizontal="10dp"
+            android:background="@color/curtain_for_background" />
 
-
-        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-            android:id="@+id/add_task_to_day"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_above="@+id/add_subject_to_day"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="20dp"
-            android:layout_marginBottom="20dp"
-            app:backgroundTint="?attr/colorOnPrimary"
+        <LinearLayout
+            android:id="@+id/layout_add_subject_to_day"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:visibility="gone"
-            app:icon="@drawable/icon_add_task_to_day18dp"
-            app:iconSize="20dp" />
+            android:layout_above="@+id/layout_add_task_to_day"
+            android:layout_alignParentRight="true">
 
-        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-            android:id="@+id/add_subject_to_day"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="20sp"
+                android:background="@drawable/button"
+                android:elevation="4dp"
+                android:padding="5dp"
+                android:text="Задание"
+
+                app:backgroundTint="?attr/colorOnPrimary" />
+
+            <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+                android:id="@+id/add_task_to_day"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="20dp"
+                android:visibility="visible"
+                app:backgroundTint="?attr/colorOnPrimary"
+                app:icon="@drawable/icon_add_task_to_day18dp"
+                app:iconSize="20dp" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_add_task_to_day"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
             android:layout_above="@+id/hgh"
-            android:layout_alignParentRight="true"
-            android:visibility="gone"
-            android:layout_marginRight="20dp"
-            android:layout_marginBottom="20dp"
-            app:backgroundTint="?attr/colorOnPrimary"
-            app:icon="@drawable/add_subject_to_day18dp"
-            app:iconSize="20dp" />
+            android:layout_alignParentRight="true">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="20sp"
+                android:background="@drawable/button"
+                android:elevation="4dp"
+                android:padding="5dp"
+                android:text="Предмет"
+
+                app:backgroundTint="?attr/colorOnPrimary" />
+
+            <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+                android:id="@+id/add_subject_to_day"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_above="@+id/hgh"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="20dp"
+                android:visibility="visible"
+                app:backgroundTint="?attr/colorOnPrimary"
+                app:icon="@drawable/add_subject_to_day18dp"
+                app:iconSize="20dp" />
+        </LinearLayout>
+
         <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
             android:id="@+id/hgh"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            app:icon = "@drawable/icon_add_not_outline"
-            app:backgroundTint="?attr/colorOnPrimary"
-            app:iconSize = "40dp"
             android:layout_alignParentBottom="true"
             android:layout_marginRight="20dp"
-            android:layout_marginBottom="20dp" />
+            android:layout_marginBottom="20dp"
+            app:backgroundTint="?attr/colorOnPrimary"
+            app:icon="@drawable/icon_add_not_outline"
+            app:iconSize="40dp" />
     </RelativeLayout>
+
     <RelativeLayout
         android:id="@+id/window_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:translationZ="50dp"
-    android:layout_centerVertical="true"
         android:layout_alignParentBottom="true"
+        android:layout_centerVertical="true"
         android:background="@color/null_color"
+        android:translationZ="50dp"
         android:visibility="gone">
 
-<!--        <ListView-->
-<!--            android:id="@+id/list_of_subjects"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:visibility="visible" />-->
+        <!--        <ListView-->
+        <!--            android:id="@+id/list_of_subjects"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:visibility="visible" />-->
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/list_of_subjects"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:visibility="visible" />
-
 
 
         <Button

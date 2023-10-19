@@ -28,6 +28,7 @@ public class NewTaskFragment extends Fragment {
     private FragmentNewTaskBinding binding;
     AuthController authController = new AuthController();
     ArrayList<String> allSb_str = new ArrayList<>();
+    int panic = 0;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -77,11 +78,20 @@ public class NewTaskFragment extends Fragment {
                     if (binding.nameOfTask.getText().toString().isEmpty()) {
                         Toast.makeText(getContext(), "Вы забыли про название!", Toast.LENGTH_SHORT).show();
                     } else {
+                        if (binding.radioGroupPanic.getCheckedRadioButtonId()==binding.notPanic.getId()){
+                            panic = 0;
+                        } else if (binding.radioGroupPanic.getCheckedRadioButtonId()==binding.panic.getId()) {
+                            panic = 1;
+                        }else if (binding.radioGroupPanic.getCheckedRadioButtonId()==binding.megaPanic.getId()) {
+                            panic = 2;
+                        }
+
+
                         name = binding.nameOfTask.getText().toString();
                         comment = binding.commentOfTask.getText().toString().isEmpty() ? "This is comment" : binding.commentOfTask.getText().toString();
                         theory = binding.theoryOfTask.getText().toString().isEmpty() ? "This is comment" : binding.theoryOfTask.getText().toString();
                         practice = binding.practiceOfTask.getText().toString().isEmpty() ? "This is comment" : binding.practiceOfTask.getText().toString();
-                        authController.addTaskToSubject(new Task(name, comment, theory, practice, subject), name, subject, l -> {
+                        authController.addTaskToSubject(new Task(name, comment, theory, practice, subject,panic,false), name, subject, l -> {
                             binding.nameOfTask.setText("");
                             binding.commentOfTask.setText("");
                             binding.theoryOfTask.setText("");

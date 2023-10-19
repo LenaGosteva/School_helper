@@ -17,6 +17,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class AuthController {
     private final FirebaseAuth auth;
@@ -91,12 +92,16 @@ public class AuthController {
     }
     public void addSubjectToDay(Subject subject,String index, String day, OnCompleteListener listener) {
         if (isAuth()) {
-            database.child("users").child(getUser().getUid()).child("days").child(day).child("subjects").child(index).setValue(subject).addOnCompleteListener(listener);
+            database.child("users").child(getUser().getUid()).child("days").child(String.valueOf(new Date(day).getDate())).child("subjects").child(index).setValue(subject).addOnCompleteListener(listener);
         }
     }
     public void getSubjectsFromDay(String day, OnCompleteListener<DataSnapshot> listener) {
         if (isAuth())
             database.child("users").child(getUser().getUid()).child("days").child(day).child("subjects").get().addOnCompleteListener(listener);
+    }
+    public void getTasksFromDay(String day, OnCompleteListener<DataSnapshot> listener) {
+        if (isAuth())
+            database.child("users").child(getUser().getUid()).child("days").child(day).child("tasks").get().addOnCompleteListener(listener);
     }
 
     public void getSubjectFromDB(String subject,OnCompleteListener<DataSnapshot> listener) {

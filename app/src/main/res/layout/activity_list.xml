@@ -58,6 +58,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/list_of_tasks"
         android:layout_below="@+id/top"
+        android:paddingTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
@@ -135,6 +136,40 @@
             android:hint="Введите практику задания (не обязательно)"
             android:textColorHint="#80000000" />
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_marginVertical="10dp"
+            android:text="Выберите, насколько задание важно"
+            android:textSize="18sp"
+            android:layout_below="@+id/practice_of_task_list_activity"
+            android:id="@+id/text_to_panic_home_fragment"
+            android:layout_height="wrap_content"/>
+        <RadioGroup
+            android:id="@+id/radioGroup_panic_list_activity"
+            android:layout_below="@+id/text_to_panic_home_fragment"
+            android:checkedButton="@+id/not_panic"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <RadioButton
+                android:id="@+id/not_panic_list_activity"
+                android:layout_width="wrap_content"
+                android:layout_marginRight="5dp"
+                android:layout_height="match_parent"
+                android:text="Не важно"/>
+            <RadioButton
+                android:id="@+id/panic_list_activity"
+                android:layout_width="wrap_content"
+                android:layout_marginRight="5dp"
+                android:layout_height="match_parent"
+                android:text="Важно"/>
+            <RadioButton
+                android:id="@+id/mega_panic_list_activity"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="Очень важно"/>
+        </RadioGroup>
+
         <Button
             android:id="@+id/new_task_list_activity"
             android:layout_width="wrap_content"
@@ -142,15 +177,13 @@
             android:textAllCaps="false"
             android:textStyle="normal"
             android:fontFamily="casual"
-            android:layout_below="@+id/practice_of_task_list_activity"
+            android:layout_below="@+id/radioGroup_panic_list_activity"
             android:layout_alignParentRight="true"
             android:layout_alignParentBottom="true"
             android:background="@color/null_color"
             android:textColor="@color/high_dark"
             android:clickable="true"
             android:text="Добавить" />
-
-
 
 
 

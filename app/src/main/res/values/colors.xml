@@ -46,4 +46,6 @@
 
 
     <color name="curtain_for_completed_task_item">#4D777777</color>
+    <color name="curtain_for_background">#31CFCECE</color>
+    <color name="too_panic">#FFB700</color>
 </resources>

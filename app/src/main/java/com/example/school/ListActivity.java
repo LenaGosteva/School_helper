@@ -23,6 +23,7 @@ public class ListActivity extends AppCompatActivity {
 
     ActivityListBinding binding;
     ArrayList<Task> tasks = new ArrayList<>();
+    int panic=0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,6 +53,7 @@ public class ListActivity extends AppCompatActivity {
         });
             binding.newTaskListActivity.setOnClickListener(newt ->{
 
+
                 String name = binding.nameOfTaskListActivity.getText().toString();
                 String comment = binding.commentOfTaskListActivity.getText().toString().isEmpty()?"Комментарий задания":binding.commentOfTaskListActivity.getText().toString();
                 String theory = binding.theoryOfTaskListActivity.getText().toString().isEmpty()?"Теория задания":binding.theoryOfTaskListActivity.getText().toString();
@@ -69,7 +71,14 @@ public class ListActivity extends AppCompatActivity {
                     }
                 }
                 if (!name.isEmpty()&&f) {
-                    Task s = new Task(name,comment, theory, practise, getIntent().getExtras().getString(App.SUBJECT, "Additionally"));
+                    if (binding.radioGroupPanicListActivity.getCheckedRadioButtonId()==binding.notPanicListActivity.getId()){
+                    panic = 0;
+                } else if (binding.radioGroupPanicListActivity.getCheckedRadioButtonId()==binding.panicListActivity.getId()) {
+                    panic = 1;
+                }else if (binding.radioGroupPanicListActivity.getCheckedRadioButtonId()==binding.megaPanicListActivity.getId()) {
+                    panic = 2;
+                }
+                    Task s = new Task(name,comment, theory, practise, getIntent().getExtras().getString(App.SUBJECT, "Additionally"), panic, false);
                     tasks.add(s);
                     TaskAdapter taskAdapter = new TaskAdapter(tasks, this);
                     binding.listOfTasks.setLayoutManager(new LinearLayoutManager(this));

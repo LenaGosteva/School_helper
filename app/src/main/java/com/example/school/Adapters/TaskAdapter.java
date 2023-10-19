@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.TextView;
+import android.widget.ViewSwitcher;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -47,19 +48,31 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
         return list.size();
     }
 
+    public void setList(ArrayList<Task> tasks) {
+        this.list = tasks;
+    }
+
+    public ArrayList<Task> getList() {
+        return this.list;
+    }
+
     public static class TaskViewHolder extends RecyclerView.ViewHolder {
         public TextView name;
         public TextView comment;
         public View curtain;
         public CheckBox isCompleted;
+        public ViewSwitcher viewSwitcher;
+        View  color;
 
         public TaskViewHolder(View itemView) {
             super(itemView);
 
+            viewSwitcher = itemView.findViewById(R.id.view_switcher_panic_or_not);
             name = itemView.findViewById(R.id.name_of_task);
             curtain = itemView.findViewById(R.id.curtain_for_completed_task_item);
             comment = itemView.findViewById(R.id.comment_of_task);
             isCompleted = itemView.findViewById(R.id.is_Completed);
+            color = itemView.findViewById(R.id.task_color_chip);
 
         }
     }
@@ -68,10 +81,17 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
     public void onBindViewHolder(@NonNull TaskViewHolder holder, int position) {
         Task task = list.get(position);
 
-
-        holder.itemView.setBackgroundColor(
+        if (task.getPanic()==1||task.getPanic()==2){
+            holder.viewSwitcher.setVisibility(View.VISIBLE);
+            if (task.getPanic() == 1) {
+                holder.viewSwitcher.showPrevious();
+            } else {
+                holder.viewSwitcher.showNext();
+            }
+        }
+        holder.color.setBackgroundColor(
                 activity.getIntent().getIntExtra(App.COLOR, R.color.sb_brown));
-        holder.curtain.setVisibility(task.isCompleted() ? View.VISIBLE : View.GONE);
+        holder.itemView.setBackground(task.isCompleted() ? activity.getDrawable(R.drawable.recycler_tasks_curtain):activity.getDrawable(R.drawable.recycler_tasks));
 
         holder.name.setText(task.getName());
         holder.comment.setText((task.getComment().length() > 24) ? task.getComment().substring(0, 24) + "..." : task.getComment());
@@ -80,10 +100,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
 
         holder.isCompleted.setOnCheckedChangeListener((buttonView, isChecked) -> {
             task.setCompleted(isChecked);
-            holder.itemView.setBackgroundColor(
-                    activity.getIntent().getIntExtra(App.COLOR, R.color.sb_brown));
-            holder.curtain.setVisibility(task.isCompleted() ? View.VISIBLE : View.GONE);
-
+            holder.itemView.setBackground(task.isCompleted() ? activity.getDrawable(R.drawable.recycler_tasks_curtain):activity.getDrawable(R.drawable.recycler_tasks));
             App.getAuthController().addTaskToSubject(task, task.getName(), task.getSubject(), b -> {
             });
 

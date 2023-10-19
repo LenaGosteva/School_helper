@@ -80,11 +80,13 @@ public class AddSubjectToDayAdapter extends RecyclerView.Adapter<AddSubjectToDay
                 binding.windowList.setVisibility(View.GONE);
                 binding.hgh.setVisibility(View.VISIBLE);
 
-                SubjectDayAdapter subjectDayAdapter = new SubjectDayAdapter(day, activity);
-                subjectDayAdapter.setList(day.getSubjects());
-                binding.daySubjects.setAdapter(subjectDayAdapter);
+                if (binding.selectTackOrSubject.getSelectedTabPosition()==0) {
+                    SubjectDayAdapter subjectDayAdapter = new SubjectDayAdapter(day, activity);
+                    subjectDayAdapter.setList(day.getSubjects());
+                    binding.daySubjects.setAdapter(subjectDayAdapter);
 
-                subjectDayAdapter.notifyDataSetChanged();
+                    subjectDayAdapter.notifyDataSetChanged();
+                }
             });
         });
     }

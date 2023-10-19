@@ -6,6 +6,7 @@ public class Task {
     String theory = "Теория задания";
     String practice = "Практика задания";
     String subject = "Дополнительно задания";
+    int panic;
 
     public String getSubject() {
         return subject;
@@ -62,7 +63,27 @@ public class Task {
         this.theory = theory;
         this.practice = practice;
         this.subject = subject;
+        this.panic = 1;
     }
+
+    public Task(String name, String comment, String theory, String practice, String subject, int panic, boolean isCompleted) {
+        this.name = name;
+        this.comment = comment;
+        this.theory = theory;
+        this.practice = practice;
+        this.subject = subject;
+        this.panic = panic;
+        this.isCompleted = isCompleted;
+    }
+
+    public int getPanic() {
+        return panic;
+    }
+
+    public void setPanic(int panic) {
+        this.panic = panic;
+    }
+
     public Task(){
     }
 

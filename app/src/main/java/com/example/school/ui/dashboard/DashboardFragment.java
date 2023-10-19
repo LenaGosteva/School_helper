@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -34,6 +35,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Locale;
 
 public class DashboardFragment extends Fragment {
 
@@ -47,7 +49,7 @@ public class DashboardFragment extends Fragment {
     ArrayList<String> allSb_str = new ArrayList<>();
     ArrayList<String> allDays = new ArrayList<>();
 
-    DateFormat dateFormat = new SimpleDateFormat("d MMMM yyyy");
+    DateFormat dateFormat = new SimpleDateFormat("d MMMM yyyy", new Locale("ru"));
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         if (App.isConnectedToNetwork()) {
@@ -91,56 +93,48 @@ public class DashboardFragment extends Fragment {
 
 
 //        if (App.isConnectedToNetwork()) {
-            subjectDayAdapter = new SubjectDayAdapter(day, getActivity());
-            binding.daySubjects.setLayoutManager(new LinearLayoutManager(getContext()));
-            binding.daySubjects.setAdapter(subjectDayAdapter);
+        date = dateFormat.format(new Date());
 
+        authController.getDayFromDB(date, task -> {
+            if (task.getResult().exists()) {
+                day = task.getResult().getValue(Day.class);
+                binding.dayName.setText(day.getDate());
 
-            date = dateFormat.format(new Date());
+            } else {
+                day = new Day(date);
+                allDays.add(date);
+                binding.dayName.setText(day.getDate());
+                authController.addSubjectsToDay(day.getSubjects(), date, g -> {
+                });
+                authController.addTasksToDay(day.getTasks(), date, ghjg -> {
+                });
+                Log.e("OH", day.getSubjects().size() + " ");
 
-            authController.getDayFromDB(date, task -> {
-                if (task.getResult().exists()) {
-                    day = task.getResult().getValue(Day.class);
-                    binding.dayName.setText(day.getDate());
+            }
+            setListToRecyclerView();
 
-                } else {
-                    day = new Day(date);
-                    allDays.add(date);
-                    binding.dayName.setText(day.getDate());
-                    authController.addSubjectsToDay(day.getSubjects(), date, g -> {
-                    });
-                    authController.addTasksToDay(day.getTasks(), date,ghjg->{});
-                }
+        });
+        authController.getSubjectsFromDay(date, l -> {
+            for (DataSnapshot e : l.getResult().getChildren()) {
+                day.addSubject(e.getValue(Subject.class));
+            }
+        });
+        authController.getTasksFromDay(date, l -> {
+            for (DataSnapshot e : l.getResult().getChildren()) {
+                day.addTask(e.getValue(Task.class));
+            }
+        });
 
-            });
-            authController.getSubjectsFromDay(date, l -> {
-                for (DataSnapshot e : l.getResult().getChildren()) {
-                    day.addSubject(e.getValue(Subject.class));
-                    subjectDayAdapter.setList(day.getSubjects());
-                }
-            });
-
-            subjectDayAdapter.notifyDataSetChanged();
-
-            Log.e("OH", day.getSubjects().size() + " ");
 
         binding.selectTackOrSubject.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                int index = tab.getPosition();
-                if (index==1){
-                    taskAdapter = new TaskAdapter(day.getTasks(), getActivity());
-                    binding.daySubjects.setLayoutManager(new LinearLayoutManager(getContext()));
-                    binding.daySubjects.setAdapter(taskAdapter);
-                }else{
-                    subjectDayAdapter = new SubjectDayAdapter(day, getActivity());
-                    binding.daySubjects.setLayoutManager(new LinearLayoutManager(getContext()));
-                    binding.daySubjects.setAdapter(subjectDayAdapter);
-                }
+               setListToRecyclerView();
             }
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
+
             }
 
             @Override
@@ -148,63 +142,77 @@ public class DashboardFragment extends Fragment {
 
             }
         });
-            binding.calendar.setOnClickListener(cl -> {
+        binding.calendar.setOnClickListener(cl -> {
 
-                MaterialDatePicker dates = MaterialDatePicker.Builder.datePicker().setTitleText("Select date").build();
-                dates.show(getActivity().getSupportFragmentManager(), "tag");
-                dates.addOnPositiveButtonClickListener(selection -> {
-                    Date d = new Date((Long) dates.getSelection());
+            MaterialDatePicker dates = MaterialDatePicker.Builder.datePicker().setTitleText("Select date").build();
+            dates.show(getActivity().getSupportFragmentManager(), "tag");
+            dates.addOnPositiveButtonClickListener(selection -> {
+                Date d = new Date(dates.getHeaderText());
 
-                    date = dateFormat.format(d);
-                    if (allDays.contains(dates.getSelection())) {
-                        authController.getDayFromDB(date, l -> {
-                            day = l.getResult().getValue(Day.class);
-                            if (l.getResult().exists()) {
-                                day = l.getResult().getValue(Day.class);
-                                binding.dayName.setText(day.getDate());
-
-                            } else {
-                                day = new Day(date);
-                                allDays.add(date);
-                                binding.dayName.setText(day.getDate());
-                                authController.addDayToDb(day, g -> {
-                                });
-                            }
-                        });
+                date = dateFormat.format(d);
+binding.dayName.setText(date);
+                authController.getDayFromDB(date, task -> {
+                    if (task.getResult().exists()) {
+                        day = task.getResult().getValue(Day.class);
                     } else {
-                        authController.addDayToDb(new Day(date), l -> {
-                            day = new Day(date);
-                            allDays.add(date);
-                            binding.dayName.setText(day.getDate());
-
+                        day = new Day(date);
+                        allDays.add(date);
+                        authController.addSubjectsToDay(day.getSubjects(), date, g -> {
                         });
+                        authController.addTasksToDay(day.getTasks(), date, ghjg -> {
+                        });
+
                     }
-                    authController.getSubjectsFromDay(date, l -> {
-                        for (DataSnapshot e : l.getResult().getChildren()) {
-                            day.addSubject(e.getValue(Subject.class));
-                            subjectDayAdapter.setList(day.getSubjects());
-                        }
-                    });
-                    binding.dayName.setText(day.getDate());
-                    subjectDayAdapter.notifyDataSetChanged();
+                    setListToRecyclerView();
 
                 });
+//
+//                authController.getSubjectsFromDay(date, l -> {
+//                    for (DataSnapshot e : l.getResult().getChildren()) {
+//                        day.addSubject(e.getValue(Subject.class));
+//                        subjectDayAdapter.setList(day.getSubjects());
+//                    }
+//                });
+//                binding.dayName.setText(day.getDate());
+//                if (binding.selectTackOrSubject.getSelectedTabPosition() == 1) {
+//                    Log.e("agfd",day.getTasks().size()+"");
+//                    taskAdapter = new TaskAdapter(day.getTasks(), getActivity());
+//                    binding.daySubjects.setLayoutManager(new LinearLayoutManager(getContext()));
+//                    binding.daySubjects.setAdapter(taskAdapter);
+//                    authController.addTasksToDay(taskAdapter.getList(),date, hjh->{});
+//                } else {
+//                    subjectDayAdapter = new SubjectDayAdapter(day, getActivity());
+//                    binding.daySubjects.setLayoutManager(new LinearLayoutManager(getContext()));
+//                    binding.daySubjects.setAdapter(subjectDayAdapter);
+//                    authController.addSubjectsToDay(subjectDayAdapter.getList(),date, hjh->{});
+//
+//                }
             });
-            binding.hgh.setOnClickListener(sdfg->{
-                binding.addSubjectToDay.setVisibility(binding.addSubjectToDay.getVisibility()==View.VISIBLE? View.GONE:View.VISIBLE);
-                binding.addTaskToDay.setVisibility(binding.addTaskToDay.getVisibility()==View.VISIBLE? View.GONE:View.VISIBLE);
-            });
-            binding.addSubjectToDay.setOnClickListener(df -> {
+        });
+        binding.hgh.setOnClickListener(sdfg -> {
+
+            binding.layoutAddSubjectToDay.setVisibility(binding.layoutAddSubjectToDay.getVisibility() == View.VISIBLE ? View.GONE : View.VISIBLE);
+            binding.layoutAddTaskToDay.setVisibility(binding.layoutAddTaskToDay.getVisibility() == View.VISIBLE ? View.GONE : View.VISIBLE);
+        });
+        binding.addSubjectToDay.setOnClickListener(df -> {
+            if (allSb.size() != 0) {
+
+
                 binding.windowList.setVisibility(View.VISIBLE);
                 binding.ok.setVisibility(View.GONE);
 
-                binding.addSubjectToDay.setVisibility(View.GONE);
-                binding.addTaskToDay.setVisibility(View.GONE);
+                binding.layoutAddSubjectToDay.setVisibility(View.GONE);
+                binding.layoutAddTaskToDay.setVisibility(View.GONE);
                 binding.hgh.setVisibility(View.GONE);
 
-                AddSubjectToDayAdapter addSbAdapter = new AddSubjectToDayAdapter(allSb, this.getActivity(), binding,day);
+                AddSubjectToDayAdapter addSbAdapter = new AddSubjectToDayAdapter(allSb, this.getActivity(), binding, day);
                 binding.listOfSubjects.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false));
                 binding.listOfSubjects.setAdapter(addSbAdapter);
+            } else {
+
+                Toast.makeText(getContext(), "Предметов нет((", Toast.LENGTH_SHORT).show();
+
+            }
 //                ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), R.layout.item_for_choose_sb_in_dashboard, R.id.name_of_subject_item_in_dashboard_choose, allSb_str);
 //                binding.listOfSubjects.setAdapter(adapter);
 //
@@ -220,19 +228,24 @@ public class DashboardFragment extends Fragment {
 //                        subjectDayAdapter.notifyDataSetChanged();
 //                    });
 //                });
-            });
-            binding.addTaskToDay.setOnClickListener(dfg->{
+        });
+        binding.addTaskToDay.setOnClickListener(dfg -> {
+            if (allTasks.size() != 0) {
+
 
                 binding.windowList.setVisibility(View.VISIBLE);
                 binding.ok.setVisibility(View.GONE);
 
-                binding.addSubjectToDay.setVisibility(View.GONE);
-                binding.addTaskToDay.setVisibility(View.GONE);
+                binding.layoutAddSubjectToDay.setVisibility(View.GONE);
+                binding.layoutAddTaskToDay.setVisibility(View.GONE);
                 binding.hgh.setVisibility(View.GONE);
-                AddTaskToDayAdapter addSbAdapter = new AddTaskToDayAdapter(allTasks, this.getActivity(), binding,day);
+                AddTaskToDayAdapter addSbAdapter = new AddTaskToDayAdapter(allTasks, this.getActivity(), binding, day);
                 binding.listOfSubjects.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false));
                 binding.listOfSubjects.setAdapter(addSbAdapter);
-            });
+            } else {
+                Toast.makeText(getContext(), "Заданий нет((", Toast.LENGTH_SHORT).show();
+            }
+        });
 //        }
 //        else{
 //            binding.textNoInternet.setVisibility(View.VISIBLE);
@@ -240,6 +253,19 @@ public class DashboardFragment extends Fragment {
 //            );
 //        }
 
+    }
+
+    public void setListToRecyclerView(){
+        if (binding.selectTackOrSubject.getSelectedTabPosition()==1) {
+            Log.e("agfd", day.getTasks().size() + "");
+            taskAdapter = new TaskAdapter(day.getTasks(), getActivity());
+            binding.daySubjects.setLayoutManager(new LinearLayoutManager(getContext()));
+            binding.daySubjects.setAdapter(taskAdapter);
+        } else {
+            subjectDayAdapter = new SubjectDayAdapter(day, getActivity());
+            binding.daySubjects.setLayoutManager(new LinearLayoutManager(getContext()));
+            binding.daySubjects.setAdapter(subjectDayAdapter);
+        }
     }
 
     @Override

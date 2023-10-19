@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -94,18 +95,61 @@
                     android:layout_marginVertical="5dp"
                     android:background="@color/null_color"
                     android:hint="Введите практику задания" />
-
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_marginVertical="10dp"
+                    android:text="Выберите предмет"
+                    android:textSize="18sp"
+                    android:layout_below="@+id/practice_of_task"
+                    android:id="@+id/text_to_subject_home_fragment"
+                    android:layout_height="wrap_content"/>
                 <LinearLayout
                     android:layout_width="match_parent"
+                    android:id="@+id/layout_with_sb_in_home_fragment"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/practice_of_task">
+                    android:layout_below="@+id/text_to_subject_home_fragment">
 
 
                     <Spinner
                         android:id="@+id/subject_of_task"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="60dp" />
                 </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_marginVertical="10dp"
+                    android:text="Выберите, насколько задание важно"
+                    android:textSize="18sp"
+                    android:layout_below="@+id/layout_with_sb_in_home_fragment"
+                    android:id="@+id/text_to_panic_home_fragment"
+                    android:layout_height="wrap_content"/>
+                <RadioGroup
+                    android:id="@+id/radioGroup_panic"
+                    android:layout_below="@+id/text_to_panic_home_fragment"
+                    android:checkedButton="@+id/not_panic"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <RadioButton
+                        android:id="@+id/not_panic"
+                        android:layout_width="wrap_content"
+                        android:layout_marginRight="5dp"
+                        android:layout_height="match_parent"
+                        android:text="Не важно"/>
+                    <RadioButton
+                        android:id="@+id/panic"
+                        android:layout_width="wrap_content"
+                        android:layout_marginRight="5dp"
+                        android:layout_height="match_parent"
+                        android:text="Важно"/>
+                    <RadioButton
+                        android:id="@+id/mega_panic"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="Очень важно"/>
+                </RadioGroup>
+
             </RelativeLayout>
 
             <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton

@@ -20,6 +20,7 @@ import com.example.school.Logic.Subject;
 import com.example.school.R;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class SubjectDayAdapter extends RecyclerView.Adapter<SubjectDayAdapter.SubjectViewHolder> {
 
@@ -60,12 +61,16 @@ public class SubjectDayAdapter extends RecyclerView.Adapter<SubjectDayAdapter.Su
     public static class SubjectViewHolder extends RecyclerView.ViewHolder {
         public TextView name;
         public TextView describtion;
+        public TextView count;
+        public  View colorChip;
 
         public SubjectViewHolder(View itemView) {
             super(itemView);
 
             name = itemView.findViewById(R.id.name_of_subject_item);
+            count = itemView.findViewById(R.id.count_of_tasks_in_item_sb);
             describtion = itemView.findViewById(R.id.describtion_of_subject_item);
+            colorChip = itemView.findViewById(R.id.color_chip_in_sb_adapter);
 
 
         }
@@ -77,9 +82,19 @@ public class SubjectDayAdapter extends RecyclerView.Adapter<SubjectDayAdapter.Su
         Subject subject = list.get(position);
 
         holder.name.setText(subject.getName());
-        holder.describtion.setText(subject.getDescription().length() > 16 ? subject.getDescription().substring(0, 16) + "..." : subject.getDescription());
-        holder.itemView.setBackgroundColor(activity.getColor(subject.getColor()));
+        try{
+            holder.count.setText(String.valueOf(subject.getTasks().size()));}
+        catch (NullPointerException e){
+            holder.count.setText(String.valueOf(0));
 
+        }
+
+        holder.describtion.setText(subject.getDescription().length() > 16 ? subject.getDescription().substring(0, 16) + "..." : subject.getDescription());
+//        holder.name.setTextColor(activity.getColor(subject.getColor()));
+//        holder.count.setTextColor(activity.getColor(subject.getColor()));
+//        holder.describtion.setTextColor(activity.getColor(subject.getColor()));
+
+        holder.colorChip.setBackgroundColor(activity.getColor(subject.getColor()));
 
         holder.itemView.setOnClickListener(click -> {
             if (App.isConnectedToNetwork()) {
@@ -108,7 +123,7 @@ public class SubjectDayAdapter extends RecyclerView.Adapter<SubjectDayAdapter.Su
                         day.addSubjects(list);
                         App.authController.removeSubjectssFromDay(day.getDate(), n -> {
                             for (Subject s : list) {
-                                App.authController.addSubjectToDay(s, String.valueOf(list.indexOf(s)), day.getDate(), kjl -> {
+                                App.authController.addSubjectToDay(s, String.valueOf(list.indexOf(s)),String.valueOf(new Date(day.getDate()).getDate()), kjl -> {
                                 });
                             }
                         });

@@ -3,16 +3,19 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/item_task"
     android:layout_width="match_parent"
-    android:background="@color/sb_brown"
-     android:layout_marginBottom="5dp"
+    android:background="@drawable/button"
+    android:layout_marginHorizontal="15dp"
+     android:layout_marginBottom="15dp"
+    android:elevation="4dp"
     android:layout_height="100dp">
     <View
-    android:layout_width="match_parent"
+        android:layout_width="match_parent"
         android:minHeight="100dp"
         android:visibility="gone"
         android:id="@+id/curtain_for_completed_task_item"
         android:background="@color/curtain_for_completed_task_item"
-    android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -35,6 +38,7 @@ android:layout_weight="1"
                     android:paddingHorizontal="20dp"
                     android:textFontWeight="300"
                     android:textSize="30dp" />
+
                 <TextView
                     android:id="@+id/comment_of_task"
                     android:layout_width="match_parent"
@@ -49,12 +53,33 @@ android:layout_weight="1"
                     android:textSize="20dp" />
 
 
-            </RelativeLayout>
+            </RelativeLayout><View
+        android:layout_width="3dp"
+        android:background="@color/black"
+        android:id="@+id/task_color_chip"
+        android:layout_height="match_parent"/>
         <CheckBox
             android:id="@+id/is_Completed"
             android:buttonTint="@color/medium_dark"
             android:layout_width="match_parent"
             android:layout_weight="3"
             android:layout_height="match_parent"/>
-    </LinearLayout>
+    </LinearLayout><ViewSwitcher
+    android:layout_width="wrap_content"
+    android:layout_alignParentRight="true"
+    android:layout_marginRight="10dp"
+    android:id="@+id/view_switcher_panic_or_not"
+    android:visibility="gone"
+    android:layout_height="wrap_content">
+    <View
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:id="@+id/mega_panic"
+        android:background="@drawable/icon_panic_not_full"/>
+    <View
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:id="@+id/panic"
+        android:background="@drawable/icon_panic_full"/>
+</ViewSwitcher>
 </RelativeLayout>

@@ -30,6 +30,5 @@
             android:textFontWeight="300"
             android:textSize="20dp" />
 
-
     </RelativeLayout>
 </RelativeLayout>
