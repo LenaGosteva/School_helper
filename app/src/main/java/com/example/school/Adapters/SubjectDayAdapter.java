@@ -94,7 +94,8 @@ public class SubjectDayAdapter extends RecyclerView.Adapter<SubjectDayAdapter.Su
 //        holder.count.setTextColor(activity.getColor(subject.getColor()));
 //        holder.describtion.setTextColor(activity.getColor(subject.getColor()));
 
-        holder.colorChip.setBackgroundColor(activity.getColor(subject.getColor()));
+        holder.colorChip.setBackgroundColor(activity
+                .getResources().getColor(subject.getColor()));
 
         holder.itemView.setOnClickListener(click -> {
             if (App.isConnectedToNetwork()) {

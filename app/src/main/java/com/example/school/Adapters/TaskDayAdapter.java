@@ -9,34 +9,27 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.TextView;
-import android.widget.ViewSwitcher;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.school.App;
-import com.example.school.ListActivity;
 import com.example.school.Logic.Task;
 import com.example.school.R;
 import com.example.school.TaskActivity;
-import com.example.school.databinding.ActivityListBinding;
 
 import java.util.ArrayList;
 import java.util.Comparator;
 
-public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder> {
+public class TaskDayAdapter extends RecyclerView.Adapter<TaskDayAdapter.TaskViewHolder> {
 
     public final Activity activity;
     ArrayList<Task> list;
-    ArrayList<Task> overlist;
-    ActivityListBinding binding;
 
-    public TaskAdapter(ArrayList<Task> list, ArrayList<Task> overList, Activity activity, ActivityListBinding binding) {
+    public TaskDayAdapter(ArrayList<Task> list, Activity activity) {
         list.sort(Comparator.comparing(Task::isCompleted).thenComparing(Task::getPanic));
         this.list = list;
         this.activity = activity;
-        this.overlist = overList;
-        this.binding= binding;
     }
 
     @NonNull
@@ -45,7 +38,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_for_list_of_tasks, parent, false);
 
         view.setLongClickable(true);
-        return new TaskAdapter.TaskViewHolder(view);
+        return new TaskDayAdapter.TaskViewHolder(view);
     }
 
     Dialog dialog;
@@ -71,7 +64,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
         public CheckBox isCompleted;
         public View panic;
         public View mega_panic;
-        View color;
+        View  color;
 
         public TaskViewHolder(View itemView) {
             super(itemView);
@@ -90,14 +83,14 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
     @Override
     public void onBindViewHolder(@NonNull TaskViewHolder holder, int position) {
         Task task = list.get(position);
-        if (task.getPanic() == 1) {
-            holder.panic.setVisibility(View.VISIBLE);
-        } else if (task.getPanic() == 0) {
-            holder.mega_panic.setVisibility(View.VISIBLE);
-        }
+            if (task.getPanic() == 1) {
+                holder.panic.setVisibility(View.VISIBLE);
+            } else if (task.getPanic()==0){
+                holder.mega_panic.setVisibility(View.VISIBLE);
+            }
         holder.color.setBackgroundColor(
                 task.getColor());
-        holder.itemView.setBackground(task.isCompleted() ? activity.getDrawable(R.drawable.recycler_tasks_curtain) : activity.getDrawable(R.drawable.recycler_tasks));
+        holder.itemView.setBackground(task.isCompleted() ? activity.getDrawable(R.drawable.recycler_tasks_curtain):activity.getDrawable(R.drawable.recycler_tasks));
 
         holder.name.setText(task.getName());
         holder.comment.setText((task.getComment().length() > 24) ? task.getComment().substring(0, 24) + "..." : task.getComment());
@@ -106,17 +99,12 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
 
         holder.isCompleted.setOnCheckedChangeListener((buttonView, isChecked) -> {
             task.setCompleted(isChecked);
-            App.getAuthController().addTaskToSubject(task, task.getName(), task.getSubject(), b -> {
+list.remove(task);
+if (isChecked){
+
+}
+App.getAuthController().addTaskToSubject(task, task.getName(), task.getSubject(), b -> {
             });
-            if (list.size() == 0) {
-                binding.textNothing.setVisibility(View.VISIBLE);
-                binding.listOfTasks.setVisibility(View.GONE);
-
-            }
-            list.remove(task);
-            notifyItemRemoved(position);
-            if (!overlist.contains(task)) overlist.add(task);
-
 
         });
 
@@ -134,7 +122,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
                         dialog.dismiss();
                         App.getAuthController().removeTaskFromSubject(task.getName(), task.getSubject(), t -> {
                             list.remove(task);
-                            notifyItemRemoved(position);
+                            notifyDataSetChanged();
                         });
                     }).setNegativeButton("Нет", (dialog, which) -> dialog.dismiss()).show();
 
@@ -142,13 +130,5 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
             return true;
         });
 
-    }
-
-    public ArrayList<Task> getOverlist() {
-        return overlist;
-    }
-
-    public void setOverlist(ArrayList<Task> overlist) {
-        this.overlist = overlist;
     }
 }

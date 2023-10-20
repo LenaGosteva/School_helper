@@ -64,22 +64,21 @@ android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_weight="3"
             android:layout_height="match_parent"/>
-    </LinearLayout><ViewSwitcher
-    android:layout_width="wrap_content"
-    android:layout_alignParentRight="true"
-    android:layout_marginRight="10dp"
-    android:id="@+id/view_switcher_panic_or_not"
-    android:visibility="gone"
-    android:layout_height="wrap_content">
+    </LinearLayout>
     <View
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:id="@+id/mega_panic"
-        android:background="@drawable/icon_panic_not_full"/>
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="10dp"
+        android:visibility="gone"
+        android:background="@drawable/icon_panic_full"/>
     <View
         android:layout_width="30dp"
         android:layout_height="30dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="10dp"
+        android:visibility="gone"
         android:id="@+id/panic"
-        android:background="@drawable/icon_panic_full"/>
-</ViewSwitcher>
+        android:background="@drawable/icon_panic_not_full"/>
 </RelativeLayout>

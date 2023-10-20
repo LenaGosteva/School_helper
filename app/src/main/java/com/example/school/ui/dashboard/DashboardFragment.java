@@ -19,6 +19,7 @@ import com.example.school.Adapters.AddSubjectToDayAdapter;
 import com.example.school.Adapters.AddTaskToDayAdapter;
 import com.example.school.Adapters.SubjectDayAdapter;
 import com.example.school.Adapters.TaskAdapter;
+import com.example.school.Adapters.TaskDayAdapter;
 import com.example.school.App;
 import com.example.school.Auth.AuthController;
 import com.example.school.Logic.Day;
@@ -84,7 +85,7 @@ public class DashboardFragment extends Fragment {
     }
 
     SubjectDayAdapter subjectDayAdapter;
-    TaskAdapter taskAdapter;
+    TaskDayAdapter taskAdapter;
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -147,7 +148,7 @@ public class DashboardFragment extends Fragment {
             MaterialDatePicker dates = MaterialDatePicker.Builder.datePicker().setTitleText("Select date").build();
             dates.show(getActivity().getSupportFragmentManager(), "tag");
             dates.addOnPositiveButtonClickListener(selection -> {
-                Date d = new Date(dates.getHeaderText());
+                Date d = new Date((Long)dates.getSelection());
 
                 date = dateFormat.format(d);
 binding.dayName.setText(date);
@@ -258,7 +259,7 @@ binding.dayName.setText(date);
     public void setListToRecyclerView(){
         if (binding.selectTackOrSubject.getSelectedTabPosition()==1) {
             Log.e("agfd", day.getTasks().size() + "");
-            taskAdapter = new TaskAdapter(day.getTasks(), getActivity());
+            taskAdapter = new TaskDayAdapter(day.getTasks(), getActivity());
             binding.daySubjects.setLayoutManager(new LinearLayoutManager(getContext()));
             binding.daySubjects.setAdapter(taskAdapter);
         } else {

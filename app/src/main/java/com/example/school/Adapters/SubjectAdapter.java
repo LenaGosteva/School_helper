@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.school.App;
 import com.example.school.ListActivity;
 import com.example.school.Logic.Subject;
+import com.example.school.Logic.Task;
 import com.example.school.R;
 
 import java.util.ArrayList;
@@ -76,12 +77,19 @@ public class SubjectAdapter extends RecyclerView.Adapter<SubjectAdapter.SubjectV
     public void onBindViewHolder
             (@NonNull SubjectAdapter.SubjectViewHolder holder, int position) {
         Subject subject = list.get(position);
-
+int notCompletedcount = 0;
+int completedcount = 0;
         holder.name.setText(subject.getName());
         try{
-        holder.count.setText(String.valueOf(subject.getTasks().size()));}
+            for (Task t:
+                 subject.getTasks().values()) {
+                 if (t.isCompleted())completedcount ++ ;
+                 else notCompletedcount++;
+
+            }
+        holder.count.setText(notCompletedcount+"/"+completedcount);}
         catch (NullPointerException e){
-            holder.count.setText(String.valueOf(0));
+            holder.count.setText("0/0");
 
     }
 
@@ -91,7 +99,7 @@ public class SubjectAdapter extends RecyclerView.Adapter<SubjectAdapter.SubjectV
 //        holder.describtion.setTextColor(activity.getColor(subject.getColor()));
 
 
-        holder.colorChip.setBackgroundColor(activity.getColor(subject.getColor()));
+        holder.colorChip.setBackgroundColor(activity.getResources().getColor(subject.getColor()));
 
 
         holder.itemView.setOnClickListener(click -> {

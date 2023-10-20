@@ -28,6 +28,7 @@ public class NewTaskFragment extends Fragment {
     private FragmentNewTaskBinding binding;
     AuthController authController = new AuthController();
     ArrayList<String> allSb_str = new ArrayList<>();
+    ArrayList<Subject> allSb = new ArrayList<>();
     int panic = 0;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -51,7 +52,8 @@ public class NewTaskFragment extends Fragment {
                     for (DataSnapshot e : task.getResult().getChildren()) {
                         if (!allSb_str.contains(e.getValue(Subject.class).getName()))
                             allSb_str.add(e.getValue(Subject.class).getName());
-
+                        if (!allSb.contains(e.getValue(Subject.class)))
+                            allSb.add(e.getValue(Subject.class));
                     }
                     ArrayAdapter<String> spinner_adapter
                             = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, allSb_str);
@@ -79,19 +81,18 @@ public class NewTaskFragment extends Fragment {
                         Toast.makeText(getContext(), "Вы забыли про название!", Toast.LENGTH_SHORT).show();
                     } else {
                         if (binding.radioGroupPanic.getCheckedRadioButtonId()==binding.notPanic.getId()){
-                            panic = 0;
+                            panic = 2;
                         } else if (binding.radioGroupPanic.getCheckedRadioButtonId()==binding.panic.getId()) {
                             panic = 1;
                         }else if (binding.radioGroupPanic.getCheckedRadioButtonId()==binding.megaPanic.getId()) {
-                            panic = 2;
+                            panic = 0;
                         }
-
 
                         name = binding.nameOfTask.getText().toString();
                         comment = binding.commentOfTask.getText().toString().isEmpty() ? "This is comment" : binding.commentOfTask.getText().toString();
                         theory = binding.theoryOfTask.getText().toString().isEmpty() ? "This is comment" : binding.theoryOfTask.getText().toString();
                         practice = binding.practiceOfTask.getText().toString().isEmpty() ? "This is comment" : binding.practiceOfTask.getText().toString();
-                        authController.addTaskToSubject(new Task(name, comment, theory, practice, subject,panic,false), name, subject, l -> {
+                        authController.addTaskToSubject(new Task(name, comment, theory, practice, subject, allSb.get(allSb_str.indexOf(subject)).getColor(),panic,false), name, subject, l -> {
                             binding.nameOfTask.setText("");
                             binding.commentOfTask.setText("");
                             binding.theoryOfTask.setText("");

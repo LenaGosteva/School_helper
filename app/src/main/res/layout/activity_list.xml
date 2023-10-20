@@ -10,10 +10,10 @@
     <RelativeLayout
         android:id="@+id/top"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:padding="20dp"
+        android:layout_height="140dp"
+        android:paddingHorizontal="20dp"
         android:background="?attr/colorOnPrimary"
-        android:translationZ="30dp">
+        android:translationZ="5dp">
     <ImageButton
         android:layout_width="wrap_content"
         android:id="@+id/back"
@@ -24,13 +24,37 @@
     <TextView
         android:id="@+id/name_of_subject_list_activity"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:gravity="center_vertical"
         android:hint="Geometry"
         android:textSize="30sp"
         android:layout_marginHorizontal="20dp"
         android:layout_toRightOf="@+id/back"/>
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tab_checked_completing"
+            android:layout_width="match_parent"
+            android:layout_alignParentBottom="true"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/name_of_subject_list_activity"
+            android:background="?attr/colorOnPrimary"
+            app:tabIndicator="@color/medium_dark"
+            app:tabIndicatorAnimationMode="fade"
+            app:tabIndicatorFullWidth="false"
+            app:tabIndicatorHeight="2dp">
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Активные" />
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Выполненные" />
+
+        </com.google.android.material.tabs.TabLayout>
 
 
     </RelativeLayout>

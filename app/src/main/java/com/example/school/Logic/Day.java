@@ -9,6 +9,7 @@ import com.google.firebase.database.DataSnapshot;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -78,7 +79,9 @@ public class Day {
     }
 
     public ArrayList<Task> getTasks() {
-        return tasks;
+         tasks.sort(Comparator.comparing(Task::getPanic)
+                .thenComparing(Task::getName));
+         return tasks;
     }
 
     public void setTasks(ArrayList<Task> tasks) {
@@ -90,6 +93,10 @@ public class Day {
     }
 
     public ArrayList<Subject> getSubjects() {
+
+
+
+
         return subjects;
     }
 }

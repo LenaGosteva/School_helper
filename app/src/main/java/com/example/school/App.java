@@ -2,6 +2,7 @@ package com.example.school;
 
 import android.app.Application;
 import android.content.Context;
+import android.graphics.ColorSpace;
 import android.net.ConnectivityManager;
 import android.util.Log;
 

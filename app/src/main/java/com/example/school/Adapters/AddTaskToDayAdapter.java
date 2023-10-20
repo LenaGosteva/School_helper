@@ -81,7 +81,7 @@ public class AddTaskToDayAdapter extends RecyclerView.Adapter<AddTaskToDayAdapte
                 binding.windowList.setVisibility(View.GONE);
                 binding.hgh.setVisibility(View.VISIBLE);
                 if (binding.selectTackOrSubject.getSelectedTabPosition()==1){
-                    TaskAdapter taskAdapter = new TaskAdapter(day.getTasks(), activity);
+                    TaskDayAdapter taskAdapter = new TaskDayAdapter(day.getTasks(), activity);
                     taskAdapter.setList(day.getTasks());
                     binding.daySubjects.setAdapter(taskAdapter);
 

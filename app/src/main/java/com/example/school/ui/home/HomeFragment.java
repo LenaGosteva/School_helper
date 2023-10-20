@@ -57,8 +57,6 @@ public class HomeFragment extends Fragment {
             SubjectAdapter adapter = new SubjectAdapter(list.get(), getActivity());
             binding.list.setLayoutManager(new LinearLayoutManager(getContext()));
             binding.list.setAdapter(adapter);
-            binding.describtionOfSubject.setText("");
-            binding.nameOfSubject.setText("");
 
             authController.getAllSubjectsFromDb(task -> {
                 if (task.isSuccessful()) {
@@ -114,8 +112,6 @@ public class HomeFragment extends Fragment {
 
 
             binding.newSubject.setOnClickListener(sdf -> {
-                binding.describtionOfSubject.setText("");
-                binding.nameOfSubject.setText("");
 
                 String desc = binding.describtionOfSubject.getText().toString();
                 String name = binding.nameOfSubject.getText().toString();
@@ -132,7 +128,7 @@ public class HomeFragment extends Fragment {
                     }
                 }
                 if (!name.isEmpty()&&f) {
-                    Subject s = new Subject(name, desc.isEmpty() ? " " : desc, App.getColors_int_fill()[index_color[0]]);
+                    Subject s = new Subject(name, desc.isEmpty() ? " " : desc, App.getColors_int()[index_color[0]]);
                     list.get().add(s);
                     authController.addSubjectToDb(s, task -> {
                         if (task.isSuccessful()) {
