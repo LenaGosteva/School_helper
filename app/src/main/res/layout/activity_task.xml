@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/all_task_act"
     android:layout_width="match_parent"
@@ -28,24 +29,34 @@
     <RelativeLayout
         android:id="@+id/top"
         android:layout_width="wrap_content"
-        android:layout_height="100dp"
+        android:layout_height="140dp"
         android:padding="20dp"
         android:background="?attr/colorOnPrimary"
         android:translationZ="30dp">
 
-        <CheckBox
-            android:id="@+id/isCompleted_t"
-            android:layout_width="wrap_content"
-            android:layout_height="60dp"
-            android:layout_alignParentRight="true"
-            android:text="Сделано" />
+
 
         <ImageButton
-            android:id="@+id/back"
             android:layout_width="wrap_content"
+            android:id="@+id/back"
+            android:layout_marginVertical="25dp"
+            android:background="@drawable/icon_back"
             android:layout_height="wrap_content"
-            android:background="@color/null_color"
-            android:src="@drawable/icon_back" />
+            android:contentDescription="@string/todo" />
+
+        <TextView
+            android:id="@+id/name_of_task_task_activity"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginStart="45dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginEnd="45dp"
+            android:layout_marginBottom="25dp"
+            android:layout_toRightOf="@+id/back"
+            android:gravity="center_vertical"
+            android:hint="Geometry"
+            android:textSize="30sp" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -54,23 +65,28 @@
         android:layout_height="match_parent"
         android:layout_below="@+id/top"
         android:padding="20dp">
-
-        <TextView
-            android:id="@+id/name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:hint="Name"
-            android:textSize="30dp" />
+        <CheckBox
+            android:id="@+id/isCompleted_t"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:layout_alignParentRight="true"
+            android:text="Сделано" />
+<!--        <TextView-->
+<!--            android:id="@+id/name"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="20dp"-->
+<!--            android:hint="Name"-->
+<!--            android:textSize="30dp" />-->
 
         <TextView
             android:id="@+id/i_sb"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/name"
+            android:layout_below="@+id/isCompleted_t"
             android:text="Предмет"
-            android:textSize="15sp"
-            android:textStyle="bold" />
+            android:textColor="@android:color/darker_gray"
+            android:textSize="15sp" />
 
         <TextView
             android:id="@+id/sb_t"
@@ -89,7 +105,8 @@
             android:layout_below="@+id/sb_t"
             android:text="Комментарий"
             android:textSize="15sp"
-            android:textStyle="bold" />
+            android:textColor="@android:color/darker_gray"
+            />
 
 
         <ViewSwitcher
@@ -127,7 +144,8 @@
             android:layout_below="@+id/comm"
             android:text="Теория"
             android:textSize="15sp"
-            android:textStyle="bold" />
+            android:textColor="@android:color/darker_gray"
+            />
 
         <ViewSwitcher
             android:id="@+id/theory"
@@ -160,7 +178,8 @@
             android:layout_below="@+id/theory"
             android:text="Практическая часть"
             android:textSize="15sp"
-            android:textStyle="bold" />
+            android:textColor="@android:color/darker_gray"
+            />
 
         <ViewSwitcher
             android:id="@+id/practice"

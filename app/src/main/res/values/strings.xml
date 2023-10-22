@@ -98,4 +98,6 @@
     <string name="no_internet_text">Извините,ваши данные не были загружены((</string>
     <string name="nothing_finded_in_list_activity_text">Ничего не найдено((</string>
     <string name="todo">TODO</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

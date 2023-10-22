@@ -41,7 +41,7 @@ public class LoginActivity extends AppCompatActivity {
                     }else{
                         authController.registerUser(email, password, authResult -> {
                             if (authResult.isSuccessful()) {
-                                authController.addUserToDb(task1 ->{
+                                authController.addUserToDb(email,task1 ->{
                                         authController.addSubjectToDb(new Subject("Additionally", "Some additional things that are not related to the lessons", R.color.sb_purple), new OnCompleteListener() {
                                             @Override
                                             public void onComplete(@NonNull Task task) {

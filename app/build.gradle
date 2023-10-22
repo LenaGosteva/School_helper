@@ -36,6 +36,8 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'com.android.support:multidex:1.0.3'
     implementation 'de.hdodenhof:circleimageview:3.1.0'
+    implementation 'com.jaredrummler:colorpicker:1.1.0'
+
 
 //    implementation 'javax.mail:mail:1.5.0-b01'
     implementation 'com.sun.mail:jakarta.mail:1.6.4'
@@ -48,6 +50,7 @@ dependencies {
     implementation 'androidx.preference:preference:1.2.1'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'javazoom:jlayer:1.0.1'
+    implementation 'com.github.alekst7:rxcolorwheel:1.0.1'
 
 
     implementation platform('com.google.firebase:firebase-bom:32.0.0')

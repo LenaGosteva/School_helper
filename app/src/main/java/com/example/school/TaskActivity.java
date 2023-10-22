@@ -29,13 +29,14 @@ public class TaskActivity extends AppCompatActivity {
             subject = getIntent().getExtras().getString(App.SUBJECT);
             authController.getTaskFromSubject(name, subject, t -> {
                 task = t.getResult().getValue(Task.class);
-                binding.name.setText(task.getName());
+                binding.nameOfTaskTaskActivity.setText(task.getName());
+                binding.nameOfTaskTaskActivity.setTextColor(getIntent().getIntExtra(App.COLOR, R.color.bright));
                 binding.commT.setText(task.getComment());
                 binding.isCompletedT.setChecked(task.isCompleted());
                 binding.theoryT.setText(task.getTheory());
                 binding.practiceT.setText(task.getPractice());
                 binding.sbT.setText(subject);
-                binding.top.setBackgroundColor(getIntent().getIntExtra(App.COLOR, R.color.bright));
+//                binding.top.setBackgroundColor(getIntent().getIntExtra(App.COLOR, R.color.bright));
                 binding.curtain.setVisibility(task.isCompleted()?View.VISIBLE:View.GONE);
 
             });

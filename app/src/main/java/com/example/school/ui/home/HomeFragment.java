@@ -1,7 +1,9 @@
 package com.example.school.ui.home;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,20 +13,28 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
+import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.example.rxcolorwheel.RXColorWheel;
 import com.example.school.Adapters.SubjectAdapter;
 import com.example.school.App;
 import com.example.school.Auth.AuthController;
+import com.example.school.EnterActivity;
 import com.example.school.Logic.Subject;
+import com.example.school.MainActivity;
 import com.example.school.R;
 import com.example.school.databinding.FragmentHomeBinding;
 import com.example.school.ui.LoginActivity;
 import com.google.firebase.database.DataSnapshot;
+import com.jaredrummler.android.colorpicker.ColorPickerDialog;
+import com.jaredrummler.android.colorpicker.ColorPickerDialogListener;
+import com.jaredrummler.android.colorpicker.ColorShape;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -34,30 +44,38 @@ import java.util.concurrent.atomic.AtomicReference;
 import io.grpc.ManagedChannelProvider;
 
 public class HomeFragment extends Fragment {
+    ColorPickerDialog colorPickerDialog = new ColorPickerDialog();
 
     private FragmentHomeBinding binding;
     ArrayList<Subject> test = new ArrayList<>();
     AuthController authController = new AuthController();
+    String s;
+    static int color = 2131034870;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
         return inflater.inflate(R.layout.fragment_home, container, false);
     }
+
     public static HomeFragment newInstance() {
         return new HomeFragment();
     }
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         binding = FragmentHomeBinding.bind(view);
         if (App.isConnectedToNetwork()) {
             AtomicReference<ArrayList<Subject>> list = new AtomicReference<>(new ArrayList<>());
-
             SubjectAdapter adapter = new SubjectAdapter(list.get(), getActivity());
             binding.list.setLayoutManager(new LinearLayoutManager(getContext()));
             binding.list.setAdapter(adapter);
 
+            authController.getName(hghjk -> {
+                s = hghjk.getResult().getValue().toString();
+                binding.name.setText(s);
+            });
             authController.getAllSubjectsFromDb(task -> {
                 if (task.isSuccessful()) {
                     for (DataSnapshot e : task.getResult().getChildren()) {
@@ -68,7 +86,7 @@ public class HomeFragment extends Fragment {
 
             });
             binding.name.setText(!authController.isAuth() ?
-                    getResources().getString(R.string.name_of_user) : authController.getUser().getEmail());
+                    getResources().getString(R.string.name_of_user) : s);
 
             binding.out.setOnClickListener(click -> {
                 new AlertDialog.Builder(getContext()).setTitle("Предупреждение")
@@ -78,7 +96,7 @@ public class HomeFragment extends Fragment {
                             authController.singOut();
 
                             Toast.makeText(getContext(), "Вы вышли из аккаунта", Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(getContext(), LoginActivity.class));
+                            startActivity(new Intent(getContext(), EnterActivity.class));
                         }).setNegativeButton("Тогда остаюсь", (dialog, which) -> dialog.dismiss()).show();
 
 
@@ -116,19 +134,20 @@ public class HomeFragment extends Fragment {
                 String desc = binding.describtionOfSubject.getText().toString();
                 String name = binding.nameOfSubject.getText().toString();
                 boolean f = false;
-                for (char c: App.getFirebase_symbols_ban()) {
+                for (char c : App.getFirebase_symbols_ban()) {
                     String s_c = String.valueOf(c);
-                    if (name.contains(s_c)||desc.contains(s_c)
-                    ){
+                    if (name.contains(s_c) || desc.contains(s_c)
+                    ) {
                         f = false;
                         Toast.makeText(getContext(), "Одно из полей содержит неконвертируемые символы! ('.', '#', '$', '[', или ']')", Toast.LENGTH_SHORT).show();
                         break;
-                    }else{
+                    } else {
                         f = true;
                     }
                 }
-                if (!name.isEmpty()&&f) {
-                    Subject s = new Subject(name, desc.isEmpty() ? " " : desc, App.getColors_int()[index_color[0]]);
+                if (!name.isEmpty() && f) {
+//                    Subject s = new Subject(name, desc.isEmpty() ? " " : desc, App.getColors_int_fill()[index_color[0]]);
+                    Subject s = new Subject(name, desc.isEmpty() ? " " : desc, HomeFragment.color);
                     list.get().add(s);
                     authController.addSubjectToDb(s, task -> {
                         if (task.isSuccessful()) {
@@ -154,8 +173,30 @@ public class HomeFragment extends Fragment {
                 adapter.notifyDataSetChanged();
 
             });
+            binding.instrToSpinner.setClickable(true);
+            binding.instrToSpinner.setOnClickListener(ghj -> {
 
-        }else{
+                binding.windowForColorWheel.setVisibility(View.VISIBLE);
+                binding.colorWheel.setColorChangeListener(new RXColorWheel.ColorChagneListener() {
+                    @Override
+                    public void onColorChanged(int color) {
+
+                        binding.colorWheelOk.setOnClickListener(dfghj->{
+                            binding.windowForColorWheel.setVisibility(View.GONE);
+                            HomeFragment.color = color;
+                            binding.colorViewForColor.setBackgroundColor(color);
+                            binding.instrToSpinner.setTextColor(color);
+                        });
+
+                    }
+
+                    @Override
+                    public void firstDraw(int color) {
+                    }
+                });
+                ;
+            });
+        } else {
             binding.textNoInternet.setVisibility(View.VISIBLE);
             binding.homeFragmentWithInternet.setVisibility(View.GONE
             );
@@ -169,4 +210,5 @@ public class HomeFragment extends Fragment {
         super.onDestroyView();
         binding = null;
     }
+
 }

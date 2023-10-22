@@ -94,14 +94,13 @@ public class SubjectDayAdapter extends RecyclerView.Adapter<SubjectDayAdapter.Su
 //        holder.count.setTextColor(activity.getColor(subject.getColor()));
 //        holder.describtion.setTextColor(activity.getColor(subject.getColor()));
 
-        holder.colorChip.setBackgroundColor(activity
-                .getResources().getColor(subject.getColor()));
+        holder.colorChip.setBackgroundColor(subject.getColor());
 
         holder.itemView.setOnClickListener(click -> {
             if (App.isConnectedToNetwork()) {
                 Intent intent = new Intent(activity, ListActivity.class);
                 intent.putExtra(App.SUBJECT, subject.getName());
-                intent.putExtra(App.COLOR, activity.getColor(subject.getColor()));
+                intent.putExtra(App.COLOR,subject.getColor());
                 Log.e("index_color_before_intent_to_list_of_task", String.valueOf(activity.getIntent().getIntExtra(App.COLOR, R.color.sb_brown)).toUpperCase());
 
                 activity.startActivity(intent);

@@ -14,9 +14,11 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.example.school.databinding.ActivityMainBinding;
+import com.jaredrummler.android.colorpicker.ColorPickerDialogListener;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements ColorPickerDialogListener  {
 
+    public static int color;
     private ActivityMainBinding binding;
     AuthController authController = new AuthController();
 
@@ -27,8 +29,8 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         if (!authController.isAuth()){
-            startActivity(new Intent(this, LoginActivity.class));
-        }
+            startActivity(new Intent(this, EnterActivity.class));
+        }else{
 
 
         BottomNavigationView navView = findViewById(R.id.nav_view);
@@ -38,7 +40,17 @@ public class MainActivity extends AppCompatActivity {
                 R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
-        NavigationUI.setupWithNavController(binding.navView, navController);
+        NavigationUI.setupWithNavController(binding.navView, navController);}
     }
 
+    @Override
+    public void onColorSelected(int dialogId, int color) {
+        this.color = color;
+
+    }
+
+    @Override
+    public void onDialogDismissed(int dialogId) {
+
+    }
 }

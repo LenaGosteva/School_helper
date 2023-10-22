@@ -67,13 +67,16 @@ public class AuthController {
                     .child("tasks").get().addOnCompleteListener(listener);
         }
     }
-    public void addUserToDb(OnCompleteListener listener) {
+    public void addUserToDb(String name,OnCompleteListener listener) {
         if (isAuth()) {
             database.child("users").child(getUser().getUid()).setValue(getUser().getUid()).addOnCompleteListener(listener);
-            addDayToDb(new Day(), listener);
-            addSubjectToDb(new Subject("Additionally", "Some additional things that are not related to the lessons", R.color.sb_purple), listener);
+            database.child("users").child(getUser().getUid()).child("name").setValue(name).addOnCompleteListener(listener);
 
         }
+    }
+    public void getName(OnCompleteListener<DataSnapshot> listener){
+        if (isAuth())
+        database.child("users").child(getUser().getUid()).child("name").get().addOnCompleteListener(listener);
     }
     public void getDayFromDB(String date,OnCompleteListener<DataSnapshot> listener) {
         if (isAuth())
@@ -154,8 +157,6 @@ public class AuthController {
 
     public void registerUser(String email, String password, OnCompleteListener listener) {
         auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(listener);
-
-
     }
 
 

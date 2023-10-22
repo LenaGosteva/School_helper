@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:padding="30dp"
+    tools:context=".ui.RegistrationFragment">
+<ScrollView
+    android:layout_width="match_parent"
+    android:scrollbarAlwaysDrawVerticalTrack="false"
+    android:scrollbarSize="0dp"
+
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="match_parent">
+    <com.example.school.ui.InputField
+        android:id="@+id/input_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:inputType="textEmailAddress"
+        app:title="Почта" />
+
+    <com.example.school.ui.InputField
+        android:id="@+id/input_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:inputType="textPassword"
+        app:title="Пароль" />
+
+    <com.example.school.ui.InputField
+        android:id="@+id/repeat_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:inputType="textPassword"
+        app:title="Повторите пароль" />
+
+    <com.example.school.ui.InputField
+        android:id="@+id/input_nickname"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        app:title="Ник" />
+
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/enter"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:backgroundTint="?attr/colorOnPrimary"
+        android:text="Зарегистрироваться"
+        android:textAlignment="center"
+        android:layout_margin="20dp"
+        android:layout_gravity="center" /></LinearLayout></ScrollView>
+</LinearLayout>

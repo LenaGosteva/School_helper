@@ -9,7 +9,7 @@
     <color name="null_color">#00000000</color>
 
     <color name="white">#FFFFFFFF</color>
-    <color name="background">#F0D9D1</color>
+    <color name="background">#F5EEE6</color>
 
     <color name="bright">#ffe7d4</color>
     <color name="light">#b75e5e</color>
@@ -46,6 +46,6 @@
 
 
     <color name="curtain_for_completed_task_item">#4D777777</color>
-    <color name="curtain_for_background">#31CFCECE</color>
+    <color name="curtain_for_background">#31EDEBEB</color>
     <color name="too_panic">#FFB700</color>
 </resources>
