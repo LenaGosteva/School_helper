@@ -2,10 +2,9 @@ package com.example.school.Logic;
 
 import com.example.school.App;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
-public class Subject {
+public class Subject{
     String name = "Предмет";
     String description = " ";
 
@@ -66,6 +65,7 @@ public class Subject {
         this.color = color;
         this.description = description;
     }
+
     public String  toString(){
         return name + "\n"+color+"\n"+ description;
     }

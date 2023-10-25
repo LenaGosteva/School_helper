@@ -1,11 +1,15 @@
 package com.example.school.ui.home;
 
+import static android.content.Intent.getIntent;
+
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,6 +42,7 @@ import com.jaredrummler.android.colorpicker.ColorShape;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -72,6 +77,29 @@ public class HomeFragment extends Fragment {
             binding.list.setLayoutManager(new LinearLayoutManager(getContext()));
             binding.list.setAdapter(adapter);
 
+
+
+            Uri uri = getActivity().getIntent().getData();
+
+            // checking if the uri is null or not.
+            if (uri != null) {
+
+                // if the uri is not null then we are getting
+                // the path segments and storing it in list.
+                List<String> parameters = uri.getPathSegments();
+
+                // after that we are extracting string
+                // from that parameters.
+                String param = parameters.get(parameters.size() - 1);
+
+                // on below line we are setting that string
+                // to our text view which we got as params.
+                binding.name.setText(param);
+            }
+
+
+
+
             authController.getName(hghjk -> {
                 s = hghjk.getResult().getValue().toString();
                 binding.name.setText(s);
@@ -98,8 +126,11 @@ public class HomeFragment extends Fragment {
                             Toast.makeText(getContext(), "Вы вышли из аккаунта", Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(getContext(), EnterActivity.class));
                         }).setNegativeButton("Тогда остаюсь", (dialog, which) -> dialog.dismiss()).show();
-
-
+//
+//                Intent intent = new Intent(Intent.ACTION_SEND);
+//                intent.setType("text/plain");
+//                intent.putExtra(Intent.EXTRA_TEXT, "http://school/hello"); // текст отправки
+//                startActivity(Intent.createChooser(intent, "Share with"));
             });
 
             binding.add.setOnClickListener(cl -> {
@@ -146,9 +177,9 @@ public class HomeFragment extends Fragment {
                     }
                 }
                 if (!name.isEmpty() && f) {
-//                    Subject s = new Subject(name, desc.isEmpty() ? " " : desc, App.getColors_int_fill()[index_color[0]]);
                     Subject s = new Subject(name, desc.isEmpty() ? " " : desc, HomeFragment.color);
-                    list.get().add(s);
+//Subject s = App.gson.fromJson(name, Subject.class);
+list.get().add(s);
                     authController.addSubjectToDb(s, task -> {
                         if (task.isSuccessful()) {
                             ArrayList<Subject> l = new ArrayList<>();

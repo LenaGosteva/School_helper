@@ -30,7 +30,7 @@ public class TaskActivity extends AppCompatActivity {
             authController.getTaskFromSubject(name, subject, t -> {
                 task = t.getResult().getValue(Task.class);
                 binding.nameOfTaskTaskActivity.setText(task.getName());
-                binding.nameOfTaskTaskActivity.setTextColor(getIntent().getIntExtra(App.COLOR, R.color.bright));
+//                binding.nameOfTaskTaskActivity.setTextColor(getIntent().getIntExtra(App.COLOR, R.color.bright));
                 binding.commT.setText(task.getComment());
                 binding.isCompletedT.setChecked(task.isCompleted());
                 binding.theoryT.setText(task.getTheory());

@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
+
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -12,11 +14,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.bumptech.glide.load.model.Model;
 import com.example.school.Adapters.TaskAdapter;
+import com.example.school.Auth.AuthController;
 import com.example.school.Logic.Subject;
 import com.example.school.Logic.Task;
 import com.example.school.databinding.ActivityListBinding;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.database.DataSnapshot;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 
@@ -83,6 +87,18 @@ public class ListActivity extends AppCompatActivity {
         binding = ActivityListBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         binding.listOfTasks.setLayoutManager(new LinearLayoutManager(this));
+
+        binding.nameOfSubjectListActivity.setClickable(true);
+        binding.nameOfSubjectListActivity.setOnClickListener(ghjk->{
+            App.authController.getSubjectFromDB(getIntent().getExtras().getString(App.SUBJECT, "Additionally"),yguh->{;
+                Intent intent = new Intent(Intent.ACTION_SEND);
+                intent.setType("text/plain");
+                intent.putExtra(Intent.EXTRA_TEXT, App.gson.toJson(yguh.getResult().getValue(Subject.class))); // текст отправки
+                startActivity(Intent.createChooser(intent, "Share with"));
+                Log.e("GFIHVIH",  App.gson.toJson(yguh.getResult().getValue(Subject.class)));
+            });
+
+        });
 
         if (App.isConnectedToNetwork()) {
             binding.nameOfSubjectListActivity.setText(getIntent().getExtras().getString(App.SUBJECT, "Additionally"));

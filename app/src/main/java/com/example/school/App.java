@@ -9,6 +9,7 @@ import android.util.Log;
 import com.example.school.Auth.AuthController;
 import com.example.school.Logic.Subject;
 import com.google.firebase.database.DataSnapshot;
+import com.google.gson.Gson;
 
 import java.net.InetAddress;
 import java.net.URL;
@@ -18,6 +19,7 @@ import java.util.ArrayList;
 public class App extends Application {
     private static App instance;
     public ArrayList<Subject> usersSubject;
+    public static Gson gson = new Gson().newBuilder().create();
 
 
     public static ArrayList days = new ArrayList<>();

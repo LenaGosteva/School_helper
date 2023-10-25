@@ -35,6 +35,20 @@
 
             <category android:name="android.intent.category.LAUNCHER" />
         </intent-filter>
+            <intent-filter>
+                <!-- 1 -->
+                <action android:name="android.intent.action.VIEW" />
+                <!-- 2 -->
+                <category android:name="android.intent.category.DEFAULT" />
+                <!-- 3 -->
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <!-- 4 -->
+                <data android:scheme="http"/>
+                <!-- 5 -->
+                <data android:host="school" />
+
+            </intent-filter>
         </activity>
     </application>
 
