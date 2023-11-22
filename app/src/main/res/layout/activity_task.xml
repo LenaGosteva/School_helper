@@ -29,7 +29,7 @@
     <RelativeLayout
         android:id="@+id/top"
         android:layout_width="wrap_content"
-        android:layout_height="140dp"
+        android:layout_height="110dp"
         android:paddingTop="20dp"
         android:paddingHorizontal="20dp"
         android:background="?attr/colorOnPrimary"
@@ -40,7 +40,7 @@
         <ImageButton
             android:layout_width="wrap_content"
             android:id="@+id/back"
-            android:layout_marginVertical="25dp"
+            android:layout_centerVertical="true"
             android:background="@drawable/icon_back"
             android:layout_height="wrap_content"
             android:contentDescription="@string/todo" />
@@ -51,7 +51,7 @@
             android:layout_height="50dp"
             android:layout_marginHorizontal="20dp"
             android:layout_marginStart="45dp"
-            android:layout_marginTop="25dp"
+            android:layout_marginTop="5dp"
             android:layout_toRightOf="@+id/back"
             android:gravity="center_vertical"
             android:hint="Geometry"
@@ -59,9 +59,9 @@
         <TextView
         android:id="@+id/sb_t"
         android:layout_width="match_parent"
-        android:layout_height="20dp"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/name_of_task_task_activity"
-        android:layout_marginVertical="10dp"
+        android:layout_marginTop="10dp"
             android:layout_alignStart="@+id/name_of_task_task_activity"
         android:hint="jbebfsiddddddddddddddd"
         android:textSize="15sp"
@@ -210,24 +210,45 @@
 
         <ViewSwitcher
             android:id="@+id/vp_ea"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+android:layout_alignParentRight="true"            android:layout_height="wrap_content"
             android:layout_alignParentBottom="true">
 
 
-            <ImageButton
+<!--            <ImageButton-->
+<!--                android:id="@+id/edit"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:background="@color/null_color"-->
+<!--                android:src="@drawable/icon_edit" />-->
+            <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
                 android:id="@+id/edit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@color/null_color"
-                android:src="@drawable/icon_edit" />
-
-            <ImageButton
+                android:backgroundTint="?attr/colorOnPrimary"
+                android:textColor="@color/medium_dark"
+                android:gravity="center"
+                android:layout_margin="10dp"
+                android:textSize="12dp"
+               android:text="Изменить"/>
+            <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
                 android:id="@+id/save"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@color/null_color"
-                android:src="@drawable/icon_save_48" />
+                android:backgroundTint="?attr/colorOnPrimary"
+                android:textColor="@color/medium_dark"
+                android:gravity="center"
+                android:layout_margin="10dp"
+                android:textSize="12dp"
+               android:text="Сохранить"/>
+
+<!--            <ImageButton-->
+<!--                android:id="@+id/save"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:background="@color/null_color"-->
+<!--                android:src="@drawable/icon_save_48" />  -->
+
         </ViewSwitcher>
     </RelativeLayout>
 

@@ -120,7 +120,7 @@ App.getAuthController().addTaskToSubject(task, task.getName(), task.getSubject()
                     .setMessage("Вы действительно хотите удалить задание?")
                     .setPositiveButton("Да", (dialog, which) -> {
                         dialog.dismiss();
-                        App.getAuthController().removeTaskFromSubject(task.getName(), task.getSubject(), t -> {
+                        App.getAuthController().removeTasksFromDay(task.getName(), t -> {
                             list.remove(task);
                             notifyDataSetChanged();
                         });

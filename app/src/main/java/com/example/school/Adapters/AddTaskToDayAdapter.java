@@ -59,11 +59,13 @@ public class AddTaskToDayAdapter extends RecyclerView.Adapter<AddTaskToDayAdapte
 
     public static class SubjectViewHolder extends RecyclerView.ViewHolder {
         public TextView name;
+        public TextView subject;
 
         public SubjectViewHolder(View itemView) {
             super(itemView);
 
             name = itemView.findViewById(R.id.name_of_task_item_in_dashboard_choose);
+            subject = itemView.findViewById(R.id.subject_of_task_item_in_dashboard_choose);
 
 
         }
@@ -74,6 +76,7 @@ public class AddTaskToDayAdapter extends RecyclerView.Adapter<AddTaskToDayAdapte
             (@NonNull AddTaskToDayAdapter.SubjectViewHolder holder, int position) {
         com.example.school.Logic.Task task = list.get(position);
         holder.name.setText(task.getName());
+        holder.subject.setText(task.getSubject());
         holder.itemView.setOnClickListener(click -> {
             day.addTask(task);
 

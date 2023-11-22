@@ -37,16 +37,11 @@ public class TaskActivity extends AppCompatActivity {
                 binding.practiceT.setText(task.getPractice());
                 binding.sbT.setText(subject);
 //                binding.top.setBackgroundColor(getIntent().getIntExtra(App.COLOR, R.color.bright));
-                binding.curtain.setVisibility(task.isCompleted()?View.VISIBLE:View.GONE);
+//                binding.curtain.setVisibility(task.isCompleted()?View.VISIBLE:View.GONE);
 
             });
-            binding.isCompletedT.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    authController.addCheckedToTask(isChecked, task.getName(), task.getSubject(), s -> {
-                    });
-                }
-            });
+            binding.isCompletedT.setOnCheckedChangeListener((buttonView, isChecked) -> authController.addCheckedToTask(isChecked, task.getName(), task.getSubject(), s -> {
+            }));
             binding.edit.setOnClickListener(d -> {
                 binding.comm.showNext();
                 binding.practice.showNext();
