@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity implements ColorPickerDialog
         setContentView(binding.getRoot());
         if (!authController.isAuth()) {
             startActivity(new Intent(this, EnterActivity.class));
+            finish();
         } else {
 
 

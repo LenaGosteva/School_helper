@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">School</string>
+    <string name="app_name">Организатор уроков</string>
     <string name="title_home">Аккаунт</string>
     <string name="title_dashboard">День</string>
     <string name="title_notifications">Новое задание</string>

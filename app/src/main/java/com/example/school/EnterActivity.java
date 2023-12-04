@@ -38,4 +38,9 @@ public class EnterActivity extends AppCompatActivity {
         binding.pager.setAdapter(new EnterAdapterActivity(getSupportFragmentManager()));
         binding.tabs.setupWithViewPager(binding.pager);
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
 }
