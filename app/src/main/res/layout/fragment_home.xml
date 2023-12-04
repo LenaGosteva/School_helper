@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -47,6 +48,7 @@
                     android:id="@+id/name_of_subject"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
+                    android:maxLength="25"
                     android:background="@color/null_color"
                     android:hint="Введите название предмета" />
 
@@ -93,6 +95,7 @@
                     android:layout_height="60dp"
                     android:layout_below="@id/spin"
                     android:background="@color/null_color"
+                    android:maxLength="60"
                     android:hint="Введите описание предмета (не обязательно)"
                     android:textColorHint="#80000000" />
 
@@ -109,11 +112,51 @@
 
             </RelativeLayout>
         </ScrollView>
+        <ScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scrollIndicators="none"
+            android:translationZ="40dp">
+
+            <RelativeLayout
+                android:id="@+id/window_for_import"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:layout_centerVertical="true"
+                android:layout_marginHorizontal="30dp"
+                android:layout_marginVertical="100dp"
+                android:background="@drawable/layout_to_add"
+                android:clickable="true"
+                android:elevation="10dp"
+                android:minHeight="250dp"
+                android:padding="20dp"
+                android:visibility="gone">
+
+                <EditText
+                    android:id="@+id/edit_import"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/null_color"
+                    android:hint="Введите текст" />
+
+                <ImageButton
+                    android:id="@+id/new_import_subject"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentBottom="true"
+                    android:background="#00000000"
+                    android:clickable="true"
+                    android:src="@drawable/icon_save_24" />
+
+
+            </RelativeLayout>
+        </ScrollView>
 
         <RelativeLayout
             android:id="@+id/top"
             android:layout_width="wrap_content"
-            android:layout_height="140dp"
+            android:layout_height="90dp"
             android:background="?attr/colorOnPrimary"
             android:elevation="10dp"
             android:translationZ="20dp">
@@ -122,30 +165,27 @@
                 android:id="@+id/out"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
+                android:layout_centerVertical="true"
                 android:layout_alignParentRight="true"
-                android:layout_alignParentBottom="true"
-                android:layout_marginVertical="20dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginBottom="20dp"
+                android:layout_marginEnd="10dp"
                 android:background="@drawable/icon_logout"
                 android:elevation="10dp" />
 
             <TextView
                 android:id="@+id/name"
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
+                android:layout_height="wrap_content"
                 android:layout_alignRight="@+id/out"
-                android:layout_centerInParent="true"
+                android:layout_centerVertical="true"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="50dp"
+                android:layout_marginRight="55dp"
                 android:layout_marginBottom="20dp"
                 android:hint="Lenok"
                 android:text="@string/name_of_user"
                 android:textAlignment="textStart"
-                android:textSize="30sp" />
+                android:textSize="25sp" />
         </RelativeLayout>
         <!--        <View-->
         <!--            android:layout_width="match_parent"-->
@@ -158,6 +198,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@+id/top"
+            android:layout_marginTop="36dp"
             android:background="@color/curtain_for_background"
             android:paddingHorizontal="10dp"
             android:paddingTop="20dp" />
@@ -194,7 +235,70 @@
                 android:textColor="@color/black"
                 android:textSize="15dp" />
         </RelativeLayout>
+        <LinearLayout
+            android:id="@+id/layout_import_subject"
+            android:layout_width="wrap_content"
+            android:visibility="gone"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/layout_add_subject"
+            android:layout_alignParentRight="true">
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="20sp"
+                android:background="@drawable/button"
+                android:elevation="4dp"
+                android:padding="5dp"
+                android:text="Импорт"
+                app:backgroundTint="?attr/colorOnPrimary" />
+
+            <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+                android:id="@+id/import_subject"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="20dp"
+                android:visibility="visible"
+                app:backgroundTint="?attr/colorOnPrimary"
+                app:icon="@drawable/icon_import"
+                app:iconSize="20dp" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_add_subject"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/add"
+            android:visibility="gone"
+            android:layout_alignParentRight="true">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="20sp"
+                android:background="@drawable/button"
+                android:elevation="4dp"
+                android:padding="5dp"
+                android:text="Создать"
+
+                app:backgroundTint="?attr/colorOnPrimary" />
+
+            <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+                android:id="@+id/add_subject"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_above="@+id/hgh"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="20dp"
+                android:visibility="visible"
+                app:backgroundTint="?attr/colorOnPrimary"
+                app:icon="@drawable/icon_create"
+                app:iconSize="20dp" />
+        </LinearLayout>
         <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
             android:id="@+id/add"
             android:layout_width="wrap_content"

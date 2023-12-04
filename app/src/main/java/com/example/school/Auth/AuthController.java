@@ -125,6 +125,11 @@ public class AuthController {
             database.child("users").child(getUser().getUid()).child("days").child(day).child("tasks").setValue(task).addOnCompleteListener(listener);
         }
     }
+    public void addTaskToDay(Task task,String day, int index, OnCompleteListener listener) {
+        if (isAuth()) {
+            database.child("users").child(getUser().getUid()).child("days").child(day).child("tasks").child(String.valueOf(index)).setValue(task).addOnCompleteListener(listener);
+        }
+    }
     public void removeTasksFromDay(String day, OnCompleteListener listener) {
         if (isAuth()) {
             database.child("users").child(getUser().getUid()).child("days").child(day).child("tasks").removeValue().addOnCompleteListener(listener);

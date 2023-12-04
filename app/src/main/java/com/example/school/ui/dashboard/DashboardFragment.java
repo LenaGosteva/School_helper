@@ -259,7 +259,7 @@ binding.dayName.setText(date);
     public void setListToRecyclerView(){
         if (binding.selectTackOrSubject.getSelectedTabPosition()==1) {
             Log.e("agfd", day.getTasks().size() + "");
-            taskAdapter = new TaskDayAdapter(day.getTasks(), getActivity());
+            taskAdapter = new TaskDayAdapter(day.getTasks(), getActivity(), date);
             binding.daySubjects.setLayoutManager(new LinearLayoutManager(getContext()));
             binding.daySubjects.setAdapter(taskAdapter);
         } else {

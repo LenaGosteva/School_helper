@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -17,7 +18,15 @@
         android:layout_width="match_parent"
         android:orientation="vertical"
         android:layout_height="match_parent">
-    <com.example.school.ui.InputField
+        <com.example.school.ui.InputField
+            android:id="@+id/input_nickname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:inputType="text"
+            android:clickable="true"
+            app:title="Ник" />
+        <com.example.school.ui.InputField
         android:id="@+id/input_email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -41,12 +50,6 @@
         android:inputType="textPassword"
         app:title="Повторите пароль" />
 
-    <com.example.school.ui.InputField
-        android:id="@+id/input_nickname"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        app:title="Ник" />
 
 
     <Space

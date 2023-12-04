@@ -2,21 +2,29 @@ package com.example.school.ui.home;
 
 import static android.content.Intent.getIntent;
 
+
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Message;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -48,7 +56,7 @@ import java.util.concurrent.atomic.AtomicReference;
 
 import io.grpc.ManagedChannelProvider;
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment{
     ColorPickerDialog colorPickerDialog = new ColorPickerDialog();
 
     private FragmentHomeBinding binding;
@@ -133,10 +141,20 @@ public class HomeFragment extends Fragment {
 //                startActivity(Intent.createChooser(intent, "Share with"));
             });
 
-            binding.add.setOnClickListener(cl -> {
+            binding.addSubject.setOnClickListener(cl -> {
                 binding.windowForNew.setVisibility(View.VISIBLE);
-
+                binding.layoutAddSubject.setVisibility(View.GONE);
+                binding.layoutImportSubject.setVisibility(View.GONE);
+                binding.nameOfSubject.setText("" );
+                binding.describtionOfSubject.setText("" );
             });
+            binding.importSubject.setOnClickListener(cl->{
+                binding.windowForImport.setVisibility(View.VISIBLE);
+                binding.layoutAddSubject.setVisibility(View.GONE);
+                binding.layoutImportSubject.setVisibility(View.GONE);
+                binding.editImport.setText("");
+            });
+
 
             ArrayAdapter<String> spinner_adapter
                     = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, App.getColors_string());
@@ -158,28 +176,17 @@ public class HomeFragment extends Fragment {
                     index_color[0] = 0;
                 }
             });
-
+            binding.add.setOnClickListener(sdfg -> {
+                binding.layoutAddSubject.setVisibility(binding.layoutAddSubject.getVisibility() == View.VISIBLE ? View.GONE : View.VISIBLE);
+                binding.layoutImportSubject.setVisibility(binding.layoutImportSubject.getVisibility() == View.VISIBLE ? View.GONE : View.VISIBLE);
+            });
 
             binding.newSubject.setOnClickListener(sdf -> {
-
                 String desc = binding.describtionOfSubject.getText().toString();
                 String name = binding.nameOfSubject.getText().toString();
-                boolean f = false;
-                for (char c : App.getFirebase_symbols_ban()) {
-                    String s_c = String.valueOf(c);
-                    if (name.contains(s_c) || desc.contains(s_c)
-                    ) {
-                        f = false;
-                        Toast.makeText(getContext(), "Одно из полей содержит неконвертируемые символы! ('.', '#', '$', '[', или ']')", Toast.LENGTH_SHORT).show();
-                        break;
-                    } else {
-                        f = true;
-                    }
-                }
-                if (!name.isEmpty() && f) {
+                if (!name.isEmpty() && notConverted(desc, name)) {
                     Subject s = new Subject(name, desc.isEmpty() ? " " : desc, HomeFragment.color);
-//Subject s = App.gson.fromJson(name, Subject.class);
-list.get().add(s);
+                    list.get().add(s);
                     authController.addSubjectToDb(s, task -> {
                         if (task.isSuccessful()) {
                             ArrayList<Subject> l = new ArrayList<>();
@@ -204,10 +211,51 @@ list.get().add(s);
                 adapter.notifyDataSetChanged();
 
             });
+            binding.newImportSubject.setOnClickListener(sdf -> {
+
+                String newSb = binding.editImport.getText().toString();
+                if (!newSb.isEmpty()) {
+                    try {
+                        Subject s = App.gson.fromJson(newSb, Subject.class);
+                        list.get().add(s);
+                        authController.addSubjectToDb(s, task -> {
+                            if (task.isSuccessful()) {
+                                ArrayList<Subject> l = new ArrayList<>();
+                                authController.getAllSubjectsFromDb(task_ds -> {
+                                    for (DataSnapshot e : task_ds.getResult().getChildren()) {
+                                        l.add(e.getValue(Subject.class));
+                                    }
+                                    adapter.setList(l);
+                                    Toast.makeText(getContext(), "Предмет успешно добавлен!", Toast.LENGTH_SHORT).show();
+                                    binding.windowForImport.setVisibility(View.GONE);
+
+                                });
+                            } else {
+                                Toast.makeText(getContext(), "Предмет не добавлен!", Toast.LENGTH_SHORT).show();
+
+                            }
+                        });
+                    }catch (Exception e){
+                        Toast.makeText(getContext(), "Предмет не добавлен!", Toast.LENGTH_SHORT).show();
+                        binding.windowForImport.setVisibility(View.GONE);
+
+                    }
+                } else {
+                    Toast.makeText(getContext(), "Вы ничего не ввели!", Toast.LENGTH_SHORT).show();
+                }
+
+                adapter.notifyDataSetChanged();
+
+            });
             binding.instrToSpinner.setClickable(true);
             binding.instrToSpinner.setOnClickListener(ghj -> {
-
+                View d = getActivity().getCurrentFocus();
+                if (getActivity().getCurrentFocus() != null) {
+                    InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(d.getWindowToken(), 0);
+                }
                 binding.windowForColorWheel.setVisibility(View.VISIBLE);
+
                 binding.colorWheel.setColorChangeListener(new RXColorWheel.ColorChagneListener() {
                     @Override
                     public void onColorChanged(int color) {
@@ -229,17 +277,32 @@ list.get().add(s);
             });
         } else {
             binding.textNoInternet.setVisibility(View.VISIBLE);
-            binding.homeFragmentWithInternet.setVisibility(View.GONE
-            );
+            binding.homeFragmentWithInternet.setVisibility(View.GONE);
         }
 
     }
 
+public boolean notConverted(String... strings){
+    boolean f = false;
+    for (char c : App.getFirebase_symbols_ban()) {
+        String s_c = String.valueOf(c);
+        for (String s: strings) {
+            if (s.contains(s_c)) {
+                f = false;
+                Toast.makeText(getContext(), "Одно из полей содержит неконвертируемые символы! ('.', '#', '$', '[', или ']')", Toast.LENGTH_SHORT).show();
+                return f;
+            } else {
+                f = true;
+            }
+        }
+    }       return f;
 
+}
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
     }
+
 
 }

@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -18,6 +19,7 @@ import com.example.school.Auth.AuthController;
 import com.example.school.Logic.Subject;
 import com.example.school.Logic.Task;
 import com.example.school.databinding.ActivityListBinding;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.database.DataSnapshot;
 import com.google.gson.Gson;
@@ -41,45 +43,8 @@ public class ListActivity extends AppCompatActivity {
         this.binding = binding;
     }
 
-    public ArrayList<Task> getTasks() {
-        return tasks;
-    }
 
-    public void setTasks(ArrayList<Task> tasks) {
-        this.tasks = tasks;
-    }
-
-    public ArrayList<Task> getTasks_completed() {
-        return tasks_completed;
-    }
-
-    public void setTasks_completed(ArrayList<Task> tasks_completed) {
-        this.tasks_completed = tasks_completed;
-    }
-
-    public ArrayList<Task> getTasks_notCompleted() {
-        return tasks_notCompleted;
-    }
-
-    public void setTasks_notCompleted(ArrayList<Task> tasks_notCompleted) {
-        this.tasks_notCompleted = tasks_notCompleted;
-    }
-
-    public int getPanic() {
-        return panic;
-    }
-
-    public void setPanic(int panic) {
-        this.panic = panic;
-    }
-
-    public TaskAdapter getTaskAdapter() {
-        return taskAdapter;
-    }
-
-    public void setTaskAdapter(TaskAdapter taskAdapter) {
-        this.taskAdapter = taskAdapter;
-    }
+    Subject subject;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,36 +53,79 @@ public class ListActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
         binding.listOfTasks.setLayoutManager(new LinearLayoutManager(this));
 
-        binding.nameOfSubjectListActivity.setClickable(true);
-        binding.nameOfSubjectListActivity.setOnClickListener(ghjk->{
-            App.authController.getSubjectFromDB(getIntent().getExtras().getString(App.SUBJECT, "Additionally"),yguh->{;
+        binding.share.setOnClickListener(ghjk -> {
+            App.authController.getSubjectFromDB(getIntent().getExtras().getString(App.SUBJECT, "Additionally"), yguh -> {
+                ;
                 Intent intent = new Intent(Intent.ACTION_SEND);
                 intent.setType("text/plain");
                 intent.putExtra(Intent.EXTRA_TEXT, App.gson.toJson(yguh.getResult().getValue(Subject.class))); // текст отправки
                 startActivity(Intent.createChooser(intent, "Share with"));
-                Log.e("GFIHVIH",  App.gson.toJson(yguh.getResult().getValue(Subject.class)));
+                Log.e("GFIHVIH", App.gson.toJson(yguh.getResult().getValue(Subject.class)));
             });
 
         });
+        App.authController.getSubjectFromDB(getIntent().getExtras().getString(App.SUBJECT, "Additionally"), new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull com.google.android.gms.tasks.Task<DataSnapshot> task) {
+                subject = task.getResult().getValue(Subject.class);
+                sb(subject);
+            }
+        });
+                binding.back.setOnClickListener(g ->
 
-        if (App.isConnectedToNetwork()) {
-            binding.nameOfSubjectListActivity.setText(getIntent().getExtras().getString(App.SUBJECT, "Additionally"));
+        {
+            startActivity(new Intent(this, MainActivity.class));
+            finish();
+        });
+    }
 
-            App.authController.getAllTasksFromSubject(getIntent().getExtras().getString(App.SUBJECT, "Additionally"), listener -> {
-                if (listener.isSuccessful()) {
-                    for (DataSnapshot e : listener.getResult().getChildren()) {
-                        Task n = e.getValue(Task.class);
-                        tasks.add(n);
-                        assert n != null;
-                        if (n.isCompleted()) {
-                            tasks_completed.add(n);
-                        } else {
-                            tasks_notCompleted.add(n);
-                        }
-                    }
+    public void setRecyclerList() {
+        if (binding.tabCheckedCompleting.getSelectedTabPosition() == 0) {
+            if (tasks_notCompleted.size() == 0) {
+                binding.textNothing.setVisibility(View.VISIBLE);
+                binding.listOfTasks.setVisibility(View.GONE);
+            } else {
+                taskAdapter = new TaskAdapter(tasks_notCompleted, tasks_completed, this, binding);
+                binding.listOfTasks.setAdapter(taskAdapter);
+                binding.listOfTasks.setVisibility(View.VISIBLE);
+                binding.textNothing.setVisibility(View.GONE);
+
+
+            }
+
+        } else {
+            if (tasks_completed.size() == 0) {
+                binding.textNothing.setVisibility(View.VISIBLE);
+                binding.listOfTasks.setVisibility(View.GONE);
+
+            } else {
+                taskAdapter = new TaskAdapter(tasks_completed, tasks_notCompleted, this, binding);
+                binding.listOfTasks.setAdapter(taskAdapter);
+                binding.listOfTasks.setVisibility(View.VISIBLE);
+
+                binding.textNothing.setVisibility(View.GONE);
+
+            }
+        }
+    }
+
+    public void sb(Subject subject){
+        if (App.isConnectedToNetwork() && subject != null) {
+            binding.nameOfSubjectListActivity.setText(subject.getName());
+
+
+            for (Task n : subject.getTasks().values()) {
+                tasks.add(n);
+                assert n != null;
+                if (n.isCompleted()) {
+                    tasks_completed.add(n);
+                } else {
+                    tasks_notCompleted.add(n);
                 }
-                setRecyclerList();
-            });
+            }
+            setRecyclerList();
+
+            binding.describtionOfSubjectListActivity.setText(subject.getDescription());
             binding.tabCheckedCompleting.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
                 @Override
                 public void onTabSelected(TabLayout.Tab tab) {
@@ -138,6 +146,15 @@ public class ListActivity extends AppCompatActivity {
             binding.add.setOnClickListener(add -> {
                 binding.windowForNewTaskListActivity.setVisibility(View.VISIBLE);
                 binding.listOfTasks.setVisibility(View.GONE);
+                binding.nameOfTaskListActivity.setText("");
+                binding.commentOfTaskListActivity.setText("");
+                binding.theoryOfTaskListActivity.setText("");
+                binding.practiceOfTaskListActivity.setText("");
+                binding.nameOfTaskListActivity.setHint("Введите название");
+                binding.commentOfTaskListActivity.setHint("Введите описание (не обязательно)");
+                binding.theoryOfTaskListActivity.setHint("Введите теорию (не обязательно)");
+                binding.practiceOfTaskListActivity.setHint("Введите практическую часть (не обязательно)");
+
 
             });
             binding.newTaskListActivity.setOnClickListener(newt -> {
@@ -189,47 +206,18 @@ public class ListActivity extends AppCompatActivity {
             });
 
 
-        } else {
+        } else if (!App.isConnectedToNetwork()&&subject!=null){
             binding.mainRlListActivity.setBackgroundColor(getResources().getColor(R.color.sb_brown));
             binding.listOfTasks.setVisibility(View.GONE);
             binding.textNoInternet.setVisibility(View.VISIBLE);
-        }
-        binding.back.setOnClickListener(g -> {
-            startActivity(new Intent(this, MainActivity.class));
-            finish();
-        });
-    }
-
-    public void setRecyclerList() {
-        if (binding.tabCheckedCompleting.getSelectedTabPosition() == 0) {
-            if (tasks_notCompleted.size() == 0) {
-                binding.textNothing.setVisibility(View.VISIBLE);
-                binding.listOfTasks.setVisibility(View.GONE);
-            } else {
-                taskAdapter = new TaskAdapter(tasks_notCompleted, tasks_completed, this, binding);
-                binding.listOfTasks.setAdapter(taskAdapter);
-                binding.listOfTasks.setVisibility(View.VISIBLE);
-                binding.textNothing.setVisibility(View.GONE);
-
-
-            }
-
-        } else {
-            if (tasks_completed.size() == 0) {
-                binding.textNothing.setVisibility(View.VISIBLE);
-                binding.listOfTasks.setVisibility(View.GONE);
-
-            } else {
-                taskAdapter = new TaskAdapter(tasks_completed, tasks_notCompleted, this, binding);
-                binding.listOfTasks.setAdapter(taskAdapter);
-                binding.listOfTasks.setVisibility(View.VISIBLE);
-
-                binding.textNothing.setVisibility(View.GONE);
-
+        } else if (subject==null) {
+finish();            try {
+                Toast.makeText(MainActivity.class.newInstance(), "Такого предмета больше нет!", Toast.LENGTH_SHORT).show();
+            } catch (Exception e) {
+                Toast.makeText(this, "Такого предмета больше нет!", Toast.LENGTH_SHORT).show();
             }
         }
     }
-
 //    @Override
 //    public void onBackPressed() {
 //        super.onBackPressed();

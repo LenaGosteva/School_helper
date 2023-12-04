@@ -24,11 +24,13 @@ import java.util.Comparator;
 public class TaskDayAdapter extends RecyclerView.Adapter<TaskDayAdapter.TaskViewHolder> {
 
     public final Activity activity;
+    String  day;
     ArrayList<Task> list;
 
-    public TaskDayAdapter(ArrayList<Task> list, Activity activity) {
+    public TaskDayAdapter(ArrayList<Task> list, Activity activity, String day) {
         list.sort(Comparator.comparing(Task::isCompleted).thenComparing(Task::getPanic));
         this.list = list;
+        this.day =day;
         this.activity = activity;
     }
 
@@ -88,8 +90,7 @@ public class TaskDayAdapter extends RecyclerView.Adapter<TaskDayAdapter.TaskView
             } else if (task.getPanic()==0){
                 holder.mega_panic.setVisibility(View.VISIBLE);
             }
-        holder.color.setBackgroundColor(
-                task.getColor());
+        holder.color.setBackgroundColor(task.getColor());
         holder.itemView.setBackground(task.isCompleted() ? activity.getDrawable(R.drawable.recycler_tasks_curtain):activity.getDrawable(R.drawable.recycler_tasks));
 
         holder.name.setText(task.getName());
@@ -99,12 +100,10 @@ public class TaskDayAdapter extends RecyclerView.Adapter<TaskDayAdapter.TaskView
 
         holder.isCompleted.setOnCheckedChangeListener((buttonView, isChecked) -> {
             task.setCompleted(isChecked);
-list.remove(task);
-if (isChecked){
-
-}
-App.getAuthController().addTaskToSubject(task, task.getName(), task.getSubject(), b -> {
+            App.getAuthController().addTaskToSubject(task, task.getName(), task.getSubject(), b -> {
+            });App.getAuthController().addTaskToDay(task, day, position, b -> {
             });
+            holder.itemView.setBackground(task.isCompleted() ? activity.getDrawable(R.drawable.recycler_tasks_curtain):activity.getDrawable(R.drawable.recycler_tasks));
 
         });
 

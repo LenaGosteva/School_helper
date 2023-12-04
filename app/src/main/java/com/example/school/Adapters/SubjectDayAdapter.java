@@ -102,7 +102,6 @@ public class SubjectDayAdapter extends RecyclerView.Adapter<SubjectDayAdapter.Su
                 intent.putExtra(App.SUBJECT, subject.getName());
                 intent.putExtra(App.COLOR,subject.getColor());
                 Log.e("index_color_before_intent_to_list_of_task", String.valueOf(activity.getIntent().getIntExtra(App.COLOR, R.color.sb_brown)).toUpperCase());
-
                 activity.startActivity(intent);
             } else {
                 Toast.makeText(App.getInstance(), "Нет интернета, задания недоступны", Toast.LENGTH_SHORT).show();

@@ -30,7 +30,6 @@
         android:id="@+id/top"
         android:layout_width="wrap_content"
         android:layout_height="110dp"
-        android:paddingTop="20dp"
         android:paddingHorizontal="20dp"
         android:background="?attr/colorOnPrimary"
         android:translationZ="30dp">
@@ -38,24 +37,26 @@
 
 
         <ImageButton
-            android:layout_width="wrap_content"
+            android:layout_width="40dp"
             android:id="@+id/back"
-            android:layout_centerVertical="true"
+            android:layout_marginTop="10dp"
             android:background="@drawable/icon_back"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:contentDescription="@string/todo" />
 
         <TextView
             android:id="@+id/name_of_task_task_activity"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="40dp"
             android:layout_marginHorizontal="20dp"
             android:layout_marginStart="45dp"
+            android:layout_marginLeft="46dp"
             android:layout_marginTop="5dp"
             android:layout_toRightOf="@+id/back"
             android:gravity="center_vertical"
             android:hint="Geometry"
-            android:textSize="30sp" />
+            android:textSize="25sp" />
+
         <TextView
         android:id="@+id/sb_t"
         android:layout_width="match_parent"

@@ -49,6 +49,7 @@
                 android:id="@+id/name_of_task"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
+                android:maxLength="20"
                 android:layout_below="@+id/title_add"
                 android:layout_alignParentBottom="true"
                 android:background="@color/null_color"
