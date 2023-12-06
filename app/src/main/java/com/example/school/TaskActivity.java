@@ -3,6 +3,7 @@ package com.example.school;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.CompoundButton;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -23,37 +24,30 @@ public class TaskActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityTaskBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        authController.getTaskFromSubject(name, subject, t -> {
-            if (t.isComplete()) {
-                task = t.getResult().getValue(Task.class);
-task(task);
-            }
-        });
-        binding.back.setOnClickListener(d -> {
-//            startActivity(new Intent(this, ListActivity.class));
-            finish();
-        });
-
-    }
-    public  void  task(Task task){
         if (App.isConnectedToNetwork()) {
 
             name = getIntent().getExtras().getString(App.TASK);
             subject = getIntent().getExtras().getString(App.SUBJECT);
-
-            binding.nameOfTaskTaskActivity.setText(task.getName());
-            binding.commT.setText(task.getComment());
-            binding.isCompletedT.setChecked(task.isCompleted());
-            binding.theoryT.setText(task.getTheory());
-            binding.practiceT.setText(task.getPractice());
-            binding.sbT.setText(subject);
+            authController.getTaskFromSubject(name, subject, t -> {
+                task = t.getResult().getValue(Task.class);
+                if (task!=null) {
+                    binding.nameOfTaskTaskActivity.setText(task.getName());
+//                binding.nameOfTaskTaskActivity.setTextColor(getIntent().getIntExtra(App.COLOR, R.color.bright));
+                    binding.commT.setText(task.getComment());
+                    binding.isCompletedT.setChecked(task.isCompleted());
+                    binding.theoryT.setText(task.getTheory());
+                    binding.practiceT.setText(task.getPractice());
+                    binding.sbT.setText(subject);
 //                binding.top.setBackgroundColor(getIntent().getIntExtra(App.COLOR, R.color.bright));
 //                binding.curtain.setVisibility(task.isCompleted()?View.VISIBLE:View.GONE);
 
-
-            binding.isCompletedT.setOnCheckedChangeListener((buttonView, isChecked) ->
-                    App.getAuthController().addTaskToSubject(task, task.getName(), task.getSubject(), b -> {
-                    }));
+                }else {
+                    finish();
+                    Toast.makeText(this, "Такого задания больше нет!((", Toast.LENGTH_SHORT).show();
+                }
+            });
+            binding.isCompletedT.setOnCheckedChangeListener((buttonView, isChecked) -> authController.addCheckedToTask(isChecked, task.getName(), task.getSubject(), s -> {
+            }));
             binding.edit.setOnClickListener(d -> {
                 binding.comm.showNext();
                 binding.practice.showNext();
@@ -82,6 +76,10 @@ task(task);
             binding.taskActivityInternetLayout.setVisibility(View.GONE);
             binding.textNoInternet.setVisibility(View.VISIBLE);
         }
+        binding.back.setOnClickListener(d -> {
+//            startActivity(new Intent(this, ListActivity.class));
+            finish();
+        });
 
     }
 }

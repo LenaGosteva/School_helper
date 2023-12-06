@@ -55,7 +55,7 @@
             android:layout_toRightOf="@+id/back"
             android:gravity="center_vertical"
             android:hint="Geometry"
-            android:textSize="25sp" />
+            android:textSize="20sp" />
 
         <TextView
         android:id="@+id/sb_t"
