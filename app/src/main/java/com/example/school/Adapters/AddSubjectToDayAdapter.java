@@ -14,6 +14,7 @@ import com.example.school.Logic.Day;
 import com.example.school.Logic.Subject;
 import com.example.school.R;
 import com.example.school.databinding.FragmentDashboardBinding;
+import com.jaredrummler.android.colorpicker.ColorPickerDialog;
 
 import java.util.ArrayList;
 
@@ -58,11 +59,12 @@ public class AddSubjectToDayAdapter extends RecyclerView.Adapter<AddSubjectToDay
 
     public static class SubjectViewHolder extends RecyclerView.ViewHolder {
         public TextView name;
-
+public View color;
         public SubjectViewHolder(View itemView) {
             super(itemView);
 
             name = itemView.findViewById(R.id.name_of_subject_item_in_dashboard_choose);
+            color = itemView.findViewById(R.id.color_of_sb_in_layout_item_for_choose_sd_in_dashboard);
 
 
         }
@@ -73,12 +75,14 @@ public class AddSubjectToDayAdapter extends RecyclerView.Adapter<AddSubjectToDay
             (@NonNull AddSubjectToDayAdapter.SubjectViewHolder holder, int position) {
         Subject subject = list.get(position);
         holder.name.setText(subject.getName());
+        holder.color.setBackgroundColor(subject.getColor());
         holder.itemView.setOnClickListener(click -> {
             day.addSubject(subject);
 
             App.getAuthController().addSubjectsToDay(day.getSubjects(), day.getDate(), t -> {
                 binding.windowList.setVisibility(View.GONE);
                 binding.hgh.setVisibility(View.VISIBLE);
+                binding.dashboardFragmentWithInternet.setVisibility(View.VISIBLE);
 
                 if (binding.selectTackOrSubject.getSelectedTabPosition()==0) {
                     SubjectDayAdapter subjectDayAdapter = new SubjectDayAdapter(day, activity);

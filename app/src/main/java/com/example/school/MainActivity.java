@@ -4,11 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
-import android.widget.Toast;
 
 import com.example.school.Auth.AuthController;
-import com.example.school.ui.LoginActivity;
-import com.example.school.ui.home.HomeFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -69,7 +66,10 @@ public class MainActivity extends AppCompatActivity implements ColorPickerDialog
                 findViewById(R.id.window_for_import).setVisibility(View.GONE);
             else if (findViewById(R.id.window_for_new).getVisibility() == View.VISIBLE)
                 findViewById(R.id.window_for_new).setVisibility(View.GONE);
-            return true;
+            else if(findViewById(R.id.window_list).getVisibility()==View.VISIBLE) {
+                findViewById(R.id.window_list).setVisibility(View.GONE);
+                findViewById(R.id.dashboard_fragment_with_internet).setVisibility(View.VISIBLE);
+            }return true;
         } else {
             onBackPressed();
             return super.onKeyDown(keyCode, event);

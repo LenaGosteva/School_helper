@@ -1,4 +1,4 @@
-package com.example.school.ui.dashboard;
+package com.example.school.ui;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -12,6 +12,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -95,11 +96,12 @@ public class DashboardFragment extends Fragment {
 
 //        if (App.isConnectedToNetwork()) {
         date = dateFormat.format(new Date());
-
+binding.dashboardFragmentWithInternet.setVisibility(View.VISIBLE);
         authController.getDayFromDB(date, task -> {
             if (task.getResult().exists()) {
                 day = task.getResult().getValue(Day.class);
                 binding.dayName.setText(day.getDate());
+                binding.dayNameWindowList.setText(day.getDate());
 
             } else {
                 day = new Day(date);
@@ -201,13 +203,14 @@ binding.dayName.setText(date);
 
                 binding.windowList.setVisibility(View.VISIBLE);
                 binding.ok.setVisibility(View.GONE);
+                binding.dashboardFragmentWithInternet.setVisibility(View.GONE);
 
                 binding.layoutAddSubjectToDay.setVisibility(View.GONE);
                 binding.layoutAddTaskToDay.setVisibility(View.GONE);
                 binding.hgh.setVisibility(View.GONE);
 
                 AddSubjectToDayAdapter addSbAdapter = new AddSubjectToDayAdapter(allSb, this.getActivity(), binding, day);
-                binding.listOfSubjects.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false));
+                binding.listOfSubjects.setLayoutManager(new GridLayoutManager(getContext(), 2));
                 binding.listOfSubjects.setAdapter(addSbAdapter);
             } else {
 
@@ -241,7 +244,7 @@ binding.dayName.setText(date);
                 binding.layoutAddTaskToDay.setVisibility(View.GONE);
                 binding.hgh.setVisibility(View.GONE);
                 AddTaskToDayAdapter addSbAdapter = new AddTaskToDayAdapter(allTasks, this.getActivity(), binding, day);
-                binding.listOfSubjects.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false));
+                binding.listOfSubjects.setLayoutManager(new GridLayoutManager(getContext(), 2));
                 binding.listOfSubjects.setAdapter(addSbAdapter);
             } else {
                 Toast.makeText(getContext(), "Заданий нет((", Toast.LENGTH_SHORT).show();

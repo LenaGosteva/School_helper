@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
 
     android:background="@color/curtain_for_background"
-    tools:context=".ui.home.HomeFragment">
+    tools:context=".ui.HomeFragment">
 
     <TextView
         android:id="@+id/text_no_internet"

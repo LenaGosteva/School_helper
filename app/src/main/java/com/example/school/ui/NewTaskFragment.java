@@ -1,4 +1,4 @@
-package com.example.school.ui.notifications;
+package com.example.school.ui;
 
 import android.os.Bundle;
 import android.util.Log;

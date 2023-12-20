@@ -1,36 +1,22 @@
-package com.example.school.ui.home;
-
-import static android.content.Intent.getIntent;
+package com.example.school.ui;
 
 
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Message;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.activity.OnBackPressedCallback;
-import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.rxcolorwheel.RXColorWheel;
@@ -39,22 +25,14 @@ import com.example.school.App;
 import com.example.school.Auth.AuthController;
 import com.example.school.EnterActivity;
 import com.example.school.Logic.Subject;
-import com.example.school.MainActivity;
 import com.example.school.R;
 import com.example.school.databinding.FragmentHomeBinding;
-import com.example.school.ui.LoginActivity;
 import com.google.firebase.database.DataSnapshot;
 import com.jaredrummler.android.colorpicker.ColorPickerDialog;
-import com.jaredrummler.android.colorpicker.ColorPickerDialogListener;
-import com.jaredrummler.android.colorpicker.ColorShape;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
-import java.util.Locale;
 import java.util.concurrent.atomic.AtomicReference;
-
-import io.grpc.ManagedChannelProvider;
 
 public class HomeFragment extends Fragment{
     ColorPickerDialog colorPickerDialog = new ColorPickerDialog();

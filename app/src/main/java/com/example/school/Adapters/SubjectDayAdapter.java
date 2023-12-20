@@ -47,7 +47,7 @@ public class SubjectDayAdapter extends RecyclerView.Adapter<SubjectDayAdapter.Su
     @NonNull
     @Override
     public SubjectViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_for_list_of_subjects, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_for_list_of_subjects_dbf, parent, false);
 
         view.setLongClickable(true);
         return new SubjectDayAdapter.SubjectViewHolder(view);
@@ -67,10 +67,10 @@ public class SubjectDayAdapter extends RecyclerView.Adapter<SubjectDayAdapter.Su
         public SubjectViewHolder(View itemView) {
             super(itemView);
 
-            name = itemView.findViewById(R.id.name_of_subject_item);
-            count = itemView.findViewById(R.id.count_of_tasks_in_item_sb);
-            describtion = itemView.findViewById(R.id.describtion_of_subject_item);
-            colorChip = itemView.findViewById(R.id.color_chip_in_sb_adapter);
+            name = itemView.findViewById(R.id.name_of_subject_item_dbf);
+//            count = itemView.findViewById(R.id.count_of_tasks_in_item_sb);
+            describtion = itemView.findViewById(R.id.describtion_of_subject_item_dbf);
+            colorChip = itemView.findViewById(R.id.color_chip_in_sb_adapter_dbf);
 
 
         }
@@ -80,14 +80,19 @@ public class SubjectDayAdapter extends RecyclerView.Adapter<SubjectDayAdapter.Su
     public void onBindViewHolder
             (@NonNull SubjectDayAdapter.SubjectViewHolder holder, int position) {
         Subject subject = list.get(position);
-
+//holder.count.setVisibility(View.INVISIBLE);
         holder.name.setText(subject.getName());
-        try{
-            holder.count.setText(String.valueOf(subject.getTasks().size()));}
-        catch (NullPointerException e){
-            holder.count.setText(String.valueOf(0));
+//            App.authController.getSubjectFromDB(subject.getName(), j->{
+//                        try{
+//                            holder.count.setText(String.valueOf(j.getResult().getValue(Subject.class).getTasks().size()));
+//                        }
+//
+//                        catch (NullPointerException e){
+//                    holder.count.setText(String.valueOf(0));
+//
+//                }
+//            });
 
-        }
 
         holder.describtion.setText(subject.getDescription().length() > 16 ? subject.getDescription().substring(0, 16) + "..." : subject.getDescription());
 //        holder.name.setTextColor(activity.getColor(subject.getColor()));

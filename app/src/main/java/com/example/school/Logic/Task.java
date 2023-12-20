@@ -4,6 +4,7 @@ import java.util.PrimitiveIterator;
 
 public class Task {
     String name = "Имя задания";
+    String nameFive = "";
     String comment = "Комментарий задания";
     String theory = "Теория задания";
     String practice = "Практика задания";
@@ -22,6 +23,9 @@ public class Task {
     boolean isCompleted = false;
     public String getName() {
         return name;
+    }
+    public String getNameFive() {
+        return nameFive;
     }
 
     public void setName(String name) {
@@ -62,6 +66,7 @@ public class Task {
 
     public Task(String name, String comment, String theory, String practice, String subject) {
         this.name = name;
+        this.nameFive = name.substring(0,5)+"...";
         this.comment = comment;
         this.theory = theory;
         this.practice = practice;
@@ -73,6 +78,7 @@ public class Task {
         this.name = name;
         this.comment = comment;
         this.theory = theory;
+        this.nameFive = name.substring(0,5)+"...";
         this.practice = practice;
         this.subject = subject;
         this.color = color;
